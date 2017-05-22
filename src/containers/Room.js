@@ -20,7 +20,7 @@ class Room extends Component {
   render() {
     return (
       <div>
-        <span> is AdminRoom</span>
+        <span> is Room</span>
         <hr />
         <Units renderItem={this.renderUnit}
               items={[{name: 'one-1'}, {name: 'two-2'}]}
