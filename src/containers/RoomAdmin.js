@@ -1,19 +1,8 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import Unit from '../components/Unit'
 import Units from '../components/Units'
 
-const loadData = props => {
-  const { fullName } = props
-  props.loadRepo(fullName, [ 'description' ])
-  props.loadStargazers(fullName)
-}
-
 class RoomAdmin extends Component {
-  static propTypes = {
-    name: PropTypes.string.isRequired,
-  }
-
   componentWillMount() {
     console.log('1')
   }
@@ -29,9 +18,6 @@ class RoomAdmin extends Component {
   }
 
   render() {
-    const { name } = this.props
-
-
     return (
       <div>
         <span> is AdminRoom</span>

@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router'
 
 const Unit = ({ unit }) => {
   const {name } = unit
@@ -15,7 +14,7 @@ const Unit = ({ unit }) => {
 }
 
 Unit.propTypes = {
-  user: PropTypes.shape({
+  unit: PropTypes.shape({
     name: PropTypes.string
   }).isRequired
 }
