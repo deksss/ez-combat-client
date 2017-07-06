@@ -7,13 +7,11 @@ export default class List extends Component {
     pageCount: PropTypes.number,
     renderItem: PropTypes.func.isRequired,
     items: PropTypes.array.isRequired,
-    isFetching: PropTypes.bool.isRequired,
     onLoadMoreClick: PropTypes.func.isRequired,
     nextPageUrl: PropTypes.string
   }
 
   static defaultProps = {
-    isFetching: true,
     loadingLabel: 'Loading...'
   }
 
