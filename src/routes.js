@@ -4,8 +4,10 @@ import App from './containers/App'
 import Room from './containers/Room'
 import RoomAdmin from './containers/RoomAdmin'
 
-export default <Route path="/" component={App}>
-  <Route path="/:room/:name"
+export default <Route>
+  <Route path="/"
+       component={App} />
+  <Route path="/:room/:pass"
          component={RoomAdmin} />
   <Route path="/:room"
          component={Room} />
