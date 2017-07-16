@@ -12,10 +12,12 @@ class Players extends Component {
     return (
       <div>
         <span>Players:</span>
-        <Units renderItem={this.renderUnit}
-              items={[{name: 'P-1'}, {name: 'P-2'}]}
-         />
-         <AddUnit onClick={() => alert("addPlayer")}/>
+        <div style={{ display: 'flex' }}>
+          <Units renderItem={this.renderUnit}
+                items={[{name: 'P-1'}, {name: 'P-2'}]}
+           />
+           <AddUnit onClick={() => alert("addPlayer")}/>
+         </div>
       </div>
     )
   }

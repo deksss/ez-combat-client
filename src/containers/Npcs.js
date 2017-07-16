@@ -12,10 +12,12 @@ class Npcs extends Component {
     return (
       <div>
         <span>NPCS:</span>
-        <Units renderItem={this.renderUnit}
-              items={[{name: 'Goblin'}, {name: 'Orc'}]}
-         />
-        <AddUnit onClick={() => alert("addNPC")} />
+        <div style={{ display: 'flex' }}>
+          <Units renderItem={this.renderUnit}
+                items={[{name: 'Goblin'}, {name: 'Orc'}]}
+           />
+          <AddUnit onClick={() => alert("addNPC")} />
+        </div>  
       </div>
     )
   }

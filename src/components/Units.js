@@ -21,7 +21,7 @@ export default class Units extends Component {
     }
 
     return (
-      <div>
+      <div style={{ display: 'flex' }}>
         {items.map(renderItem)}
       </div>
     )
