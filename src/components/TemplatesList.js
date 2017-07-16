@@ -14,7 +14,12 @@ export default class TemplatesList extends Component {
   render() {
     const style = {
       display: this.props.showTemplates ? 'flex' : 'none',
-      color: 'grey'
+      color: 'blue',
+      backgroundColor: 'grey',
+      position: 'absolute',
+      width: '300px',
+      height: '100vh',
+      right: 0
     }
 
     return (

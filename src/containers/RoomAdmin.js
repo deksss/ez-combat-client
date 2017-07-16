@@ -41,14 +41,15 @@ class RoomAdmin extends Component {
 
     return (
       <div>
-        <span> is AdminRoom</span>
-        <Npcs />
-        <hr />
-        <Players />
-        <button onClick={this.handleTemplatesToggle}>
+        <button
+          style={{position: 'absolute', right: showTemplates ? '300px' : 0}} 
+          onClick={this.handleTemplatesToggle}>
           {showTemplates ? 'Hide Templates' : 'Show Templates'}
         </button>
         <TemplatesList showTemplates={showTemplates} />
+        <Npcs />
+        <hr />
+        <Players />
       </div>
     )
   }
