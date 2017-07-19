@@ -3,22 +3,16 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import Explore from '../components/Explore'
-import { resetErrorMessage } from '../actions'
 
 class App extends Component {
   static propTypes = {
     // Injected by React Redux
     errorMessage: PropTypes.string,
-    resetErrorMessage: PropTypes.func.isRequired,
     inputValue: PropTypes.string.isRequired,
     // Injected by React Router
     children: PropTypes.node
   }
 
-  handleDismissClick = e => {
-    this.props.resetErrorMessage()
-    e.preventDefault()
-  }
 
   handleChange = nextValue => {
     browserHistory.push(`/${nextValue}`)
@@ -34,8 +28,7 @@ class App extends Component {
       <p style={{ backgroundColor: '#e99', padding: 10 }}>
         <b>{errorMessage}</b>
         {' '}
-        (<a href="#"
-            onClick={this.handleDismissClick}>
+        (<a href="#">
           Dismiss
         </a>)
       </p>
@@ -61,6 +54,5 @@ const mapStateToProps = (state, ownProps) => ({
   inputValue: ownProps.location.pathname.substring(1)
 })
 
-export default connect(mapStateToProps, {
-  resetErrorMessage
-})(App)
+export default connect(mapStateToProps
+)(App)
