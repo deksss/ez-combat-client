@@ -2,10 +2,33 @@ import React, { Component } from 'react'
 import Unit from '../components/Unit'
 import Units from '../components/Units'
 import AddUnit from '../components/AddUnit'
+import { addPlayer } from '../actions'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+
+const mapDispatchToProps = (dispatch) => ({
+  addPlayerClick: () => {
+    dispatch(addPlayer())
+  }
+})
+
+const mapStateToProps = (state) => {
+  return {
+    items: state.players.list
+  }
+}
 
 class Players extends Component {
+  static propTypes = {
+    items: PropTypes.array.isRequired
+  }
+
   renderUnit(unit) {
     return <Unit unit={unit} key={unit.name} />
+  }
+
+  handleAddPlayer = () => {
+    this.props.addPlayerClick()
   }
 
   render() {
@@ -24,7 +47,7 @@ class Players extends Component {
                 items={[{name: 'P-1', fields, visibleToUsers },
                         {name: 'P-2', fields, visibleToUsers }]}
            />
-           <AddUnit onClick={() => alert("addPlayer")}/>
+           <AddUnit onClick={this.handleAddPlayer} />
          </div>
       </div>
     )
@@ -32,4 +55,5 @@ class Players extends Component {
 }
 
 
-export default Players
+export default connect(mapStateToProps, mapDispatchToProps
+)(Players)

@@ -47,7 +47,7 @@ export default class Field extends Component {
     console.log(this.props)
     return (
       <li className="field">
-        ({name}) :
+        {name} :
         <input size="25"
                ref="input"
                defaultValue={value}
