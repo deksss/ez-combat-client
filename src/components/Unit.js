@@ -3,17 +3,30 @@ import PropTypes from 'prop-types'
 import Field from './Field'
 
 const Unit = ({ unit }) => {
-  const {name, fields, visibleToUsers} = unit
-  const renderField = (field) => {
-    return <Field field={field} key={field._id} />
+  const {name, fields, visibleToUsers, addField, _id, onChangeField} = unit
+
+  const createHandleChangeField = () => {
+    const unitId = _id
+    return (fieldId) => onChangeField(unitId, fieldId)
   }
-  console.log(fields)
+
+  const renderField = (field) => {
+    return <Field field={field}
+                  key={field._id}
+                  onChange={createHandleChangeField()} />
+  }
+
+  const handleAddField = () => {
+    addField({_id})
+  }
+
   return (
     <div className="Unit"
       style={{backgroundColor: visibleToUsers ? 'white' : 'grey'}}>
       <h3>
         ({name})
       </h3>
+      <button onClick={handleAddField}>+f</button>
       <ul>
         {fields.map(renderField)}
       </ul>
@@ -26,7 +39,8 @@ Unit.propTypes = {
     name: PropTypes.string,
     fields: PropTypes.array.isRequired,
     visibleToUsers: PropTypes.bool.isRequired
-  }).isRequired
+  }).isRequired,
+  addField: PropTypes.func.isRequired
 }
 
 export default Unit

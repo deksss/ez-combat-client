@@ -24,7 +24,7 @@ class Players extends Component {
   }
 
   renderUnit(unit) {
-    return <Unit unit={unit} key={unit.name} />
+    return <Unit unit={unit} key={unit.name} addField={() => alert('addField')} />
   }
 
   handleAddPlayer = () => {

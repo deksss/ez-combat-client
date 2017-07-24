@@ -2,13 +2,16 @@ import React, { Component } from 'react'
 import Unit from '../components/Unit'
 import Units from '../components/Units'
 import AddUnit from '../components/AddUnit'
-import { addNpc } from '../actions'
+import { addNpc, addNpcField } from '../actions'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 const mapDispatchToProps = (dispatch) => ({
   addNpcClick: () => {
     dispatch(addNpc())
+  },
+  addFieldClick: (unit) => {
+    dispatch(addNpcField(unit.npcId))
   }
 })
 
@@ -23,33 +26,36 @@ class Npcs extends Component {
     items: PropTypes.array.isRequired
   }
 
+  createHandleAddField = (unit) => {
+    const addField = this.props.addFieldClick
+    const id = unit._id
+    return () => addField({npcId: id})
+  }
+
   renderUnit(unit) {
-    return <Unit unit={unit} key={unit.name} />
+    return <Unit unit={unit}
+                 key={unit._id}
+                 addField={unit.addField}
+                 onChangeField={unit.onChangeField} />
   }
 
   handleAddNpc = () => {
     this.props.addNpcClick()
   }
 
+
   render() {
-    const fields = [{visibleToUsers: true,
-                    name: 'hp',
-                    value: '20',
-                    onChange: () => console.log(1),
-                    _id: String(Math.random(0, 100))
-                  },
-                  {visibleToUsers: true,
-                    name: 'str',
-                    value: '10',
-                    onChange: () => console.log(2),
-                    _id: String(Math.random(0, 100))
-                  }];
-    const items = [{name: 'Goblin', fields, visibleToUsers: false },
-                   {name: 'Orc', fields, visibleToUsers: true}]
+    const items = this.props.items.map(item =>
+      Object.assign(
+        {},
+        item,
+        {addField: this.createHandleAddField(item),
+         onChangeField: (unitId, fieldId) => console.log(fieldId + ', ' + unitId)
+        }))
 
     return (
       <div>
-        <span>NPCS:</span>
+        <span>NPCs:</span>
         <div style={{ display: 'flex' }}>
           <Units renderItem={this.renderUnit}
                 items={items}
