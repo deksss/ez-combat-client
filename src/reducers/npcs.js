@@ -35,6 +35,28 @@ const npcs = (state = {list: DEFAULT_NPCS, count: 0}, action) => {
           return Object.assign({}, npc)
           })
       })
+      case 'UPDATE_NPC_FIELD':
+        return Object.assign(
+          {},
+          state,
+          {list: state.list.map(npc => {
+            if (npc._id === action.unitId) {
+              return Object.assign(
+                npc,
+                {fields: npc.fields.map(field => {
+                    if(action.fieldId === field._id) {
+                      return Object.assign({},
+                                           field,
+                                           {value: action.value})
+                    }
+                    return field
+                  })
+                }
+              )
+            }
+            return Object.assign({}, npc)
+            })
+        })
     default:
       return state
   }

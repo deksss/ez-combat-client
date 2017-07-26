@@ -5,15 +5,14 @@ import Field from './Field'
 const Unit = ({ unit }) => {
   const {name, fields, visibleToUsers, addField, _id, onChangeField} = unit
 
-  const createHandleChangeField = () => {
-    const unitId = _id
-    return (fieldId) => onChangeField(unitId, fieldId)
+  const createHandleChangeField = (fieldId) => {
+    return (value) => onChangeField(fieldId, value)
   }
 
   const renderField = (field) => {
     return <Field field={field}
                   key={field._id}
-                  onChange={createHandleChangeField()} />
+                  onChangeField={createHandleChangeField(field._id)} />
   }
 
   const handleAddField = () => {

@@ -12,7 +12,7 @@ export default class Field extends Component {
       _id: PropTypes.string.isRequired,
       visibleToUsers: PropTypes.bool.isRequired,
     }).isRequired,
-     onChange: PropTypes.func.isRequired
+     onChangeField: PropTypes.func.isRequired
   }
 
   componentWillReceiveProps(nextProps) {
@@ -34,7 +34,7 @@ export default class Field extends Component {
 
   handleKeyUp = (e) => {
     if (e.keyCode === 13) {
-      this.props.field.onChange(this.props.field._id, this.getInputValue())
+      this.props.onChangeField(this.getInputValue())
     }
   }
 
@@ -44,7 +44,7 @@ export default class Field extends Component {
     const deleteField = (id) => console.log(`delete ${id}`)
     const fieldSettings = (id) => console.log(`open settings ${id}`)
     const setVisibility = (id, filter) => console.log(`set ${id} visible ${filter}`)
-    console.log(this.props)
+
     return (
       <li className="field">
         {name} :
