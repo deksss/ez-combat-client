@@ -1,4 +1,5 @@
 import { createStore, applyMiddleware, compose } from 'redux'
+import {autoRehydrate} from 'redux-persist'
 import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import rootReducer from '../reducers'
@@ -10,7 +11,8 @@ const configureStore = preloadedState => {
     preloadedState,
     compose(
       applyMiddleware(thunk, createLogger()),
-      DevTools.instrument()
+      DevTools.instrument(),
+      autoRehydrate(),
     )
   )
 
@@ -24,5 +26,7 @@ const configureStore = preloadedState => {
 
   return store
 }
+
+
 
 export default configureStore

@@ -1,4 +1,4 @@
-import uuidv1 from 'uuid/v1'
+import uuid from '../common/uuid'
 
 const DEFAULT_UNIT_LIST = []
 const DEFAULT_UNIT = {name: 'tmp_unit'}
@@ -7,7 +7,7 @@ const unitTemplates = (state = {list: DEFAULT_UNIT_LIST}, action) => {
   switch (action.type) {
     case 'ADD_NEW_UNIT':
       return {list: [...state.list,
-              ...[Object.assign({}, DEFAULT_UNIT, {_id: uuidv1()}, action.data)]
+              ...[Object.assign({}, DEFAULT_UNIT, {_id: uuid()}, action.data)]
             ]}
     default:
       return state

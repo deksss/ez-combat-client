@@ -1,4 +1,5 @@
-import uuidv1 from 'uuid/v1'
+//import uuidv1 from 'uuid/v1'
+import uuid from '../common/uuid'
 import {DEFAULT_FIELD} from './fieldTemplates'
 
 const DEFAULT_NPCS = []
@@ -11,7 +12,7 @@ const npcs = (state = {list: DEFAULT_NPCS, count: 0}, action) => {
       return {list: [...state.list,
               ...[Object.assign({},
                 DEFAULT_NPC,
-                {_id: uuidv1(), name: `Enemy ${newCount}`},
+                {_id: uuid(), name: `Enemy ${newCount}`},
                 action.data)]
             ],
           count: newCount}
@@ -27,7 +28,7 @@ const npcs = (state = {list: DEFAULT_NPCS, count: 0}, action) => {
               ...npc.fields,
               ...[Object.assign({},
                 DEFAULT_FIELD,
-                {_id: uuidv1()},
+                {_id: uuid()},
                 action.data)]
               ]}
             )

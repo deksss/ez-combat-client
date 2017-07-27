@@ -1,12 +1,15 @@
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
-import api from '../middleware/api'
+import {autoRehydrate} from 'redux-persist'
 import rootReducer from '../reducers'
 
 const configureStore = preloadedState => createStore(
   rootReducer,
   preloadedState,
-  applyMiddleware(thunk, api)
+  compose(
+    applyMiddleware(thunk),
+    autoRehydrate()
+  )
 )
 
 export default configureStore
