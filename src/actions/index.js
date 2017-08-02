@@ -4,6 +4,7 @@ export const ADD_NPC = 'ADD_NPC'
 export const ADD_PLAYER = 'ADD_PLAYER'
 export const ADD_FIELD_TO_NPC = 'ADD_FIELD_TO_NPC'
 export const UPDATE_NPC_FIELD = 'UPDATE_NPC_FIELD'
+export const SET_CURRENT_ROOM = 'SET_CURRENT_ROOM'
 
 
 export const addNpcField = (npcId) => ({
@@ -28,4 +29,9 @@ export const updateNpcField = (unitId, fieldId, value) => ({
   unitId: unitId,
   fieldId: fieldId,
   value: value
+})
+
+export const setCurrentRoom = (roomId) => ({
+  type: SET_CURRENT_ROOM,
+  roomId: roomId
 })

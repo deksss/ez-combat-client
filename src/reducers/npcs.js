@@ -1,4 +1,3 @@
-//import uuidv1 from 'uuid/v1'
 import uuid from '../common/uuid'
 import {DEFAULT_FIELD} from './fieldTemplates'
 
