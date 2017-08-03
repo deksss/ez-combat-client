@@ -16,8 +16,9 @@ export const templatesToggle = () => ({
   type: TEMPATES_TOGGLE
 })
 
-export const addNpc = () => ({
-  type: ADD_NPC
+export const addNpc = (parentId) => ({
+  type: ADD_NPC,
+  data: {parentId: parentId}
 })
 
 export const addPlayer = () => ({

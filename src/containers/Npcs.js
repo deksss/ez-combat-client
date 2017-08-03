@@ -7,8 +7,8 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 const mapDispatchToProps = (dispatch) => ({
-  addNpcClick: () => {
-    dispatch(addNpc())
+  addNpcClick: (parentId) => {
+    dispatch(addNpc(parentId))
   },
   addFieldClick: (unit) => {
     dispatch(addNpcField(unit.npcId))
@@ -20,13 +20,15 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => {
   return {
-    items: state.npcs.list
+    items: state.npcs.list,
+    roomId: state.rooms.currentId
   }
 }
 
 class Npcs extends Component {
   static propTypes = {
-    items: PropTypes.array.isRequired
+    items: PropTypes.array.isRequired,
+    roomId: PropTypes.string.isRequired
   }
 
   createHandleAddField = (unit) => {
@@ -49,12 +51,15 @@ class Npcs extends Component {
   }
 
   handleAddNpc = () => {
-    this.props.addNpcClick()
+    console.log(this.props.parentId)
+    this.props.addNpcClick(this.props.roomId)
   }
 
 
   render() {
-    const items = this.props.items.map(item =>
+    const items = this.props.items
+    .filter(item => item.parentId === this.props.roomId)
+    .map(item =>
       Object.assign(
         {},
         item,
