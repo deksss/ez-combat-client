@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router'
 import PropTypes from 'prop-types'
 import Players from './Players'
 import Npcs from './Npcs'
@@ -41,8 +42,9 @@ class RoomAdmin extends Component {
 
     return (
       <div>
+        <Link to={`/`}>back</Link>
         <button
-          style={{position: 'absolute', right: showTemplates ? '300px' : 0}} 
+          style={{position: 'absolute', right: showTemplates ? '300px' : 0}}
           onClick={this.handleTemplatesToggle}>
           {showTemplates ? 'Hide Templates' : 'Show Templates'}
         </button>

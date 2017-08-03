@@ -33,5 +33,5 @@ export const updateNpcField = (unitId, fieldId, value) => ({
 
 export const setCurrentRoom = (roomId) => ({
   type: SET_CURRENT_ROOM,
-  roomId: roomId
+  name: roomId
 })

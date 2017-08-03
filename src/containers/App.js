@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import Explore from '../components/Explore'
+import { setCurrentRoom } from '../actions'
 
 class App extends Component {
   static propTypes = {
@@ -10,12 +11,14 @@ class App extends Component {
     errorMessage: PropTypes.string,
     inputValue: PropTypes.string.isRequired,
     // Injected by React Router
-    children: PropTypes.node
+    children: PropTypes.node,
+    setRoom: PropTypes.func.isRequired
   }
 
 
   handleChange = nextValue => {
     browserHistory.push(`/${nextValue}`)
+    this.props.setRoom(nextValue)
   }
 
   renderErrorMessage() {
@@ -48,11 +51,19 @@ class App extends Component {
     )
   }
 }
+const mapDispatchToProps = (dispatch) => ({
+  setRoom: (name) => {
+    dispatch(setCurrentRoom(name))
+  }
+})
+
 
 const mapStateToProps = (state, ownProps) => ({
   errorMessage: state.errorMessage,
   inputValue: ownProps.location.pathname.substring(1)
 })
 
-export default connect(mapStateToProps
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
 )(App)
