@@ -51,7 +51,6 @@ class Npcs extends Component {
   }
 
   handleAddNpc = () => {
-    console.log(this.props.parentId)
     this.props.addNpcClick(this.props.roomId)
   }
 

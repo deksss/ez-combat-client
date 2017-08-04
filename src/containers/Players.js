@@ -7,20 +7,22 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 const mapDispatchToProps = (dispatch) => ({
-  addPlayerClick: () => {
-    dispatch(addPlayer())
+  addPlayerClick: (parentId) => {
+    dispatch(addPlayer(parentId))
   }
 })
 
 const mapStateToProps = (state) => {
   return {
-    items: state.players.list
+    items: state.players.list,
+    roomId: state.rooms.currentId
   }
 }
 
 class Players extends Component {
   static propTypes = {
-    items: PropTypes.array.isRequired
+    items: PropTypes.array.isRequired,
+    roomId: PropTypes.string.isRequired
   }
 
   renderUnit(unit) {
@@ -28,7 +30,7 @@ class Players extends Component {
   }
 
   handleAddPlayer = () => {
-    this.props.addPlayerClick()
+    this.props.addPlayerClick(this.props.roomId)
   }
 
   render() {
