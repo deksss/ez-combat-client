@@ -6,6 +6,7 @@ import npcs from './npcs'
 import unitTemplates from './unitTemplates'
 import fieldTemplates from './fieldTemplates'
 import rooms from './rooms'
+import ws from './ws'
 
 const rootReducer = combineReducers({
   routing,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   players,
   npcs,
   unitTemplates,
-  fieldTemplates
+  fieldTemplates,
+  ws
 })
 
 export default rootReducer

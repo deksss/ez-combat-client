@@ -9,7 +9,8 @@ import { templatesToggle } from '../actions'
 
 const mapStateToProps = (state) => {
   return {
-    showTemplates: state.templates.showTemplates
+    showTemplates: state.templates.showTemplates,
+    roomId: state.rooms.currentId
   }
 }
 
@@ -22,7 +23,8 @@ const mapDispatchToProps = (dispatch) => ({
 class RoomAdmin extends Component {
 
   static propTypes = {
-    showTemplates: PropTypes.bool.isRequired
+    showTemplates: PropTypes.bool.isRequired,
+    roomId: PropTypes.string.isRequired,
   }
 
   componentWillMount() {
@@ -42,7 +44,10 @@ class RoomAdmin extends Component {
 
     return (
       <div>
-        <Link to={`/`}>back</Link>
+         <div style={{display: 'flex', margin: '0.5em'}}>
+          <Link to={`/`}> back  </Link>
+          <span>  _Room: {this.props.roomId}</span>
+        </div>
         <button
           style={{position: 'absolute', right: showTemplates ? '300px' : 0}}
           onClick={this.handleTemplatesToggle}>
