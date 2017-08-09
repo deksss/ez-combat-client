@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
-import Explore from '../components/Explore'
-import { setCurrentRoom } from '../actions'
 import Helmet from 'react-helmet'
+import Explore from '../components/Explore'
+import Ws from './Ws'
+import { setCurrentRoom } from '../actions'
 
 class App extends Component {
   static propTypes = {
@@ -44,15 +45,8 @@ class App extends Component {
     return (
       <div>
         <Helmet title="Cmbt trkr"/>
-        <p>Sockets not connected</p>
-
-        <button className="btn btn-primary btn-sm">
-          <i className="fa fa-sign-in"/> Connect
-        </button>
-        <button className="btn btn-danger btn-sm">
-          <i className="fa fa-sign-out"/> Disconnect
-        </button>
-        
+      
+        <Ws />
         <Explore value={inputValue}
                  onChange={this.handleChange} />
         <hr />
