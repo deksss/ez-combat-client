@@ -5,7 +5,7 @@ import Players from './Players'
 import Npcs from './Npcs'
 import TemplatesList from '../components/TemplatesList'
 import { connect } from 'react-redux'
-import { templatesToggle } from '../actions'
+import { templatesToggle, junkUpdate } from '../actions'
 
 const mapStateToProps = (state) => {
   return {
@@ -17,6 +17,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   templatesToggleClick: () => {
     dispatch(templatesToggle())
+  },
+  junkUpdate: () => {
+    dispatch(junkUpdate({ws: {message: 'test1'}}))
   }
 })
 
@@ -39,6 +42,10 @@ class RoomAdmin extends Component {
     this.props.templatesToggleClick()
   }
 
+  handleJunk = () => {
+    this.props.junkUpdate()
+  }
+
   render() {
     const {showTemplates} = this.props
 
@@ -53,6 +60,10 @@ class RoomAdmin extends Component {
           onClick={this.handleTemplatesToggle}>
           {showTemplates ? 'Hide Templates' : 'Show Templates'}
         </button>
+        <button onClick={this.handleJunk}>
+          Junk update
+        </button>
+        handleJunk
         <TemplatesList showTemplates={showTemplates} />
         <Npcs />
         <hr />
