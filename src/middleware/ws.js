@@ -1,4 +1,5 @@
 import * as socketActions from '../actions/ws.js';
+import {junkUpdate} from '../actions/index.js';
 
 export default function createSocketMiddleware() {
   let socket = null;
@@ -15,9 +16,14 @@ export default function createSocketMiddleware() {
   };
   const onMessage = (ws, store) => evt => {
     // Parse the JSON message received on the websocket
-    const msg = evt.data;
-    store.dispatch(socketActions.socketsMessageReceiving(msg));
+    try {
+      const data = JSON.parse(evt.data);
+      store.dispatch(junkUpdate(data));
+    } catch(e){
+      console.log(evt)
+    }
   };
+
   return store => next => action => {
     switch (action.type) {
       case 'SOCKETS_CONNECT':
@@ -42,11 +48,11 @@ export default function createSocketMiddleware() {
         }
         socket = null;
         break;
-      case 'SOCKETS_MESSAGE_SEND':
+      case 'SOCKETS_JUNK_SEND':
         console.log('action');
         console.log(action);
-        socket.send(action.message_send);
-        store.dispatch(socketActions.socketsMessageSending(action.message_send));
+        socket.send(action.data);
+        //store.dispatch(socketActions.socketsMessageSending(action.message_send));
         break;
       default:
         return next(action);
