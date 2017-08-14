@@ -54,6 +54,20 @@ export default function createSocketMiddleware() {
         socket.send(action.data);
         //store.dispatch(socketActions.socketsMessageSending(action.message_send));
         break;
+      case 'JOIN_ROOM':
+          console.log('action');
+          console.log(action);
+          console.log(socket)
+          if (socket.readyState === 1 && action.name) {
+            const data = JSON.stringify({
+              "join": true,
+              "host": action.admin,
+              "room": action.name})
+            socket.send(data);
+          }
+
+          //store.dispatch(socketActions.socketsMessageSending(action.message_send));
+          break;
       default:
         return next(action);
     }

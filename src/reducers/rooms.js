@@ -1,10 +1,7 @@
-import uuid from '../common/uuid'
-
-
 const rooms = (state = {list: [] , currentId: null}, action) => {
   switch (action.type) {
     case 'SET_CURRENT_ROOM':
-      const newCurrent = action.name || `room_${uuid()}`
+      const newCurrent = action.name || 'wut'
       if (state.list.find(room => room._id === newCurrent)) {
         return Object.assign({}, state, {currentId: newCurrent})
       } else {

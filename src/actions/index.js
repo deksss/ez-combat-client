@@ -34,9 +34,10 @@ export const updateNpcField = (unitId, fieldId, value) => ({
   value: value
 })
 
-export const setCurrentRoom = (roomId) => ({
+export const setCurrentRoom = (options = {}) => ({
   type: SET_CURRENT_ROOM,
-  name: roomId
+  name: options.value,
+  admin: options.admin
 })
 
 export const junkUpdate = (data) => ({

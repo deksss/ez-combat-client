@@ -6,6 +6,7 @@ import Helmet from 'react-helmet'
 import Explore from '../components/Explore'
 import Ws from './Ws'
 import { setCurrentRoom } from '../actions'
+import { joinRoom } from '../actions/ws'
 
 class App extends Component {
   static propTypes = {
@@ -14,18 +15,21 @@ class App extends Component {
     inputValue: PropTypes.string.isRequired,
     // Injected by React Router
     children: PropTypes.node,
-    setRoom: PropTypes.func.isRequired
+    setRoom: PropTypes.func.isRequired,
+    joinRoom: PropTypes.func.isRequired,
   }
 
 
   handleChangeJoin = nextValue => {
     browserHistory.push(`/room`)
-    this.props.setRoom(nextValue)
+    this.props.setRoom({value: nextValue, admin: false})
+    this.props.joinRoom({value: nextValue, admin: false})
   }
 
   handleChangeCreate = nextValue => {
     browserHistory.push(`/room/admin`)
-    this.props.setRoom(nextValue)
+    this.props.setRoom({value: nextValue, admin: true})
+    this.props.joinRoom({value: nextValue, admin: true})
   }
 
   renderErrorMessage() {
@@ -63,8 +67,11 @@ class App extends Component {
   }
 }
 const mapDispatchToProps = (dispatch) => ({
-  setRoom: (name) => {
-    dispatch(setCurrentRoom(name))
+  setRoom: (options) => {
+    dispatch(setCurrentRoom(options))
+  },
+  joinRoom: (options) => {
+    dispatch(joinRoom(options))
   }
 })
 

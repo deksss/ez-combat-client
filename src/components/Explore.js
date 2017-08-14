@@ -50,6 +50,7 @@ export default class Explore extends Component {
         <button onClick={this.handleJoinClick}>
           Join!
         </button>
+        / or /
         <button onClick={this.handleCreateClick}>
           Join like owner!
         </button>
