@@ -51,8 +51,11 @@ export default function createSocketMiddleware() {
       case 'SOCKETS_JUNK_SEND':
         console.log('action');
         console.log(action);
-        socket.send(action.data);
-        //store.dispatch(socketActions.socketsMessageSending(action.message_send));
+        if (socket.readyState === 1) {
+          //const data = JSON.stringify({"room": "my", "data": {name: "lol"}, type: "update"})
+          const data = JSON.stringify(action.data)
+          socket.send(data);
+        }
         break;
       case 'JOIN_ROOM':
           console.log('action');
@@ -65,9 +68,11 @@ export default function createSocketMiddleware() {
               "room": action.name})
             socket.send(data);
           }
-
-          //store.dispatch(socketActions.socketsMessageSending(action.message_send));
           break;
+      case 'ADD_NPC':
+         console.log(store.getState())
+         console.log(action)
+         break;
       default:
         return next(action);
     }
