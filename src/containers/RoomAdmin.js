@@ -65,9 +65,9 @@ class RoomAdmin extends Component {
         </button>
         handleJunk
         <TemplatesList showTemplates={showTemplates} />
-        <Npcs />
+        <Npcs admin={true} />
         <hr />
-        <Players />
+        <Players admin={true} />
       </div>
     )
   }

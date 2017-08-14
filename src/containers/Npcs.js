@@ -28,7 +28,8 @@ const mapStateToProps = (state) => {
 class Npcs extends Component {
   static propTypes = {
     items: PropTypes.array.isRequired,
-    roomId: PropTypes.string.isRequired
+    roomId: PropTypes.string.isRequired,
+    admin: PropTypes.bool.isRequired,
   }
 
   createHandleAddField = (unit) => {
@@ -56,8 +57,11 @@ class Npcs extends Component {
 
 
   render() {
+    console.log(this.props.admin);
+    const admin = this.props.admin
     const items = this.props.items
-    .filter(item => item.parentId === this.props.roomId)
+    .filter(item => { return item.parentId === this.props.roomId &&
+      (admin || item.visibleToUsers)})
     .map(item =>
       Object.assign(
         {},
@@ -75,7 +79,9 @@ class Npcs extends Component {
           <Units renderItem={this.renderUnit}
                 items={items}
            />
-          <AddUnit onClick={this.handleAddNpc} />
+          {admin &&
+            <AddUnit onClick={this.handleAddNpc} />
+          }
         </div>
       </div>
     )

@@ -4,7 +4,8 @@ import PropTypes from 'prop-types'
 export default class Explore extends Component {
   static propTypes = {
     value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired
+    onJoin: PropTypes.func.isRequired,
+    onCreate: PropTypes.func.isRequired,
   }
 
   componentWillReceiveProps(nextProps) {
@@ -25,13 +26,17 @@ export default class Explore extends Component {
   }
 
   handleKeyUp = (e) => {
-    if (e.keyCode === 13) {
-      this.handleGoClick()
-    }
+  //  if (e.keyCode === 13) {
+  //    this.handleGoClick()
+  //  }
   }
 
-  handleGoClick = () => {
-    this.props.onChange(this.getInputValue())
+  handleJoinClick = () => {
+    this.props.onJoin(this.getInputValue())
+  }
+
+  handleCreateClick = () => {
+    this.props.onCreate(this.getInputValue())
   }
 
   render() {
@@ -42,8 +47,11 @@ export default class Explore extends Component {
                ref="input"
                defaultValue={this.props.value}
                onKeyUp={this.handleKeyUp} />
-        <button onClick={this.handleGoClick}>
-          Go!
+        <button onClick={this.handleJoinClick}>
+          Join!
+        </button>
+        <button onClick={this.handleCreateClick}>
+          Join like owner!
         </button>
       </div>
     )

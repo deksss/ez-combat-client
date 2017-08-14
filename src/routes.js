@@ -7,8 +7,8 @@ import RoomAdmin from './containers/RoomAdmin'
 export default <Route>
   <Route path="/"
        component={App} />
-  <Route path="/:room/:pass"
+  <Route path="/room/admin"
          component={RoomAdmin} />
-  <Route path="/:room"
+  <Route path="/room"
          component={Room} />
 </Route>

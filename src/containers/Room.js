@@ -1,34 +1,51 @@
 import React, { Component } from 'react'
-import Unit from '../components/Unit'
-import Units from '../components/Units'
+import { Link } from 'react-router'
+import PropTypes from 'prop-types'
+import Players from './Players'
+import Npcs from './Npcs'
+import { connect } from 'react-redux'
+
+const mapStateToProps = (state) => {
+  return {
+    roomId: state.rooms.currentId
+  }
+}
+
 
 class Room extends Component {
+
+  static propTypes = {
+    roomId: PropTypes.string.isRequired,
+  }
+
   componentWillMount() {
-    console.log('1')
+
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.fullName !== this.props.fullName) {
-      console.log('2')
-    }
+
   }
 
-  renderUnit(unit) {
-    return <Unit unit={unit} key={unit.name} />
+  handleJunk = () => {
+    this.props.junkUpdate()
   }
 
   render() {
+
     return (
       <div>
-        <span> is Room</span>
+         <div style={{display: 'flex', margin: '0.5em'}}>
+          <Link to={`/`}> back  </Link>
+          <span>  _Room: {this.props.roomId}</span>
+        </div>
+        <Npcs admin={false}/>
         <hr />
-        <Units renderItem={this.renderUnit}
-              items={[{name: 'one-1'}, {name: 'two-2'}]}
-         />
+        <Players admin={false}/>
       </div>
     )
   }
 }
 
 
-export default Room
+export default connect(mapStateToProps
+)(Room)

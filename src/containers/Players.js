@@ -22,7 +22,8 @@ const mapStateToProps = (state) => {
 class Players extends Component {
   static propTypes = {
     items: PropTypes.array.isRequired,
-    roomId: PropTypes.string.isRequired
+    roomId: PropTypes.string.isRequired,
+    admin: PropTypes.bool.isRequired,
   }
 
   renderUnit(unit) {
@@ -34,6 +35,7 @@ class Players extends Component {
   }
 
   render() {
+    const admin = this.props.admin
     const fields = [{visibleToUsers: true,
                     name: 'hp',
                     value: '10',
@@ -49,7 +51,9 @@ class Players extends Component {
                 items={[{name: 'P-1', fields, visibleToUsers },
                         {name: 'P-2', fields, visibleToUsers }]}
            />
-           <AddUnit onClick={this.handleAddPlayer} />
+           {admin  &&
+             <AddUnit onClick={this.handleAddPlayer} />
+           }
          </div>
       </div>
     )

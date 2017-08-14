@@ -2,7 +2,7 @@ import uuid from '../common/uuid'
 import {DEFAULT_FIELD} from './fieldTemplates'
 
 const DEFAULT_NPCS = []
-const DEFAULT_NPC = {name: 'Ez', fields: [], visibleToUsers: false}
+const DEFAULT_NPC = {name: 'Ez', fields: [], visibleToUsers: true}
 
 const npcs = (state = {list: DEFAULT_NPCS, count: 0}, action) => {
   switch (action.type) {

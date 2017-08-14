@@ -18,8 +18,13 @@ class App extends Component {
   }
 
 
-  handleChange = nextValue => {
-    browserHistory.push(`/${nextValue}`)
+  handleChangeJoin = nextValue => {
+    browserHistory.push(`/room`)
+    this.props.setRoom(nextValue)
+  }
+
+  handleChangeCreate = nextValue => {
+    browserHistory.push(`/room/admin`)
     this.props.setRoom(nextValue)
   }
 
@@ -45,10 +50,11 @@ class App extends Component {
     return (
       <div>
         <Helmet title="Cmbt trkr"/>
-      
+
         <Ws />
         <Explore value={inputValue}
-                 onChange={this.handleChange} />
+                 onJoin={this.handleChangeJoin}
+                 onCreate={this.handleChangeCreate} />
         <hr />
         {this.renderErrorMessage()}
         {children}
