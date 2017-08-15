@@ -3,6 +3,7 @@ import Unit from '../components/Unit'
 import Units from '../components/Units'
 import AddUnit from '../components/AddUnit'
 import { addNpc, addNpcField, updateNpcField} from '../actions'
+import { junkSend } from '../actions/ws'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
@@ -15,7 +16,8 @@ const mapDispatchToProps = (dispatch) => ({
   },
   updateField: (unitId, fieldId, value) => {
     dispatch(updateNpcField(unitId, fieldId, value))
-  }
+  },
+  junkSend: () => dispatch(junkSend())
 })
 
 const mapStateToProps = (state) => {
@@ -34,8 +36,12 @@ class Npcs extends Component {
 
   createHandleAddField = (unit) => {
     const addField = this.props.addFieldClick
+    const junkSend = this.props.junkSend
     const id = unit._id
-    return () => addField({npcId: id})
+    return () =>  {
+      addField({npcId: id})
+      junkSend()
+    }
   }
 
   createHandleUpdateField = (unit) => {

@@ -7,6 +7,7 @@ export const SOCKETS_MESSAGE_SEND = 'SOCKETS_MESSAGE_SEND'
 export const SOCKETS_MESSAGE_RECEIVING = 'SOCKETS_MESSAGE_RECEIVING'
 export const SOCKETS_MESSAGE_RECEIVE = 'SOCKETS_MESSAGE_RECEIVE'
 export const JOIN_ROOM = 'JOIN_ROOM'
+export const SOCKETS_JUNK_SEND = 'SOCKETS_JUNK_SEND'
 
 
 export function socketsConnecting() {
@@ -36,5 +37,11 @@ export function joinRoom(options = {}) {
     type: JOIN_ROOM,
     name: options.value,
     admin: options.admin
+  }
+}
+
+export function junkSend(data) {
+  return {
+    type: SOCKETS_JUNK_SEND,
   }
 }

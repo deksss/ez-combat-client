@@ -49,11 +49,26 @@ export default function createSocketMiddleware() {
         socket = null;
         break;
       case 'SOCKETS_JUNK_SEND':
-        console.log('action');
-        console.log(action);
         if (socket.readyState === 1) {
           //const data = JSON.stringify({"room": "my", "data": {name: "lol"}, type: "update"})
-          const data = JSON.stringify(action.data)
+          const allData = store.getData();
+          const curRoom = allData.rooms.currentId;
+          const dataForSend = {
+            data: {
+              npcs: {
+                list: allData.npcs.list
+                  .filter(npc => npc.parentId === curRoom)
+              },
+              players: {
+                list: allData.players.list
+                  .filter(player => player.parentId === curRoom)
+              }
+            },
+            type: "update",
+            room: curRoom,
+          }
+          
+          const data = JSON.stringify(dataForSend)
           socket.send(data);
         }
         break;
@@ -69,10 +84,6 @@ export default function createSocketMiddleware() {
             socket.send(data);
           }
           break;
-      case 'ADD_NPC':
-         console.log(store.getState())
-         console.log(action)
-         break;
       default:
         return next(action);
     }
