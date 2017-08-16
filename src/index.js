@@ -8,7 +8,7 @@ import configureStore from './store/configureStore'
 import {socketsConnect} from './actions/ws'
 
 const store = configureStore()
-persistStore(store)
+persistStore(store, {blacklist: ['ws', 'routing', 'rooms']})
 const history = syncHistoryWithStore(browserHistory, store)
 
 store.dispatch(socketsConnect())

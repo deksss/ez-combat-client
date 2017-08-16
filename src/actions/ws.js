@@ -22,15 +22,7 @@ export function socketsDisconnecting() {
 export function socketsDisconnect() {
   return {type: SOCKETS_DISCONNECT};
 }
-export function socketsMessageSending(sendMessage) {
-  return {type: SOCKETS_MESSAGE_SENDING, message_send: sendMessage};
-}
-export function socketsMessageSend(sendMessage) {
-  return {type: SOCKETS_MESSAGE_SEND, message_send: sendMessage};
-}
-export function socketsMessageReceiving(receiveMessage) {
-  return {type: SOCKETS_MESSAGE_RECEIVING, message_receive: receiveMessage};
-}
+
 
 export function joinRoom(options = {}) {
   return {
@@ -40,7 +32,7 @@ export function joinRoom(options = {}) {
   }
 }
 
-export function junkSend(data) {
+export function junkSend() {
   return {
     type: SOCKETS_JUNK_SEND,
   }

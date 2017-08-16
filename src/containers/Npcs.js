@@ -36,12 +36,8 @@ class Npcs extends Component {
 
   createHandleAddField = (unit) => {
     const addField = this.props.addFieldClick
-    const junkSend = this.props.junkSend
     const id = unit._id
-    return () =>  {
-      addField({npcId: id})
-      junkSend()
-    }
+    return () => addField({npcId: id})
   }
 
   createHandleUpdateField = (unit) => {
@@ -59,6 +55,7 @@ class Npcs extends Component {
 
   handleAddNpc = () => {
     this.props.addNpcClick(this.props.roomId)
+    this.props.junkSend()
   }
 
 

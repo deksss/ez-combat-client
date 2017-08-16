@@ -15,12 +15,16 @@ export default function createSocketMiddleware() {
     store.dispatch(socketActions.socketsDisconnect());
   };
   const onMessage = (ws, store) => evt => {
-    // Parse the JSON message received on the websocket
-    try {
-      const data = JSON.parse(evt.data);
-      store.dispatch(junkUpdate(data));
-    } catch(e){
-      console.log(evt)
+
+    if (evt && evt.data === 'ping') {
+      ws.send('pong')
+    } else {
+      try {
+        const data = JSON.parse(evt.data);
+        store.dispatch(junkUpdate(data));
+      } catch(e){
+        console.log(evt)
+      }
     }
   };
 
@@ -38,7 +42,7 @@ export default function createSocketMiddleware() {
         store.dispatch(socketActions.socketsConnecting());
         socket.onmessage = onMessage(socket, store);
         socket.onclose = onClose(store);
-        socket.onopen = onOpen(action.token);
+        socket.onopen = onOpen();
         break;
       case 'SOCKETS_DISCONNECT':
         if (socket !== null) {
@@ -49,9 +53,9 @@ export default function createSocketMiddleware() {
         socket = null;
         break;
       case 'SOCKETS_JUNK_SEND':
-        if (socket.readyState === 1) {
-          //const data = JSON.stringify({"room": "my", "data": {name: "lol"}, type: "update"})
-          const allData = store.getData();
+        if (socket && socket.readyState === 1) {
+
+          const allData = store.getState()
           const curRoom = allData.rooms.currentId;
           const dataForSend = {
             data: {
@@ -67,7 +71,7 @@ export default function createSocketMiddleware() {
             type: "update",
             room: curRoom,
           }
-          
+
           const data = JSON.stringify(dataForSend)
           socket.send(data);
         }
@@ -76,7 +80,7 @@ export default function createSocketMiddleware() {
           console.log('action');
           console.log(action);
           console.log(socket)
-          if (socket.readyState === 1 && action.name) {
+          if (socket && socket.readyState === 1 && action.name) {
             const data = JSON.stringify({
               "join": true,
               "host": action.admin,
