@@ -59,10 +59,7 @@ export default function createSocketMiddleware() {
           const curRoom = allData.rooms.currentId;
           const dataForSend = {
             data: {
-              npcs: {
-                list: allData.npcs.list
-                  .filter(npc => npc.parentId === curRoom)
-              },
+              npcs:  allData.npcs.filter(npc => npc.parentId === curRoom),
               players: {
                 list: allData.players.list
                   .filter(player => player.parentId === curRoom)
