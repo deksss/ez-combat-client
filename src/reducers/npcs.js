@@ -1,45 +1,37 @@
 import uuid from '../common/uuid'
 import {DEFAULT_FIELD} from './fieldTemplates'
 
-const DEFAULT_NPCS = []
 const DEFAULT_NPC = {name: 'Ez', fields: [], visibleToUsers: true}
 
-const npcs = (state = {list: DEFAULT_NPCS, count: 0}, action) => {
+const npcs = (state = [], action) => {
   switch (action.type) {
     case 'ADD_NPC':
-      const newCount = state.count + 1
-      return {list: [...state.list,
-              ...[Object.assign({},
-                DEFAULT_NPC,
-                {_id: uuid(), name: `Enemy ${newCount}`},
-                action.data)]
-            ],
-          count: newCount}
+      return [...state,
+              ...[Object.assign({}, DEFAULT_NPC,
+                    {_id: uuid(),
+                     name: `Enemy ${state.length + 1}`},
+                    action.data
+                   )
+                 ]
+             ]
     case 'ADD_FIELD_TO_NPC':
-      return Object.assign(
-        {},
-        state,
-        {list: state.list.map(npc => {
-          if (npc._id === action.npcId) {
-            return Object.assign(
-              npc,
-              {fields: [
-              ...npc.fields,
-              ...[Object.assign({},
-                DEFAULT_FIELD,
-                {_id: uuid()},
-                action.data)]
-              ]}
-            )
-          }
-          return Object.assign({}, npc)
-          })
-      })
+      return state.map(npc => {
+        if (npc._id === action.npcId) {
+          return Object.assign(
+            npc,
+            {fields: [
+            ...npc.fields,
+            ...[Object.assign({},
+              DEFAULT_FIELD,
+              {_id: uuid()},
+              action.data)]
+            ]}
+          )
+        }
+        return Object.assign({}, npc)
+        })
       case 'UPDATE_NPC_FIELD':
-        return Object.assign(
-          {},
-          state,
-          {list: state.list.map(npc => {
+        return state.map(npc => {
             if (npc._id === action.unitId) {
               return Object.assign(
                 npc,
@@ -55,8 +47,8 @@ const npcs = (state = {list: DEFAULT_NPCS, count: 0}, action) => {
               )
             }
             return Object.assign({}, npc)
-            })
-        })
+          }
+        )
     default:
       return state
   }
