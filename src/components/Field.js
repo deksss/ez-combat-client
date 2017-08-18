@@ -48,7 +48,7 @@ export default class Field extends Component {
     return (
       <li className="field">
         {name} :
-        <input size="25"
+        <input size="15"
                ref="input"
                defaultValue={value}
                onKeyUp={this.handleKeyUp} />

@@ -7,7 +7,8 @@ import { addNpc,
   updateNpcField,
   deleteNpc,
   toggleVisibleNpc,
-  copyNpc} from '../actions'
+  copyNpc,
+  changeName } from '../actions'
 import { junkSend } from '../actions/ws'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -31,7 +32,10 @@ const mapDispatchToProps = (dispatch) => ({
   },
   copyUnit: (unitId) => {
     dispatch(copyNpc(unitId))
-  }
+  },
+  changeName: (options) => {
+    dispatch(changeName(options))
+  },
 })
 
 const mapStateToProps = (state) => {
@@ -73,6 +77,12 @@ class Npcs extends Component {
     return () => copyUnit(id)
   }
 
+  createHandleEditUnitName = (unit) => {
+    const copyUnit = this.props.copyUnit
+    const id = unit._id
+    return () => copyUnit(id)
+  }
+
   createHandleUpdateField = (unit) => {
     const updateField = this.props.updateField
     const unitId = unit._id
@@ -105,7 +115,8 @@ class Npcs extends Component {
            delete: this.createHandleDeleteUnit(item),
            toggleVisibility: this.createHandleVisibleUnit(item),
            copy: this.createHandleCopyUnit(item),
-           addField: this.createHandleAddField(item)
+           addField: this.createHandleAddField(item),
+           changeName: this.props.changeName
          }
         }))
 

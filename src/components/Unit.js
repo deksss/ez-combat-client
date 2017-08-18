@@ -4,6 +4,7 @@ import Field from './Field'
 import ButtonVisible from './ButtonVisible'
 import ButtonDelete from './ButtonDelete'
 import ButtonCopy from './ButtonCopy'
+import UnitName from './UnitName'
 
 
 const Unit = ({ unit }) => {
@@ -30,11 +31,16 @@ const Unit = ({ unit }) => {
     unitActions.addField({_id})
   }
 
+
   return (
     <div className="Unit"
-      style={{backgroundColor: visibleToUsers ? 'white' : 'grey'}}>
-      <h3>
-        ({name})
+      style={{backgroundColor: visibleToUsers ? 'white' : 'grey',
+              minWidth: '200px'
+    }}>
+      <div style={{display: 'flex', height: '50px' }}>
+        <UnitName name={name}
+                  onChange={unitActions.changeName}
+                  _id={_id}/>
         <ButtonCopy _id={_id}
                     runAction={unitActions.copy}/>
         <ButtonVisible _id={_id}
@@ -42,7 +48,7 @@ const Unit = ({ unit }) => {
                        visibleToUsers={visibleToUsers}/>
         <ButtonDelete _id={_id}
                       runAction={unitActions.delete} />
-      </h3>
+      </div>
       <button onClick={handleAddField}>+f</button>
       <ul>
         {fields.map(renderField)}

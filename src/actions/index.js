@@ -9,6 +9,8 @@ export const JUNK_UPDATE = 'JUNK_UPDATE'
 export const TOGGLE_NPC_VISIBLE_TO_USERS = 'TOGGLE_NPC_VISIBLE_TO_USERS'
 export const DELETE_NPC = 'DELETE_NPC'
 export const COPY_NPC = 'COPY_NPC'
+export const CHANGE_NPC_NAME = 'CHANGE_NPC_NAME'
+
 
 
 export const addNpcField = (npcId) => ({
@@ -60,4 +62,10 @@ export const toggleVisibleNpc = (npcId) => ({
 export const copyNpc = (npcId) => ({
   type: COPY_NPC,
   npcId: npcId
+})
+
+export const changeName = (options) => ({
+  type: CHANGE_NPC_NAME,
+  npcId: options._id,
+  name: options.name
 })
