@@ -47,7 +47,7 @@ const npcs = (state = [], action) => {
           return npc
         }
       )
-      case 'TOGGLE_NPC_SHOW':
+      case 'TOGGLE_NPC_VISIBLE_TO_USERS':
         return state
           .map(npc => {
             if (npc._id === action.npcId) {

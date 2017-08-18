@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Unit from '../components/Unit'
 import Units from '../components/Units'
 import AddUnit from '../components/AddUnit'
-import { addNpc, addNpcField, updateNpcField} from '../actions'
+import { addNpc, addNpcField, updateNpcField, deleteNpc, toggleVisibleNpc} from '../actions'
 import { junkSend } from '../actions/ws'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -17,7 +17,13 @@ const mapDispatchToProps = (dispatch) => ({
   updateField: (unitId, fieldId, value) => {
     dispatch(updateNpcField(unitId, fieldId, value))
   },
-  junkSend: () => dispatch(junkSend())
+  junkSend: () => dispatch(junkSend()),
+  deleteUnit: (unitId) => {
+    dispatch(deleteNpc(unitId))
+  },
+  toggleVisibleNpc: (unitId) => {
+    dispatch(toggleVisibleNpc(unitId))
+  }
 })
 
 const mapStateToProps = (state) => {
@@ -41,6 +47,18 @@ class Npcs extends Component {
     return () => addField({npcId: id})
   }
 
+  createHandleDeleteUnit = (unit) => {
+    const deleteUnit = this.props.deleteUnit
+    const id = unit._id
+    return () => deleteUnit(id)
+  }
+
+  createHandleVisibleUnit = (unit) => {
+    const toggleUnitVisible = this.props.toggleVisibleNpc
+    const id = unit._id
+    return () => toggleUnitVisible(id)
+  }
+
   createHandleUpdateField = (unit) => {
     const updateField = this.props.updateField
     const unitId = unit._id
@@ -61,7 +79,6 @@ class Npcs extends Component {
 
 
   render() {
-    console.log(this.props.items)
     const admin = this.props.admin
     const items = this.props.items
     .filter(item => admin || item.visibleToUsers)
@@ -69,10 +86,14 @@ class Npcs extends Component {
       Object.assign(
         {},
         item,
-        {addField: this.createHandleAddField(item),
-         onChangeField: this.createHandleUpdateField(item)
+        {onChangeField: this.createHandleUpdateField(item),
+         unitActions: {
+           delete: this.createHandleDeleteUnit(item),
+           toggleVisibility: this.createHandleVisibleUnit(item),
+           addField: this.createHandleAddField(item)
+         }
         }))
-console.log(items)
+
     return (
       <div>
         <span>NPCs:</span>

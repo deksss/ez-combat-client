@@ -6,6 +6,8 @@ export const ADD_FIELD_TO_NPC = 'ADD_FIELD_TO_NPC'
 export const UPDATE_NPC_FIELD = 'UPDATE_NPC_FIELD'
 export const SET_CURRENT_ROOM = 'SET_CURRENT_ROOM'
 export const JUNK_UPDATE = 'JUNK_UPDATE'
+export const TOGGLE_NPC_VISIBLE_TO_USERS = 'TOGGLE_NPC_VISIBLE_TO_USERS'
+export const DELETE_NPC = 'DELETE_NPC'
 
 
 
@@ -43,4 +45,14 @@ export const setCurrentRoom = (options = {}) => ({
 export const junkUpdate = (data) => ({
   type: JUNK_UPDATE,
   data: data
+})
+
+export const deleteNpc = (npcId) => ({
+  type: DELETE_NPC,
+  npcId: npcId
+})
+
+export const toggleVisibleNpc = (npcId) => ({
+  type: TOGGLE_NPC_VISIBLE_TO_USERS,
+  npcId: npcId
 })
