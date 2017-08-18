@@ -2,7 +2,12 @@ import React, { Component } from 'react'
 import Unit from '../components/Unit'
 import Units from '../components/Units'
 import AddUnit from '../components/AddUnit'
-import { addNpc, addNpcField, updateNpcField, deleteNpc, toggleVisibleNpc} from '../actions'
+import { addNpc,
+  addNpcField,
+  updateNpcField,
+  deleteNpc,
+  toggleVisibleNpc,
+  copyNpc} from '../actions'
 import { junkSend } from '../actions/ws'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -23,6 +28,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   toggleVisibleNpc: (unitId) => {
     dispatch(toggleVisibleNpc(unitId))
+  },
+  copyUnit: (unitId) => {
+    dispatch(copyNpc(unitId))
   }
 })
 
@@ -59,6 +67,12 @@ class Npcs extends Component {
     return () => toggleUnitVisible(id)
   }
 
+  createHandleCopyUnit = (unit) => {
+    const copyUnit = this.props.copyUnit
+    const id = unit._id
+    return () => copyUnit(id)
+  }
+
   createHandleUpdateField = (unit) => {
     const updateField = this.props.updateField
     const unitId = unit._id
@@ -90,6 +104,7 @@ class Npcs extends Component {
          unitActions: {
            delete: this.createHandleDeleteUnit(item),
            toggleVisibility: this.createHandleVisibleUnit(item),
+           copy: this.createHandleCopyUnit(item),
            addField: this.createHandleAddField(item)
          }
         }))

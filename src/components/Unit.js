@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import Field from './Field'
 import ButtonVisible from './ButtonVisible'
 import ButtonDelete from './ButtonDelete'
+import ButtonCopy from './ButtonCopy'
+
 
 const Unit = ({ unit }) => {
   const {
@@ -33,6 +35,8 @@ const Unit = ({ unit }) => {
       style={{backgroundColor: visibleToUsers ? 'white' : 'grey'}}>
       <h3>
         ({name})
+        <ButtonCopy _id={_id}
+                    runAction={unitActions.copy}/>
         <ButtonVisible _id={_id}
                        runAction={unitActions.toggleVisibility}
                        visibleToUsers={visibleToUsers}/>

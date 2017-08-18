@@ -8,7 +8,7 @@ export const SET_CURRENT_ROOM = 'SET_CURRENT_ROOM'
 export const JUNK_UPDATE = 'JUNK_UPDATE'
 export const TOGGLE_NPC_VISIBLE_TO_USERS = 'TOGGLE_NPC_VISIBLE_TO_USERS'
 export const DELETE_NPC = 'DELETE_NPC'
-
+export const COPY_NPC = 'COPY_NPC'
 
 
 export const addNpcField = (npcId) => ({
@@ -54,5 +54,10 @@ export const deleteNpc = (npcId) => ({
 
 export const toggleVisibleNpc = (npcId) => ({
   type: TOGGLE_NPC_VISIBLE_TO_USERS,
+  npcId: npcId
+})
+
+export const copyNpc = (npcId) => ({
+  type: COPY_NPC,
   npcId: npcId
 })
