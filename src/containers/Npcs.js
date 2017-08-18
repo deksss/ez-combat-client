@@ -22,7 +22,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => {
   return {
-    items: state.npcs,
+    items: state.npcs.filter(
+      npc => (npc.parentId === state.rooms.currentId) && !npc.deleted),
     roomId: state.rooms.currentId
   }
 }
@@ -60,21 +61,18 @@ class Npcs extends Component {
 
 
   render() {
-    console.log(this.props.admin);
+    console.log(this.props.items)
     const admin = this.props.admin
     const items = this.props.items
-    .filter(item => { return item.parentId === this.props.roomId &&
-      (admin || item.visibleToUsers)})
+    .filter(item => admin || item.visibleToUsers)
     .map(item =>
       Object.assign(
         {},
         item,
         {addField: this.createHandleAddField(item),
          onChangeField: this.createHandleUpdateField(item)
-         //(unitId, fieldId, value) =>
-         //  console.log(unitId + ', ' + fieldId + 'v:' + value)
         }))
-
+console.log(items)
     return (
       <div>
         <span>NPCs:</span>
