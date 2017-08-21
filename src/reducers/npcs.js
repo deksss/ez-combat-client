@@ -135,7 +135,7 @@ const npcs = (state = [], action) => {
                             return Object.assign(
                               {},
                               field,
-                              {visibleToUsers: field.visibleToUsers})
+                              {visibleToUsers: !field.visibleToUsers})
                           }
                           return field
                         })

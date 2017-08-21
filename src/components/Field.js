@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ButtonVisible from './ButtonVisible'
-import ButtonSettings from './ButtonSettings'
 import ButtonDelete from './ButtonDelete'
+import FieldName from './FieldName'
+
 
 export default class Field extends Component {
   static propTypes = {
@@ -43,13 +44,15 @@ export default class Field extends Component {
 
   render() {
     const {_id, name, visibleToUsers, value} = this.props.field
-    const deleteField = (id) => console.log(`delete ${id}`)
-    const fieldSettings = (id) => console.log(`open settings ${id}`)
-    const setVisibility = (id, filter) => console.log(`set ${id} visible ${filter}`)
+    const deleteField = () => this.props.delete()
+    const setVisibility = () => this.props.toggleVisible()
+    const changeName = (name) => this.props.changeName(name)
 
     return (
       <li className="field">
-        {name} :
+        <FieldName name={name}
+                  onChange={changeName}
+                  _id={_id}/>
         <input size="15"
                ref="input"
                defaultValue={value}
@@ -57,8 +60,6 @@ export default class Field extends Component {
         <ButtonVisible _id={_id}
                        runAction={setVisibility}
                        visibleToUsers={visibleToUsers}/>
-        <ButtonSettings _id={_id}
-                        runAction={fieldSettings} />
         <ButtonDelete _id={_id}
                       runAction={deleteField} />
 

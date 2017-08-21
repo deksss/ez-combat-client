@@ -21,10 +21,25 @@ const Unit = ({ unit }) => {
     return (value) => fieldActions.onChangeField(fieldId, value)
   }
 
+  const createHandleChangeName = (fieldId) => {
+    return (name) => fieldActions.changeName(fieldId, name)
+  }
+
+  const createHandleToggleVisible = (fieldId) => {
+    return () => fieldActions.toggleVisible(fieldId)
+  }
+
+  const createHandleDelete = (fieldId) => {
+    return () => fieldActions.delete(fieldId)
+  }
+
   const renderField = (field) => {
     return <Field field={field}
                   key={field._id}
-                  onChangeField={createHandleChangeField(field._id)} />
+                  onChangeField={createHandleChangeField(field._id)}
+                  toggleVisible={createHandleToggleVisible(field._id)}
+                  changeName={createHandleChangeName(field._id)}
+                  delete={createHandleDelete(field._id)} />
   }
 
   const handleAddField = () => {

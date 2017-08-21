@@ -8,10 +8,14 @@ import { addNpc,
   deleteNpc,
   toggleVisibleNpc,
   copyNpc,
-  changeName } from '../actions/npcs'
+  changeName,
+  toggleNpcFieldVisible,
+  updateNpcFieldName,
+  deleteNpcField } from '../actions/npcs'
 import { junkSend } from '../actions/ws'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+
 
 const mapDispatchToProps = (dispatch) => ({
   addNpcClick: (parentId) => {
@@ -35,6 +39,15 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeName: (options) => {
     dispatch(changeName(options))
+  },
+  toggleNpcFieldVisible: (unitId, fieldId) => {
+    dispatch(toggleNpcFieldVisible(unitId, fieldId))
+  },
+  updateNpcFieldName: (unitId, fieldId, name) => {
+    dispatch(updateNpcFieldName(unitId, fieldId, name))
+  },
+  deleteNpcField: (unitId, fieldId) => {
+    dispatch(deleteNpcField(unitId, fieldId))
   },
 })
 
@@ -89,6 +102,24 @@ class Npcs extends Component {
     return (fieldId, value) => updateField(unitId, fieldId, value)
   }
 
+  createHandleToggleField = (unit) => {
+    const toggleNpcFieldVisible = this.props.toggleNpcFieldVisible
+    const unitId = unit._id
+    return (fieldId) => toggleNpcFieldVisible(unitId, fieldId)
+  }
+
+  createHandleFieldNameChange = (unit) => {
+    const updateNpcFieldName = this.props.updateNpcFieldName
+    const unitId = unit._id
+    return (fieldId, name) => updateNpcFieldName(unitId, fieldId, name)
+  }
+
+  createHandleDeleteField = (unit) => {
+    const deleteNpcField = this.props.deleteNpcField
+    const unitId = unit._id
+    return (fieldId) => deleteNpcField(unitId, fieldId)
+  }
+
   renderUnit(unit) {
     return <Unit unit={unit}
                  key={unit._id}
@@ -116,11 +147,14 @@ class Npcs extends Component {
            copy: this.createHandleCopyUnit(item),
            addField: this.createHandleAddField(item),
            changeName: this.props.changeName,
-           fields: item.fields.filter(field => admin || field.visibleToUsers)
          },
          fieldActions: {
            onChangeField: this.createHandleUpdateField(item),
-         }
+           toggleVisible: this.createHandleToggleField(item),
+           changeName: this.createHandleFieldNameChange(item),
+           delete: this.createHandleDeleteField(item),
+         },
+         fields: item.fields.filter(field => admin || field.visibleToUsers)
         }))
 
     return (

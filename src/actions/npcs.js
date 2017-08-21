@@ -5,9 +5,9 @@ export const CHANGE_NPC_NAME = 'CHANGE_NPC_NAME'
 export const UPDATE_NPC_FIELD = 'UPDATE_NPC_FIELD'
 export const ADD_NPC = 'ADD_NPC'
 export const ADD_FIELD_TO_NPC = 'ADD_FIELD_TO_NPC'
-export const TOGGLE_FIELD_VISIBLE = 'ADD_FIELD_TO_NPC'
-export const UPDATE_NPC_FIELD_NAME = 'ADD_FIELD_TO_NPC'
-export const DELETE_NPC_FIELD = 'ADD_FIELD_TO_NPC'
+export const TOGGLE_FIELD_VISIBLE = 'TOGGLE_FIELD_VISIBLE'
+export const UPDATE_NPC_FIELD_NAME = 'UPDATE_NPC_FIELD_NAME'
+export const DELETE_NPC_FIELD = 'DELETE_NPC_FIELD'
 
 export const addNpcField = (npcId) => ({
   type: ADD_FIELD_TO_NPC,
@@ -55,13 +55,13 @@ export const updateNpcFieldName = (unitId, fieldId, value) => ({
 })
 
 export const deleteNpcField = (unitId, fieldId) => ({
-  type: UPDATE_NPC_FIELD_NAME,
+  type: DELETE_NPC_FIELD,
   unitId: unitId,
   fieldId: fieldId
 })
 
 export const toggleNpcFieldVisible = (unitId, fieldId) => ({
-  type: UPDATE_NPC_FIELD_NAME,
+  type: TOGGLE_FIELD_VISIBLE,
   unitId: unitId,
   fieldId: fieldId
 })
