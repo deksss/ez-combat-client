@@ -13,12 +13,12 @@ const Unit = ({ unit }) => {
     fields,
     visibleToUsers,
     _id,
-    onChangeField,
-    unitActions
+    unitActions,
+    fieldActions
   } = unit
 
   const createHandleChangeField = (fieldId) => {
-    return (value) => onChangeField(fieldId, value)
+    return (value) => fieldActions.onChangeField(fieldId, value)
   }
 
   const renderField = (field) => {
@@ -63,6 +63,7 @@ Unit.propTypes = {
     fields: PropTypes.array.isRequired,
     visibleToUsers: PropTypes.bool.isRequired,
     unitActions: PropTypes.object.isRequired,
+    fieldActions: PropTypes.object.isRequired,
   }).isRequired,
 }
 

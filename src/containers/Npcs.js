@@ -8,7 +8,7 @@ import { addNpc,
   deleteNpc,
   toggleVisibleNpc,
   copyNpc,
-  changeName } from '../actions'
+  changeName } from '../actions/npcs'
 import { junkSend } from '../actions/ws'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -110,18 +110,21 @@ class Npcs extends Component {
       Object.assign(
         {},
         item,
-        {onChangeField: this.createHandleUpdateField(item),
-         unitActions: {
+        {unitActions: {
            delete: this.createHandleDeleteUnit(item),
            toggleVisibility: this.createHandleVisibleUnit(item),
            copy: this.createHandleCopyUnit(item),
            addField: this.createHandleAddField(item),
-           changeName: this.props.changeName
+           changeName: this.props.changeName,
+           fields: item.fields.filter(field => admin || field.visibleToUsers)
+         },
+         fieldActions: {
+           onChangeField: this.createHandleUpdateField(item),
          }
         }))
 
     return (
-      <div>
+      <div style={{ border: '1px dot black'}}>
         <span>NPCs:</span>
         <div style={{ display: 'flex' }}>
           <Units renderItem={this.renderUnit}

@@ -93,6 +93,58 @@ const npcs = (state = [], action) => {
             return Object.assign({}, npc)
           }
         )
+        case 'DELETE_NPC_FIELD':
+          return state.map(npc => {
+              if (npc._id === action.unitId) {
+                return Object.assign(
+                  npc,
+                  {fields: npc.fields
+                    .filter(field => field._id !== action.fieldId)
+                  }
+                )
+              }
+              return Object.assign({}, npc)
+            }
+          )
+          case 'UPDATE_NPC_FIELD_NAME':
+            return state.map(npc => {
+                if (npc._id === action.unitId) {
+                  return Object.assign(
+                    npc,
+                    {fields: npc.fields.map(field => {
+                        if (action.fieldId === field._id) {
+                          return Object.assign({},
+                                               field,
+                                               {name: action.name})
+                        }
+                        return field
+                      })
+                    }
+                  )
+                }
+                return Object.assign({}, npc)
+              }
+            )
+            case 'TOGGLE_FIELD_VISIBLE':
+              return state.map(npc => {
+                  if (npc._id === action.unitId) {
+                    return Object.assign(
+                      npc,
+                      {fields: npc.fields.map(field => {
+                          if (action.fieldId === field._id) {
+                            return Object.assign(
+                              {},
+                              field,
+                              {visibleToUsers: field.visibleToUsers})
+                          }
+                          return field
+                        })
+                      }
+                    )
+                  }
+                  return Object.assign({}, npc)
+                }
+              )
     default:
       return state
   }

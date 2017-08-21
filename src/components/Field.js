@@ -12,8 +12,10 @@ export default class Field extends Component {
       _id: PropTypes.string.isRequired,
       visibleToUsers: PropTypes.bool.isRequired,
     }).isRequired,
-     onChangeField: PropTypes.func.isRequired
+    onChangeField: PropTypes.func.isRequired,
   }
+
+
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.field.value !== this.props.field.value) {
