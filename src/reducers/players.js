@@ -32,7 +32,7 @@ const addPlayer = (state, action) => {
     ...[Object.assign({},
       DEFAULT_PLAYER, {
         _id: uuid(),
-        name: action.name || `Enemy`,
+        name: action.name || `Player`,
         rank: state.length + 1,
       },
       action.data

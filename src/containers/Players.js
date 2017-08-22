@@ -2,19 +2,59 @@ import React, { Component } from 'react'
 import Unit from '../components/Unit'
 import Units from '../components/Units'
 import AddUnit from '../components/AddUnit'
-import { addPlayer } from '../actions'
+import { addPlayer,
+  addPlayerField,
+  updatePlayerField,
+  deletePlayer,
+  toggleVisiblePlayer,
+  copyPlayer,
+  changeName,
+  togglePlayerFieldVisible,
+  updatePlayerFieldName,
+  deletePlayerField } from '../actions/players'
+import { junkSend } from '../actions/ws'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+
 
 const mapDispatchToProps = (dispatch) => ({
   addPlayerClick: (parentId) => {
     dispatch(addPlayer(parentId))
-  }
+  },
+  addFieldClick: (unit) => {
+    dispatch(addPlayerField(unit.playerId))
+  },
+  updateField: (unitId, fieldId, value) => {
+    dispatch(updatePlayerField(unitId, fieldId, value))
+  },
+  junkSend: () => dispatch(junkSend()),
+  deleteUnit: (unitId) => {
+    dispatch(deletePlayer(unitId))
+  },
+  toggleVisiblePlayer: (unitId) => {
+    dispatch(toggleVisiblePlayer(unitId))
+  },
+  copyUnit: (unitId) => {
+    dispatch(copyPlayer(unitId))
+  },
+  changeName: (options) => {
+    dispatch(changeName(options))
+  },
+  togglePlayerFieldVisible: (unitId, fieldId) => {
+    dispatch(togglePlayerFieldVisible(unitId, fieldId))
+  },
+  updatePlayerFieldName: (unitId, fieldId, name) => {
+    dispatch(updatePlayerFieldName(unitId, fieldId, name))
+  },
+  deletePlayerField: (unitId, fieldId) => {
+    dispatch(deletePlayerField(unitId, fieldId))
+  },
 })
 
 const mapStateToProps = (state) => {
   return {
-    items: state.players.list,
+    items: state.players.filter(
+      player => (player.parentId === state.rooms.currentId) && !player.deleted),
     roomId: state.rooms.currentId
   }
 }
@@ -26,40 +66,112 @@ class Players extends Component {
     admin: PropTypes.bool.isRequired,
   }
 
+  createHandleAddField = (unit) => {
+    const addField = this.props.addFieldClick
+    const id = unit._id
+    return () => addField({playerId: id})
+  }
+
+  createHandleDeleteUnit = (unit) => {
+    const deleteUnit = this.props.deleteUnit
+    const id = unit._id
+    return () => deleteUnit(id)
+  }
+
+  createHandleVisibleUnit = (unit) => {
+    const toggleUnitVisible = this.props.toggleVisiblePlayer
+    const id = unit._id
+    return () => toggleUnitVisible(id)
+  }
+
+  createHandleCopyUnit = (unit) => {
+    const copyUnit = this.props.copyUnit
+    const id = unit._id
+    return () => copyUnit(id)
+  }
+
+  createHandleEditUnitName = (unit) => {
+    const copyUnit = this.props.copyUnit
+    const id = unit._id
+    return () => copyUnit(id)
+  }
+
+  createHandleUpdateField = (unit) => {
+    const updateField = this.props.updateField
+    const unitId = unit._id
+    return (fieldId, value) => updateField(unitId, fieldId, value)
+  }
+
+  createHandleToggleField = (unit) => {
+    const togglePlayerFieldVisible = this.props.togglePlayerFieldVisible
+    const unitId = unit._id
+    return (fieldId) => togglePlayerFieldVisible(unitId, fieldId)
+  }
+
+  createHandleFieldNameChange = (unit) => {
+    const updatePlayerFieldName = this.props.updatePlayerFieldName
+    const unitId = unit._id
+    return (fieldId, name) => updatePlayerFieldName(unitId, fieldId, name)
+  }
+
+  createHandleDeleteField = (unit) => {
+    const deletePlayerField = this.props.deletePlayerField
+    const unitId = unit._id
+    return (fieldId) => deletePlayerField(unitId, fieldId)
+  }
+
   renderUnit(unit) {
-    return <Unit unit={unit} key={unit.name} addField={() => alert('addField')} />
+    return <Unit unit={unit}
+                 key={unit._id}
+                 addField={unit.addField}
+                 onChangeField={unit.onChangeField} />
   }
 
   handleAddPlayer = () => {
     this.props.addPlayerClick(this.props.roomId)
+    this.props.junkSend()
   }
+
 
   render() {
     const admin = this.props.admin
-    const fields = [{visibleToUsers: true,
-                    name: 'hp',
-                    value: '10',
-                    onChange: () => console.log(1),
-                    _id: String(Math.random(0, 100))
-                  }];
-    const visibleToUsers = true;
+    const items = this.props.items
+    .filter(item => admin || item.visibleToUsers)
+    .map(item =>
+      Object.assign(
+        {},
+        item,
+        {unitActions: {
+           delete: this.createHandleDeleteUnit(item),
+           toggleVisibility: this.createHandleVisibleUnit(item),
+           copy: this.createHandleCopyUnit(item),
+           addField: this.createHandleAddField(item),
+           changeName: this.props.changeName,
+         },
+         fieldActions: {
+           onChangeField: this.createHandleUpdateField(item),
+           toggleVisible: this.createHandleToggleField(item),
+           changeName: this.createHandleFieldNameChange(item),
+           delete: this.createHandleDeleteField(item),
+         },
+         fields: item.fields.filter(field => admin || field.visibleToUsers)
+        }))
+
     return (
-      <div>
-        <span>Players:</span>
+      <div style={{ border: '1px dot black'}}>
+        <span>PLAYERs:</span>
         <div style={{ display: 'flex' }}>
           <Units renderItem={this.renderUnit}
-                items={[{name: 'P-1', fields, visibleToUsers },
-                        {name: 'P-2', fields, visibleToUsers }]}
+                items={items}
            />
-           {admin  &&
-             <AddUnit onClick={this.handleAddPlayer} />
-           }
-         </div>
+          {admin &&
+            <AddUnit onClick={this.handleAddPlayer} />
+          }
+        </div>
       </div>
     )
   }
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps
 )(Players)

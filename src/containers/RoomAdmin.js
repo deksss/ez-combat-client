@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import PropTypes from 'prop-types'
-//import Players from './Players'
+import Players from './Players'
 import Npcs from './Npcs'
 import TemplatesList from '../components/TemplatesList'
 import { connect } from 'react-redux'
@@ -56,6 +56,7 @@ class RoomAdmin extends Component {
         </button>
         <TemplatesList showTemplates={showTemplates} />
         <Npcs admin={true} />
+        <Players admin={true} />
         <hr />
         here we place players container
       </div>
