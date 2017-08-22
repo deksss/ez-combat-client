@@ -1,197 +1,67 @@
-import uuid from '../common/uuid'
-import { DEFAULT_FIELD } from './fieldTemplates'
+export const TOGGLE_PLAYER_VISIBLE_TO_USERS = 'TOGGLE_PLAYER_VISIBLE_TO_USERS'
+export const DELETE_PLAYER = 'DELETE_PLAYER'
+export const COPY_PLAYER = 'COPY_PLAYER'
+export const CHANGE_PLAYER_NAME = 'CHANGE_PLAYER_NAME'
+export const UPDATE_PLAYER_FIELD = 'UPDATE_PLAYER_FIELD'
+export const ADD_PLAYER = 'ADD_PLAYER'
+export const ADD_FIELD_TO_PLAYER = 'ADD_FIELD_TO_PLAYER'
+export const TOGGLE_FIELD_VISIBLE = 'TOGGLE_FIELD_VISIBLE'
+export const UPDATE_PLAYER_FIELD_NAME = 'UPDATE_PLAYER_FIELD_NAME'
+export const DELETE_PLAYER_FIELD = 'DELETE_PLAYER_FIELD'
 
-const DEFAULT_PLAYER = {
-  name: 'Player',
-  fields: [],
-  visibleToUsers: false
-}
+export const addPlayerField = (playerId) => ({
+  type: ADD_FIELD_TO_PLAYER,
+  playerId: playerId
+})
 
-const addPlayerField = (state, action) => {
-  return state.map(player => {
-    if (player._id === action.playerId) {
-      return Object.assign(
-        player, {
-          fields: [
-            ...player.fields,
-            ...[Object.assign({},
-              DEFAULT_FIELD, {
-                _id: uuid()
-              },
-              action.data)]
-          ]
-        }
-      )
-    }
-    return Object.assign({}, player)
-  })
-}
+export const addPlayer = (parentId) => ({
+  type: ADD_PLAYER,
+  data: {parentId: parentId}
+})
 
-const addPlayer = (state, action) => {
-  return [...state,
-    ...[Object.assign({},
-      DEFAULT_PLAYER, {
-        _id: uuid(),
-        name: action.name || `Enemy`,
-        rank: state.length + 1,
-      },
-      action.data
-    )]
-  ]
-}
+export const updatePlayerField = (unitId, fieldId, value) => ({
+  type: UPDATE_PLAYER_FIELD,
+  unitId: unitId,
+  fieldId: fieldId,
+  value: value
+})
 
-const updatePlayerField = (state, action) => {
-  return state.map(player => {
-    if (player._id === action.unitId) {
-      return Object.assign(
-        player, {
-          fields: player.fields.map(field => {
-            if (action.fieldId === field._id) {
-              return Object.assign({},
-                field, {
-                  value: action.value
-                })
-            }
-            return field
-          })
-        }
-      )
-    }
-    return Object.assign({}, player)
-  })
-}
+export const deletePlayer = (playerId) => ({
+  type: DELETE_PLAYER,
+  playerId: playerId
+})
 
-const deletePlayer = (state, action) => {
-  return state
-    .map(player => {
-      if (player._id === action.playerId) {
-        return Object.assign({}, player, {
-          deleted: true
-        })
-      }
-      return player
-    })
-}
+export const toggleVisiblePlayer = (playerId) => ({
+  type: TOGGLE_PLAYER_VISIBLE_TO_USERS,
+  playerId: playerId
+})
 
-const toggleVisiblePlayer = (state, action) => {
-  return state
-    .map(player => {
-      if (player._id === action.playerId) {
-        return Object.assign({},
-          player, {
-            visibleToUsers: !player.visibleToUsers
-          })
-      }
-      return player
-    })
-}
+export const copyPlayer = (playerId) => ({
+  type: COPY_PLAYER,
+  playerId: playerId
+})
 
-const copyPlayer = (state, action) => {
-  const data = state.find(player => player._id === action.playerId);
-  return [...state,
-    ...[Object.assign({},
-      data, {
-        _id: uuid(),
-        name: `${data.name}_copy`,
-        rank: state.length + 1
-      })]
-  ]
-}
+export const changeName = (options) => ({
+  type: CHANGE_PLAYER_NAME,
+  playerId: options._id,
+  name: options.name
+})
 
-const changeName = (state, action) => {
-  return state
-    .map(player => {
-      if (player._id === action.playerId) {
-        return Object.assign({}, player, {
-          name: action.name
-        })
-      }
-      return player
-    })
-}
+export const updatePlayerFieldName = (unitId, fieldId, value) => ({
+  type: UPDATE_PLAYER_FIELD_NAME,
+  unitId: unitId,
+  fieldId: fieldId,
+  name: value
+})
 
-const updatePlayerFieldName = (state, action) => {
-  return state.map(player => {
-    if (player._id === action.unitId) {
-      return Object.assign(
-        player, {
-          fields: player.fields.map(field => {
-            if (action.fieldId === field._id) {
-              return Object.assign({},
-                field, {
-                  name: action.name
-                })
-            }
-            return field
-          })
-        }
-      )
-    }
-    return Object.assign({}, player)
-  })
-}
+export const deletePlayerField = (unitId, fieldId) => ({
+  type: DELETE_PLAYER_FIELD,
+  unitId: unitId,
+  fieldId: fieldId
+})
 
-const deletePlayerField = (state, action) => {
-  return state.map(player => {
-    if (player._id === action.unitId) {
-      return Object.assign(
-        player, {
-          fields: player.fields
-            .filter(field => field._id !== action.fieldId)
-        }
-      )
-    }
-    return Object.assign({}, player)
-  })
-}
-
-const togglePlayerFieldVisible = (state, action) => {
-  return state.map(player => {
-    if (player._id === action.unitId) {
-      return Object.assign(
-        player, {
-          fields: player.fields.map(field => {
-            if (action.fieldId === field._id) {
-              return Object.assign({},
-                field, {
-                  visibleToUsers: !field.visibleToUsers
-                })
-            }
-            return field
-          })
-        }
-      )
-    }
-    return Object.assign({}, player)
-  })
-}
-
-
-const players = (state = [], action) => {
-  switch (action.type) {
-  case 'ADD_PLAYER':
-    return addPlayer(state, action)
-  case 'CHANGE_PLAYER_NAME':
-    return changeName(state, action)
-  case 'COPY_PLAYER':
-    return copyPlayer(state, action)
-  case 'DELETE_PLAYER':
-    return deletePlayer(state, action)
-  case 'TOGGLE_PLAYER_VISIBLE_TO_USERS':
-    return toggleVisiblePlayer(state, action)
-  case 'ADD_FIELD_TO_PLAYER':
-    return addPlayerField(state, action)
-  case 'UPDATE_PLAYER_FIELD':
-    return updatePlayerField(state, action)
-  case 'DELETE_PLAYER_FIELD':
-    return deletePlayerField(state, action)
-  case 'UPDATE_PLAYER_FIELD_NAME':
-    return updatePlayerFieldName(state, action)
-  case 'TOGGLE_FIELD_VISIBLE':
-    return togglePlayerFieldVisible(state, action)
-  default:
-    return state
-  }
-}
-
-export default players
+export const togglePlayerFieldVisible = (unitId, fieldId) => ({
+  type: TOGGLE_FIELD_VISIBLE,
+  unitId: unitId,
+  fieldId: fieldId
+})
