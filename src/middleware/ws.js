@@ -2,6 +2,7 @@ import * as socketActions from '../actions/ws.js';
 import {junkUpdate} from '../actions/index.js';
 
 const sendUpsertToServer = (socket, store) => {
+  console.log(socket)
   if (socket && socket.readyState === 1) {
 
     const allData = store.getState()
@@ -9,16 +10,14 @@ const sendUpsertToServer = (socket, store) => {
     const dataForSend = {
       data: {
         npcs:  allData.npcs.filter(npc => npc.parentId === curRoom),
-        players: {
-          list: allData.players.list
-            .filter(player => player.parentId === curRoom)
-        }
+        players: allData.players.filter(player => player.parentId === curRoom)
       },
       type: "update",
       room: curRoom,
     }
 
     const data = JSON.stringify(dataForSend)
+    console.log(data)
     socket.send(data);
   }
 }
@@ -75,6 +74,7 @@ export default function createSocketMiddleware() {
         socket = null;
         break;
       case 'SOCKETS_JUNK_SEND':
+          console.log('try send')
           sendUpsertToServer(socket, store)
         break;
       case 'JOIN_ROOM':
