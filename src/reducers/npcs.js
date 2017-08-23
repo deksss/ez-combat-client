@@ -1,5 +1,7 @@
 import uuid from '../common/uuid'
-import { DEFAULT_FIELD } from './fieldTemplates'
+import {
+  DEFAULT_FIELD
+} from './fieldTemplates'
 
 const DEFAULT_NPC = {
   name: 'Ez',

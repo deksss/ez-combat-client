@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
 import PropTypes from 'prop-types'
-//import Players from './Players'
+import Players from './Players'
 import Npcs from './Npcs'
 import { connect } from 'react-redux'
 
@@ -26,9 +26,6 @@ class Room extends Component {
 
   }
 
-  handleJunk = () => {
-    this.props.junkUpdate()
-  }
 
   render() {
 
@@ -40,7 +37,7 @@ class Room extends Component {
         </div>
         <Npcs admin={false}/>
         <hr />
-        here we place players container
+        <Players admin={false} />
       </div>
     )
   }

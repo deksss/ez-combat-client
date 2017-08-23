@@ -56,9 +56,8 @@ class RoomAdmin extends Component {
         </button>
         <TemplatesList showTemplates={showTemplates} />
         <Npcs admin={true} />
+          <hr />
         <Players admin={true} />
-        <hr />
-        here we place players container
       </div>
     )
   }

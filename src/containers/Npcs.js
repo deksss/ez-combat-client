@@ -122,9 +122,7 @@ class Npcs extends Component {
 
   renderUnit(unit) {
     return <Unit unit={unit}
-                 key={unit._id}
-                 addField={unit.addField}
-                 onChangeField={unit.onChangeField} />
+                 key={unit._id} />
   }
 
   handleAddNpc = () => {

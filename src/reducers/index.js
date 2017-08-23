@@ -1,5 +1,5 @@
 import { routerReducer as routing } from 'react-router-redux'
-import { combineReducers} from 'redux'
+import { combineReducers } from 'redux'
 import templates from './templates'
 import players from './players'
 import npcs from './npcs'
@@ -16,7 +16,33 @@ function reduceReducers(...reducers) {
     );
 }
 
-const rootReducer =  reduceReducers(
+function dumbUpdate(state, action) {
+  const remoteNpcs = action.data.npcs
+  const remotePlayers = action.data.players
+  const npcsNew =  remoteNpcs
+    .filter(rnpc => !state.npcs.find(npc => npc._id === rnpc._id))
+  const playersNew =  remotePlayers
+    .filter(rplayer => !state.players.find(player => player._id === rplayer._id))
+
+  return Object.assign({},
+    state, {
+      npcs: [...[...state.npcs].map(npc => {
+        if (npc.parantId === action.room) {
+          return remoteNpcs.find(rnpc => rnpc._id === npc._id) || false
+        }
+        return npc
+      }).filter(npc => npc !== false), ...npcsNew],
+      players: [...[...state.players].map(player => {
+        if (player.parantId === action.room) {
+          return remotePlayers.find(rplayer => rplayer._id === player._id) || false
+        }
+        return player
+      }).filter(player => player !== false), ...playersNew]
+    }
+  )
+}
+
+const rootReducer = reduceReducers(
   combineReducers({
     routing,
     rooms,
@@ -29,10 +55,11 @@ const rootReducer =  reduceReducers(
   }),
   (state, action) => {
     switch (action.type) {
-      case 'JUNK_UPDATE':
-        return Object.assign({}, state, action.data)
-      default:
-        return state
+    case 'JUNK_UPDATE':
+      dumbUpdate(state, action)
+      break
+    default:
+      return state
     }
   }
 )
