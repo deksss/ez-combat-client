@@ -19,25 +19,10 @@ function reduceReducers(...reducers) {
 function dumbUpdate(state, action) {
   const remoteNpcs = action.data.npcs
   const remotePlayers = action.data.players
-  const npcsNew =  remoteNpcs
+  const npcsNew =  remoteNpcs && remoteNpcs
     .filter(rnpc => !state.npcs.find(npc => npc._id === rnpc._id))
-  const playersNew =  remotePlayers
+  const playersNew =  remotePlayers && remotePlayers
     .filter(rplayer => !state.players.find(player => player._id === rplayer._id))
-
-    console.log(    {
-          npcs: [...[...state.npcs].map(npc => {
-            if (npc.parantId === action.room) {
-              return remoteNpcs.find(rnpc => rnpc._id === npc._id) || false
-            }
-            return npc
-          }).filter(npc => npc !== false), ...npcsNew],
-          players: [...[...state.players].map(player => {
-            if (player.parantId === action.room) {
-              return remotePlayers.find(rplayer => rplayer._id === player._id) || false
-            }
-            return player
-          }).filter(player => player !== false), ...playersNew]
-        })
 
   return Object.assign(
     {},

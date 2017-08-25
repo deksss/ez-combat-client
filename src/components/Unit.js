@@ -5,6 +5,7 @@ import ButtonVisible from './ButtonVisible'
 import ButtonDelete from './ButtonDelete'
 import ButtonCopy from './ButtonCopy'
 import UnitName from './UnitName'
+import UnitCard from './UnitCard'
 
 
 const Unit = ({ unit }) => {
@@ -49,7 +50,7 @@ const Unit = ({ unit }) => {
 
   if (canEdit) {
     return (
-      <div className="Unit"
+      <UnitCard
         style={{backgroundColor: visibleToUsers ? 'white' : 'grey',
                 minWidth: '200px'
       }}>
@@ -70,11 +71,11 @@ const Unit = ({ unit }) => {
         <ul>
           {fields.map(renderField)}
         </ul>
-      </div>
+      </ UnitCard>
     )
   } else {
     return (
-      <div className="Unit"
+      <UnitCard
         style={{minWidth: '200px' }}>
         <h3>
           {name}
@@ -82,7 +83,7 @@ const Unit = ({ unit }) => {
         <ul>
           {fields.map(renderField)}
         </ul>
-      </div>
+      </ UnitCard>
     )
   }
 

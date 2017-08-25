@@ -30,10 +30,9 @@ export default class Field extends Component {
   }
 
   setInputValue = (val) => {
-    // Generally mutating DOM is a bad idea in React components,
-    // but doing this for a single uncontrolled field is less fuss
-    // than making it controlled and maintaining a state for it.
-    this.refs.input.value = val
+    if (this.refs && this.refs.input) {
+      this.refs.input.value = val
+    }
   }
 
   handleKeyUp = (e) => {

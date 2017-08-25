@@ -39,6 +39,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeName: (options) => {
     dispatch(changeName(options))
+    dispatch(junkSend())
   },
   togglePlayerFieldVisible: (unitId, fieldId) => {
     dispatch(togglePlayerFieldVisible(unitId, fieldId))
@@ -71,7 +72,7 @@ class Players extends Component {
     const id = unit._id
     return () => {
       addField({playerId: id})
-      junkSend()
+      this.props.junkSend()
     }
   }
 
@@ -80,7 +81,7 @@ class Players extends Component {
     const id = unit._id
     return () => {
       deleteUnit(id)
-      junkSend()
+      this.props.junkSend()
     }
   }
 
@@ -89,7 +90,7 @@ class Players extends Component {
     const id = unit._id
     return () => {
       toggleUnitVisible(id)
-      junkSend()
+      this.props.junkSend()
     }
   }
 
@@ -98,6 +99,7 @@ class Players extends Component {
     const id = unit._id
     return () => {
       copyUnit(id)
+      this.props.junkSend()
     }
   }
 
@@ -106,7 +108,7 @@ class Players extends Component {
     const unitId = unit._id
     return (fieldId, value) => {
       updateField(unitId, fieldId, value)
-      junkSend()
+      this.props.junkSend()
     }
   }
 
@@ -115,7 +117,7 @@ class Players extends Component {
     const unitId = unit._id
     return (fieldId) => {
       togglePlayerFieldVisible(unitId, fieldId)
-      junkSend()
+      this.props.junkSend()
     }
   }
 
@@ -124,7 +126,7 @@ class Players extends Component {
     const unitId = unit._id
     return (fieldId, name) => {
       updatePlayerFieldName(unitId, fieldId, name)
-      junkSend()
+      this.props.junkSend()
     }
   }
 
@@ -133,7 +135,7 @@ class Players extends Component {
     const unitId = unit._id
     return (fieldId) => {
       deletePlayerField(unitId, fieldId)
-      junkSend()
+      this.props.junkSend()
     }
   }
 

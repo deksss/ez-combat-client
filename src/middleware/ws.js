@@ -4,7 +4,6 @@ import {junkUpdate} from '../actions/index.js';
 const sendUpsertToServer = (socket, store) => {
   console.log(socket)
   if (socket && socket.readyState === 1) {
-
     const allData = store.getState()
     const curRoom = allData.rooms.currentId;
     const dataForSend = {
@@ -45,6 +44,7 @@ export default function createSocketMiddleware() {
         store.dispatch(junkUpdate(data));
       } catch(e){
         console.log(evt)
+        console.log(e)
       }
     }
   };

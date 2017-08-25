@@ -46,11 +46,14 @@ const updateNpcField = (state, action) => {
   return state.map(npc => {
     if (npc._id === action.unitId) {
       return Object.assign(
-        npc, {
+        npc,
+        {
           fields: npc.fields.map(field => {
             if (action.fieldId === field._id) {
-              return Object.assign({},
-                field, {
+              return Object.assign(
+                {},
+                field,
+                {
                   value: action.value
                 })
             }
