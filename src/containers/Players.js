@@ -69,55 +69,77 @@ class Players extends Component {
   createHandleAddField = (unit) => {
     const addField = this.props.addFieldClick
     const id = unit._id
-    return () => addField({playerId: id})
+    return () => {
+      addField({playerId: id})
+      junkSend()
+    }
   }
 
   createHandleDeleteUnit = (unit) => {
     const deleteUnit = this.props.deleteUnit
     const id = unit._id
-    return () => deleteUnit(id)
+    return () => {
+      deleteUnit(id)
+      junkSend()
+    }
   }
 
   createHandleVisibleUnit = (unit) => {
     const toggleUnitVisible = this.props.toggleVisiblePlayer
     const id = unit._id
-    return () => toggleUnitVisible(id)
+    return () => {
+      toggleUnitVisible(id)
+      junkSend()
+    }
   }
 
   createHandleCopyUnit = (unit) => {
     const copyUnit = this.props.copyUnit
     const id = unit._id
-    return () => copyUnit(id)
-  }
-
-  createHandleEditUnitName = (unit) => {
-    const copyUnit = this.props.copyUnit
-    const id = unit._id
-    return () => copyUnit(id)
+    return () => {
+      copyUnit(id)
+    }
   }
 
   createHandleUpdateField = (unit) => {
     const updateField = this.props.updateField
     const unitId = unit._id
-    return (fieldId, value) => updateField(unitId, fieldId, value)
+    return (fieldId, value) => {
+      updateField(unitId, fieldId, value)
+      junkSend()
+    }
   }
 
   createHandleToggleField = (unit) => {
     const togglePlayerFieldVisible = this.props.togglePlayerFieldVisible
     const unitId = unit._id
-    return (fieldId) => togglePlayerFieldVisible(unitId, fieldId)
+    return (fieldId) => {
+      togglePlayerFieldVisible(unitId, fieldId)
+      junkSend()
+    }
   }
 
   createHandleFieldNameChange = (unit) => {
     const updatePlayerFieldName = this.props.updatePlayerFieldName
     const unitId = unit._id
-    return (fieldId, name) => updatePlayerFieldName(unitId, fieldId, name)
+    return (fieldId, name) => {
+      updatePlayerFieldName(unitId, fieldId, name)
+      junkSend()
+    }
   }
 
   createHandleDeleteField = (unit) => {
     const deletePlayerField = this.props.deletePlayerField
     const unitId = unit._id
-    return (fieldId) => deletePlayerField(unitId, fieldId)
+    return (fieldId) => {
+      deletePlayerField(unitId, fieldId)
+      junkSend()
+    }
+  }
+
+  handleAddPlayer = () => {
+    this.props.addPlayerClick(this.props.roomId)
+    this.props.junkSend()
   }
 
   renderUnit(unit) {
@@ -126,10 +148,6 @@ class Players extends Component {
                  addField={unit.addField} />
   }
 
-  handleAddPlayer = () => {
-    this.props.addPlayerClick(this.props.roomId)
-    this.props.junkSend()
-  }
 
 
   render() {

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import ButtonVisible from './ButtonVisible'
 import ButtonDelete from './ButtonDelete'
 import FieldName from './FieldName'
-
+import Item from './Item'
 
 export default class Field extends Component {
   static propTypes = {
@@ -50,28 +50,28 @@ export default class Field extends Component {
     const changeName = (name) => this.props.changeName(name)
     if (canEdit) {
       return (
-        <li className="field">
-          <FieldName name={name}
-                    onChange={changeName}
-                    _id={_id}/>
-          <input size="15"
-                 ref="input"
-                 defaultValue={value}
-                 onKeyUp={this.handleKeyUp} />
-          <ButtonVisible _id={_id}
-                         runAction={setVisibility}
-                         visibleToUsers={visibleToUsers}/>
-          <ButtonDelete _id={_id}
-                        runAction={deleteField} />
+          <Item>
+            <FieldName name={name}
+                      onChange={changeName}
+                      _id={_id}/>
+            <input size="15"
+                   ref="input"
+                   defaultValue={value}
+                   onKeyUp={this.handleKeyUp} />
+            <ButtonVisible _id={_id}
+                           runAction={setVisibility}
+                           visibleToUsers={visibleToUsers}/>
+            <ButtonDelete _id={_id}
+                          runAction={deleteField} />
 
-        </li>
+          </Item>
       )
     } else {
       return (
-        <li className="field">
+        <Item>
           <span>{name}:</span>
           <span>{value}</span>
-        </li>  
+        </Item>
      )
     }
 

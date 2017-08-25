@@ -6,6 +6,7 @@ import {persistStore} from 'redux-persist'
 import Root from './containers/Root'
 import configureStore from './store/configureStore'
 import {socketsConnect} from './actions/ws'
+import './global-styles';
 
 const store = configureStore()
 persistStore(store, {blacklist: ['ws', 'routing', 'rooms']})

@@ -69,65 +69,82 @@ class Npcs extends Component {
   createHandleAddField = (unit) => {
     const addField = this.props.addFieldClick
     const id = unit._id
-    return () => addField({npcId: id})
+    return () => {
+      addField({npcId: id})
+      junkSend()
+    }
   }
 
   createHandleDeleteUnit = (unit) => {
     const deleteUnit = this.props.deleteUnit
     const id = unit._id
-    return () => deleteUnit(id)
+    return () => {
+      deleteUnit(id)
+      junkSend()
+    }
   }
 
   createHandleVisibleUnit = (unit) => {
     const toggleUnitVisible = this.props.toggleVisibleNpc
     const id = unit._id
-    return () => toggleUnitVisible(id)
+    return () => {
+      toggleUnitVisible(id)
+      junkSend()
+    }
   }
 
   createHandleCopyUnit = (unit) => {
     const copyUnit = this.props.copyUnit
     const id = unit._id
-    return () => copyUnit(id)
-  }
-
-  createHandleEditUnitName = (unit) => {
-    const copyUnit = this.props.copyUnit
-    const id = unit._id
-    return () => copyUnit(id)
+    return () => {
+      copyUnit(id)
+    }
   }
 
   createHandleUpdateField = (unit) => {
     const updateField = this.props.updateField
     const unitId = unit._id
-    return (fieldId, value) => updateField(unitId, fieldId, value)
+    return (fieldId, value) => {
+      updateField(unitId, fieldId, value)
+      junkSend()
+    }
   }
 
   createHandleToggleField = (unit) => {
     const toggleNpcFieldVisible = this.props.toggleNpcFieldVisible
     const unitId = unit._id
-    return (fieldId) => toggleNpcFieldVisible(unitId, fieldId)
+    return (fieldId) => {
+      toggleNpcFieldVisible(unitId, fieldId)
+      junkSend()
+    }
   }
 
   createHandleFieldNameChange = (unit) => {
     const updateNpcFieldName = this.props.updateNpcFieldName
     const unitId = unit._id
-    return (fieldId, name) => updateNpcFieldName(unitId, fieldId, name)
+    return (fieldId, name) => {
+      updateNpcFieldName(unitId, fieldId, name)
+      junkSend()
+    }
   }
 
   createHandleDeleteField = (unit) => {
     const deleteNpcField = this.props.deleteNpcField
     const unitId = unit._id
-    return (fieldId) => deleteNpcField(unitId, fieldId)
-  }
-
-  renderUnit(unit) {
-    return <Unit unit={unit}
-                 key={unit._id} />
+    return (fieldId) => {
+      deleteNpcField(unitId, fieldId)
+      junkSend()
+    }
   }
 
   handleAddNpc = () => {
     this.props.addNpcClick(this.props.roomId)
     this.props.junkSend()
+  }
+
+  renderUnit(unit) {
+    return <Unit unit={unit}
+                 key={unit._id} />
   }
 
 
