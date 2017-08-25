@@ -30,13 +30,15 @@ function dumbUpdate(state, action) {
     {
       npcs: [...[...state.npcs].map(npc => {
         if (npc.parantId === action.room) {
-          return remoteNpcs.find(rnpc => rnpc._id === npc._id) || false
+          return (remoteNpcs &&
+            remoteNpcs.find(rnpc => rnpc._id === npc._id)) || false
         }
         return npc
       }).filter(npc => npc !== false), ...npcsNew],
       players: [...[...state.players].map(player => {
         if (player.parantId === action.room) {
-          return remotePlayers.find(rplayer => rplayer._id === player._id) || false
+          return (remotePlayers &&
+            remotePlayers.find(rplayer => rplayer._id === player._id)) || false
         }
         return player
       }).filter(player => player !== false), ...playersNew]
