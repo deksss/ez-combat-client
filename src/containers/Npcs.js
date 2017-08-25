@@ -152,7 +152,10 @@ class Npcs extends Component {
            changeName: this.createHandleFieldNameChange(item),
            delete: this.createHandleDeleteField(item),
          },
-         fields: item.fields.filter(field => admin || field.visibleToUsers)
+         fields: item.fields
+           .filter(field => admin || field.visibleToUsers)
+           .map(field => Object.assign({}, field, {canEdit: admin})),
+         canEdit: admin
         }))
 
     return (

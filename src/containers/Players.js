@@ -123,8 +123,7 @@ class Players extends Component {
   renderUnit(unit) {
     return <Unit unit={unit}
                  key={unit._id}
-                 addField={unit.addField}
-                 onChangeField={unit.onChangeField} />
+                 addField={unit.addField} />
   }
 
   handleAddPlayer = () => {
@@ -154,7 +153,10 @@ class Players extends Component {
            changeName: this.createHandleFieldNameChange(item),
            delete: this.createHandleDeleteField(item),
          },
-         fields: item.fields.filter(field => admin || field.visibleToUsers)
+         fields: item.fields
+           .filter(field => admin || field.visibleToUsers)
+           .map(field => Object.assign({}, field, {canEdit: admin})),
+         canEdit: admin
         }))
 
     return (

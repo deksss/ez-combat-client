@@ -12,6 +12,7 @@ export default class Field extends Component {
       value: PropTypes.string.isRequired,
       _id: PropTypes.string.isRequired,
       visibleToUsers: PropTypes.bool.isRequired,
+      canEdit: PropTypes.bool.isRequired
     }).isRequired,
     onChangeField: PropTypes.func.isRequired,
   }
@@ -43,27 +44,36 @@ export default class Field extends Component {
 
 
   render() {
-    const {_id, name, visibleToUsers, value} = this.props.field
+    const {_id, name, visibleToUsers, value, canEdit} = this.props.field
     const deleteField = () => this.props.delete()
     const setVisibility = () => this.props.toggleVisible()
     const changeName = (name) => this.props.changeName(name)
+    if (canEdit) {
+      return (
+        <li className="field">
+          <FieldName name={name}
+                    onChange={changeName}
+                    _id={_id}/>
+          <input size="15"
+                 ref="input"
+                 defaultValue={value}
+                 onKeyUp={this.handleKeyUp} />
+          <ButtonVisible _id={_id}
+                         runAction={setVisibility}
+                         visibleToUsers={visibleToUsers}/>
+          <ButtonDelete _id={_id}
+                        runAction={deleteField} />
 
-    return (
-      <li className="field">
-        <FieldName name={name}
-                  onChange={changeName}
-                  _id={_id}/>
-        <input size="15"
-               ref="input"
-               defaultValue={value}
-               onKeyUp={this.handleKeyUp} />
-        <ButtonVisible _id={_id}
-                       runAction={setVisibility}
-                       visibleToUsers={visibleToUsers}/>
-        <ButtonDelete _id={_id}
-                      runAction={deleteField} />
+        </li>
+      )
+    } else {
+      return (
+        <li className="field">
+          <span>{name}:</span>
+          <span>{value}</span>
+        </li>  
+     )
+    }
 
-      </li>
-    )
   }
 }

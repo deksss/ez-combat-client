@@ -14,7 +14,8 @@ const Unit = ({ unit }) => {
     visibleToUsers,
     _id,
     unitActions,
-    fieldActions
+    fieldActions,
+    canEdit
   } = unit
 
   const createHandleChangeField = (fieldId) => {
@@ -46,30 +47,45 @@ const Unit = ({ unit }) => {
     unitActions.addField({_id})
   }
 
+  if (canEdit) {
+    return (
+      <div className="Unit"
+        style={{backgroundColor: visibleToUsers ? 'white' : 'grey',
+                minWidth: '200px'
+      }}>
+        <div style={{display: 'flex', height: '50px' }}>
+          <UnitName name={name}
+                    onChange={unitActions.changeName}
+                    _id={_id}/>
 
-  return (
-    <div className="Unit"
-      style={{backgroundColor: visibleToUsers ? 'white' : 'grey',
-              minWidth: '200px'
-    }}>
-      <div style={{display: 'flex', height: '50px' }}>
-        <UnitName name={name}
-                  onChange={unitActions.changeName}
-                  _id={_id}/>
-        <ButtonCopy _id={_id}
-                    runAction={unitActions.copy}/>
-        <ButtonVisible _id={_id}
-                       runAction={unitActions.toggleVisibility}
-                       visibleToUsers={visibleToUsers}/>
-        <ButtonDelete _id={_id}
-                      runAction={unitActions.delete} />
+          <ButtonCopy _id={_id}
+                      runAction={unitActions.copy}/>
+          <ButtonVisible _id={_id}
+                         runAction={unitActions.toggleVisibility}
+                         visibleToUsers={visibleToUsers}/>
+          <ButtonDelete _id={_id}
+                        runAction={unitActions.delete} />
+        </div>
+        <button onClick={handleAddField}>+f</button>
+        <ul>
+          {fields.map(renderField)}
+        </ul>
       </div>
-      <button onClick={handleAddField}>+f</button>
-      <ul>
-        {fields.map(renderField)}
-      </ul>
-    </div>
-  )
+    )
+  } else {
+    return (
+      <div className="Unit"
+        style={{minWidth: '200px' }}>
+        <h3>
+          {name}
+        </h3>
+        <ul>
+          {fields.map(renderField)}
+        </ul>
+      </div>
+    )
+  }
+
 }
 
 Unit.propTypes = {

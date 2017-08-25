@@ -74,7 +74,6 @@ const rootReducer = reduceReducers(
     switch (action.type) {
       case 'JUNK_UPDATE':
         return dumbUpdate(state, action)
-        break
       default:
         return state
     }
