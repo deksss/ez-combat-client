@@ -81,11 +81,13 @@ export default function createSocketMiddleware() {
           console.log('action');
           console.log(action);
           console.log(socket)
-          if (socket && socket.readyState === 1 && action.name) {
+          if (socket && socket.readyState === 1 && action._id) {
             const data = JSON.stringify({
               "join": true,
-              "host": action.admin,
-              "room": action.name})
+              "host": action.owner_code,
+              "room": action._id,
+              "name": action.name
+            })
             socket.send(data);
           }
           break;

@@ -3,9 +3,10 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import Helmet from 'react-helmet'
-import Explore from '../components/Explore'
+import JoinRoom from '../components/JoinRoom'
+import RoomsList from '../components/RoomsList'
 import Ws from './Ws'
-import { setCurrentRoom } from '../actions'
+import { setCurrentRoom, addRoom } from '../actions'
 import { joinRoom } from '../actions/ws'
 
 class App extends Component {
@@ -20,16 +21,22 @@ class App extends Component {
   }
 
 
-  handleChangeJoin = nextValue => {
+  handleJoin = options => {
     browserHistory.push(`/room`)
-    this.props.setRoom({value: nextValue, admin: false})
-    this.props.joinRoom({value: nextValue, admin: false})
+    this.props.setRoom(options)
+    this.props.joinRoom(options)
   }
 
-  handleChangeCreate = nextValue => {
+  handleJoinMod = options => {
     browserHistory.push(`/room/admin`)
-    this.props.setRoom({value: nextValue, admin: true})
-    this.props.joinRoom({value: nextValue, admin: true})
+    this.props.setRoom(options)
+    this.props.joinRoom(options)
+  }
+
+
+  handleAddRoom = name => {
+    browserHistory.push(`/room/admin`)
+    this.props.addRoom(name)
   }
 
   renderErrorMessage() {
@@ -56,10 +63,11 @@ class App extends Component {
         <Helmet title="Cmbt trkr"/>
 
         <Ws />
-        <Explore value={inputValue}
-                 onJoin={this.handleChangeJoin}
-                 onCreate={this.handleChangeCreate} />
+        <JoinRoom value={inputValue}
+                 onJoin={this.handleJoin}
+                 addRoom={this.addRoom} />
         <hr />
+        <RoomsList />
         {this.renderErrorMessage()}
         {children}
       </div>
@@ -72,6 +80,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   joinRoom: (options) => {
     dispatch(joinRoom(options))
+  },
+  addRoom: (options) => {
+    dispatch(addRoom(options))
   }
 })
 

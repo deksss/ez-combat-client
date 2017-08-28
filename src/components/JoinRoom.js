@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-export default class Explore extends Component {
+export default class JoinRoom extends Component {
   static propTypes = {
     value: PropTypes.string.isRequired,
-    onJoin: PropTypes.func.isRequired,
-    onCreate: PropTypes.func.isRequired,
+    onJoin: PropTypes.func.isRequired
   }
 
   componentWillReceiveProps(nextProps) {
@@ -30,29 +29,22 @@ export default class Explore extends Component {
   //    this.handleGoClick()
   //  }
   }
-
+//need mode logic to top 
   handleJoinClick = () => {
-    this.props.onJoin(this.getInputValue())
+    this.props.onJoin({_id: this.getInputValue()})
   }
 
-  handleCreateClick = () => {
-    this.props.onCreate(this.getInputValue())
-  }
 
   render() {
     return (
       <div>
-        <p>Type a room name and hit 'Go' to join, or 'room_name/your_pass' to join as room admin:</p>
-        <input size="45"
+        <p>Type a room _id and hit 'Go' to join</p>
+        <input size="20"
                ref="input"
                defaultValue={this.props.value}
                onKeyUp={this.handleKeyUp} />
         <button onClick={this.handleJoinClick}>
           Join!
-        </button>
-        / or /
-        <button onClick={this.handleCreateClick}>
-          Join like owner!
         </button>
       </div>
     )

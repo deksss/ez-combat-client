@@ -27,8 +27,9 @@ export function socketsDisconnect() {
 export function joinRoom(options = {}) {
   return {
     type: JOIN_ROOM,
-    name: options.value,
-    admin: options.admin
+    owner_code: options.owner_code,
+    _id: options._id,
+    name: options.name
   }
 }
 
