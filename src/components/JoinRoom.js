@@ -23,6 +23,7 @@ export default class JoinRoom extends Component {
     // Generally mutating DOM is a bad idea in React components,
     // but doing this for a single uncontrolled field is less fuss
     // than making it controlled and maintaining a state for it.
+    console.log('set join value')
     this.refs.input.value = val
   }
 
@@ -35,7 +36,7 @@ export default class JoinRoom extends Component {
   handleJoinClick = () => {
     const value = this.getInputValue();
     const data = this.props.rooms.find(room => room._id === value)
-    if (data.owner_code) {
+    if (data && data.owner_code) {
       this.props.onJoinMod(data)
     } else {
       this.props.onJoin({_id: value})
@@ -45,15 +46,16 @@ export default class JoinRoom extends Component {
 
 
   render() {
+    const placeholder = 'enter room ID'
     return (
       <div>
-        <p>Type a room _id and hit 'Go' to join</p>
         <input size="20"
                ref="input"
                defaultValue={this.props.value}
-               onKeyUp={this.handleKeyUp} />
+               onKeyUp={this.handleKeyUp}
+               placeholder={placeholder} />
         <button onClick={this.handleJoinClick}>
-          Join!
+          Go!
         </button>
       </div>
     )

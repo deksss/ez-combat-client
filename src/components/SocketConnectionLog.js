@@ -10,7 +10,7 @@ export default class SocketConnectionLog extends Component {
     const text = this.props.connected ? 'online' : 'offline'
     return (
       <div>
-        <span style={{color: color}}>{text}</span>
+        Connection:<span style={{color: color}}>{text}</span>
       </div>
     );
   }

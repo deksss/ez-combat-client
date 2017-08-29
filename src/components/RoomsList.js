@@ -23,6 +23,13 @@ export default class RoomsList extends Component {
 
   handleAddRoom = () => {
     this.props.addRoom(this.getInputValue())
+    this.setInputValue('')
+  }
+
+  handleKeyUp = (e) => {
+    if (e.keyCode === 13) {
+      this.handleAddRoom()
+    }
   }
 
   renderItem = (roomItem) => {
@@ -43,8 +50,10 @@ export default class RoomsList extends Component {
 
     return (
       <div>
+      <h3>Your rooms:</h3>
       <input size="20"
-             ref="input" />
+             ref="input"
+             onKeyUp={this.handleKeyUp} />
       <button onClick={this.handleAddRoom}>
         Add
       </button>

@@ -6,7 +6,7 @@ const rooms = (state = {list: [] , currentId: null, isCurrentRoomMod: false}, ac
       const newCurrent = action._id
       const room = state.list.find(room => room._id === newCurrent)
       const owner_code = action.owner_code
-      const isAdmin = room.owner_code && room.owner_code === owner_code
+      const isAdmin = room && room.owner_code && room.owner_code === owner_code
       return Object.assign({}, state,
         {currentId: newCurrent, isCurrentRoomMod: isAdmin})
     case 'ADD_NEW_ROOM':
