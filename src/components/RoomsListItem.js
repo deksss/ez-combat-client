@@ -23,11 +23,10 @@ const RoomsListItem = ({ room }) => {
 
   return (
     <li
-      style={{minWidth: '200px' }}>
-      onClick={handleClick}
-      <h3>
-        {name}, {_id}, {owner_code}
-      </h3>
+      style={{minWidth: '200px' }}
+    >
+        <h4>Name: {name}</h4> join ID: {_id}, mod code: {owner_code}
+        <button onClick={handleClick}>Enter</button>
     </ li>
   )
 

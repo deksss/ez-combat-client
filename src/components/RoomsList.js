@@ -24,8 +24,10 @@ export default class RoomsList extends Component {
   handleAddRoom = () => {
     this.props.addRoom(this.getInputValue())
   }
-  renderItem(roomItem) {
-    const room = Object.assing({},
+
+  renderItem = (roomItem) => {
+    console.log(this)
+    const room = Object.assign({},
       roomItem,
       {
         joinHandler: this.props.join,
@@ -46,7 +48,7 @@ export default class RoomsList extends Component {
       <button onClick={this.handleAddRoom}>
         Add
       </button>
-        <ul style={{ display: 'flex' }}>
+        <ul>
           {items.map(this.renderItem)}
         </ul>
       </div>

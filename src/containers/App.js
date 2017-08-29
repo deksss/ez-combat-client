@@ -6,7 +6,7 @@ import Helmet from 'react-helmet'
 import JoinRoom from '../components/JoinRoom'
 import RoomsList from '../components/RoomsList'
 import Ws from './Ws'
-import { setCurrentRoom, addRoom } from '../actions'
+import { setCurrentRoom, addRoom } from '../actions/rooms'
 import { joinRoom } from '../actions/ws'
 
 class App extends Component {
@@ -14,6 +14,7 @@ class App extends Component {
     // Injected by React Redux
     errorMessage: PropTypes.string,
     inputValue: PropTypes.string.isRequired,
+    rooms: PropTypes.array.isRequired,
     // Injected by React Router
     children: PropTypes.node,
     setRoom: PropTypes.func.isRequired,
@@ -35,7 +36,6 @@ class App extends Component {
 
 
   handleAddRoom = name => {
-    browserHistory.push(`/room/admin`)
     this.props.addRoom(name)
   }
 
@@ -65,9 +65,14 @@ class App extends Component {
         <Ws />
         <JoinRoom value={inputValue}
                  onJoin={this.handleJoin}
-                 addRoom={this.addRoom} />
+                 addRoom={this.addRoom}
+                 onJoinMod={this.handleJoinMod}
+                 rooms={this.props.rooms} />
         <hr />
-        <RoomsList />
+        <RoomsList items={this.props.rooms}
+                   join={this.handleJoin}
+                   joinAsMod={this.handleJoinMod}
+                   addRoom={this.handleAddRoom} />
         {this.renderErrorMessage()}
         {children}
       </div>
@@ -89,6 +94,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state, ownProps) => ({
   errorMessage: state.errorMessage,
+  rooms: state.rooms.list,
   inputValue: ownProps.location.pathname.substring(1)
 })
 

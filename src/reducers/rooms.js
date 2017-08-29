@@ -12,11 +12,13 @@ const rooms = (state = {list: [] , currentId: null, isCurrentRoomMod: false}, ac
     case 'ADD_NEW_ROOM':
       const addedCurrent = uuid()
       const OWNER_CODE = uuid()
-      return Object.assign({},
-        [...state,
-          [{_id: addedCurrent, owner_code: OWNER_CODE, name: action.name}]
-        ],
-          {currentId: addedCurrent})
+      return Object.assign(
+        {},
+        {list:
+          [...state.list,
+              ...[{_id: addedCurrent, owner_code: OWNER_CODE, name: action.name}]
+          ],
+        currentId: addedCurrent})
     default:
       return state
   }

@@ -4,7 +4,9 @@ import PropTypes from 'prop-types'
 export default class JoinRoom extends Component {
   static propTypes = {
     value: PropTypes.string.isRequired,
-    onJoin: PropTypes.func.isRequired
+    onJoin: PropTypes.func.isRequired,
+    onJoinMod: PropTypes.func.isRequired,
+    rooms: PropTypes.array.isRequired,
   }
 
   componentWillReceiveProps(nextProps) {
@@ -25,13 +27,20 @@ export default class JoinRoom extends Component {
   }
 
   handleKeyUp = (e) => {
-  //  if (e.keyCode === 13) {
-  //    this.handleGoClick()
-  //  }
+    if (e.keyCode === 13) {
+      this.handleJoinClick()
+    }
   }
-//need mode logic to top 
+//need move to top
   handleJoinClick = () => {
-    this.props.onJoin({_id: this.getInputValue()})
+    const value = this.getInputValue();
+    const data = this.props.rooms.find(room => room._id === value)
+    if (data.owner_code) {
+      this.props.onJoinMod(data)
+    } else {
+      this.props.onJoin({_id: value})
+    }
+    this.setInputValue('')
   }
 
 
