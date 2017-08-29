@@ -9,7 +9,7 @@ import {socketsConnect} from './actions/ws'
 import './global-styles';
 
 const store = configureStore()
-persistStore(store, {blacklist: ['ws', 'routing', 'rooms']})
+persistStore(store, {blacklist: ['ws', 'routing']})
 const history = syncHistoryWithStore(browserHistory, store)
 
 store.dispatch(socketsConnect())
