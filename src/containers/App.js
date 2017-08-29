@@ -8,6 +8,7 @@ import RoomsList from '../components/RoomsList'
 import Ws from './Ws'
 import { setCurrentRoom, addRoom } from '../actions/rooms'
 import { joinRoom } from '../actions/ws'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class App extends Component {
   static propTypes = {
@@ -59,6 +60,7 @@ class App extends Component {
   render() {
     const { children, inputValue } = this.props
     return (
+    <MuiThemeProvider>
       <div>
         <Helmet title="Cmbt trkr"/>
 
@@ -76,6 +78,7 @@ class App extends Component {
         {this.renderErrorMessage()}
         {children}
       </div>
+     </MuiThemeProvider>  
     )
   }
 }

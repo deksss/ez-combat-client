@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import RaisedButton from 'material-ui/RaisedButton'
+import TextField from 'material-ui/TextField'
 
 export default class JoinRoom extends Component {
   static propTypes = {
@@ -9,28 +11,40 @@ export default class JoinRoom extends Component {
     rooms: PropTypes.array.isRequired,
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.value !== this.props.value) {
-      this.setInputValue(nextProps.value)
-    }
+  constructor(props) {
+      super(props);
+
+      this.state = {
+        value: 'Property Value',
+      };
   }
 
+
+
   getInputValue = () => {
-    return this.refs.input.value
+    return this.state.value
   }
 
   setInputValue = (val) => {
-    // Generally mutating DOM is a bad idea in React components,
-    // but doing this for a single uncontrolled field is less fuss
-    // than making it controlled and maintaining a state for it.
-    console.log('set join value')
-    this.refs.input.value = val
+    this.setState({
+      value: val
+    });
   }
 
+  handleChange = (event) => {
+    this.setState({
+      value: event.target.value,
+    })
+  };
   handleKeyUp = (e) => {
+    console.log(this.getInputValue())
     if (e.keyCode === 13) {
       this.handleJoinClick()
     }
+  }
+
+  handleChanges = (value) => {
+    this.setInputValue(value)
   }
 //need move to top
   handleJoinClick = () => {
@@ -49,14 +63,15 @@ export default class JoinRoom extends Component {
     const placeholder = 'enter room ID'
     return (
       <div>
-        <input size="20"
-               ref="input"
-               defaultValue={this.props.value}
-               onKeyUp={this.handleKeyUp}
-               placeholder={placeholder} />
-        <button onClick={this.handleJoinClick}>
-          Go!
-        </button>
+      <TextField
+                ref={(input) => { this.input = input; }}
+                onKeyUp={this.handleKeyUp}
+                defaultValue={this.props.value}
+                placeholder={placeholder}
+                onChange={this.handleChange}
+                id="join-room-go"
+              />
+        <RaisedButton onClick={this.handleJoinClick} label="Go" />
       </div>
     )
   }
