@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import Players from './Players'
 import Npcs from './Npcs'
 import { connect } from 'react-redux'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 const mapStateToProps = (state) => {
   return {
@@ -30,6 +31,7 @@ class Room extends Component {
   render() {
 
     return (
+      <MuiThemeProvider>
       <div>
          <div style={{display: 'flex', margin: '0.5em'}}>
           <Link to={`/`}> back  </Link>
@@ -38,7 +40,8 @@ class Room extends Component {
         <Npcs admin={false}/>
         <hr />
         <Players admin={false} />
-      </div>
+      </div>  
+      </MuiThemeProvider>
     )
   }
 }

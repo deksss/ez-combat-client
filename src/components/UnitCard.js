@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 
 const UnitCard = styled.div`
-  border: 1px solid grey;
-  minWidth: '200px';
-  margin: 5px;
+  minWidth: 200px;
   align-items: center;
   animation: shown 1s;
 

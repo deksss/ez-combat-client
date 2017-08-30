@@ -1,5 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import IconButton from 'material-ui/IconButton'
+import DeleteForever  from '../Icons/DeleteForever'
+import styles from '../styles/IconStyles'
 
 const ButtonDelete = ( props ) => {
   const {_id, runAction } = props
@@ -9,9 +12,11 @@ const ButtonDelete = ( props ) => {
   }
 
   return (
-    <button onClick={handleClick}>
-    X
-    </button>
+    <IconButton onClick={handleClick}
+                iconStyle={styles.smallIcon}
+                style={styles.small}>
+     <DeleteForever />
+    </IconButton>
   )
 }
 

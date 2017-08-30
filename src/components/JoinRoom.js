@@ -71,7 +71,9 @@ export default class JoinRoom extends Component {
                 onChange={this.handleChange}
                 id="join-room-go"
               />
-        <RaisedButton onClick={this.handleJoinClick} label="Go" />
+        <RaisedButton
+          style={{margin: '0.5em'}}
+          onClick={this.handleJoinClick} label="Go" />
       </div>
     )
   }

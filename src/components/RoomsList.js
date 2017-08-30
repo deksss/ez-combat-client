@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import RoomsListItem from './RoomsListItem'
+import {List} from 'material-ui/List';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 export default class RoomsList extends Component {
   static propTypes = {
@@ -54,12 +57,12 @@ export default class RoomsList extends Component {
       <input size="20"
              ref="input"
              onKeyUp={this.handleKeyUp} />
-      <button onClick={this.handleAddRoom}>
-        Add
-      </button>
-        <ul>
+      <FloatingActionButton mini={true} style={{margin: '5px'}}  onClick={this.handleAddRoom}>
+        <ContentAdd />
+      </FloatingActionButton>
+        <List>
           {items.map(this.renderItem)}
-        </ul>
+        </List>
       </div>
     )
   }

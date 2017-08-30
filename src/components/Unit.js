@@ -6,6 +6,7 @@ import ButtonDelete from './ButtonDelete'
 import ButtonCopy from './ButtonCopy'
 import UnitName from './UnitName'
 import UnitCard from './UnitCard'
+import Paper from 'material-ui/Paper'
 
 
 const Unit = ({ unit }) => {
@@ -50,28 +51,35 @@ const Unit = ({ unit }) => {
 
   if (canEdit) {
     return (
-      <UnitCard
-        style={{backgroundColor: visibleToUsers ? 'white' : 'grey',
-                minWidth: '200px'
-      }}>
-        <div style={{display: 'flex', height: '50px' }}>
-          <UnitName name={name}
-                    onChange={unitActions.changeName}
-                    _id={_id}/>
+      <Paper zDepth={2}
+             style={{filter: visibleToUsers ? 'none' : 'brightness(0.8)',
+                     minWidth: '200px',
+                     margin: '5px'
+        }}>
+        <UnitCard>
 
-          <ButtonCopy _id={_id}
-                      runAction={unitActions.copy}/>
-          <ButtonVisible _id={_id}
-                         runAction={unitActions.toggleVisibility}
-                         visibleToUsers={visibleToUsers}/>
-          <ButtonDelete _id={_id}
-                        runAction={unitActions.delete} />
-        </div>
-        <button onClick={handleAddField}>+f</button>
-        <ul>
-          {fields.map(renderField)}
-        </ul>
-      </ UnitCard>
+          <div style={{display: 'flex', height: '50px' }}>
+            <UnitName name={name}
+                      onChange={unitActions.changeName}
+                      _id={_id}/>
+
+            <ButtonCopy _id={_id}
+                        runAction={unitActions.copy}/>
+            <ButtonVisible _id={_id}
+                           runAction={unitActions.toggleVisibility}
+                           visibleToUsers={visibleToUsers}/>
+            <ButtonDelete _id={_id}
+                          runAction={unitActions.delete} />
+          </div>
+
+          <button onClick={handleAddField}>+f</button>
+
+          <ul>
+            {fields.map(renderField)}
+          </ul>
+
+        </ UnitCard>
+      </Paper>
     )
   } else {
     return (

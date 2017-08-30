@@ -6,6 +6,7 @@ import Npcs from './Npcs'
 import TemplatesList from '../components/TemplatesList'
 import { connect } from 'react-redux'
 import { templatesToggle } from '../actions'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 const mapStateToProps = (state) => {
   return {
@@ -44,7 +45,8 @@ class RoomAdmin extends Component {
     const {showTemplates} = this.props
 
     return (
-      <div>
+        <MuiThemeProvider>
+      <div>  
          <div style={{display: 'flex', margin: '0.5em'}}>
           <Link to={`/`}> back  </Link>
           <span>  _Room: {this.props.roomId}</span>
@@ -59,6 +61,7 @@ class RoomAdmin extends Component {
           <hr />
         <Players admin={true} />
       </div>
+      </MuiThemeProvider>
     )
   }
 }

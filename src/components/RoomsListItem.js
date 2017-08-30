@@ -1,5 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {ListItem} from 'material-ui/List';
+
 
 const RoomsListItem = ({ room }) => {
   const {
@@ -22,12 +24,10 @@ const RoomsListItem = ({ room }) => {
 
 
   return (
-    <li
-      style={{minWidth: '200px' }}
-    >
+    <ListItem>
         <h4>Name: {name}</h4> join ID: {_id}, mod code: {owner_code}
         <button onClick={handleClick}>Enter</button>
-    </ li>
+    </ ListItem>
   )
 
 }

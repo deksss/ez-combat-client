@@ -1,5 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import IconButton from 'material-ui/IconButton';
+import Visibility  from '../Icons/Visibility';
+import VisibilityOff from '../Icons/VisibilityOff';
+import styles from '../styles/IconStyles'
 
 const ButtonVisible = (props) => {
   const { _id, runAction, visibleToUsers } = props
@@ -8,11 +12,12 @@ const ButtonVisible = (props) => {
     runAction(_id);
   }
 
-  const visibleIndicator = visibleToUsers ? 'o' : '-'
   return (
-    <button onClick={handleClick}>
-    {visibleIndicator}
-    </button>
+    <IconButton onClick={handleClick}
+                iconStyle={styles.smallIcon}
+                style={styles.small}>
+      {visibleToUsers ? <Visibility /> : <VisibilityOff />}
+    </IconButton>
   )
 }
 
