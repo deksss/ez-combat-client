@@ -51,7 +51,7 @@ const Unit = ({ unit }) => {
 
   if (canEdit) {
     return (
-      <Paper zDepth={2}
+      <Paper zDepth={1}
              style={{filter: visibleToUsers ? 'none' : 'brightness(0.8)',
                      minWidth: '200px',
                      margin: '5px'

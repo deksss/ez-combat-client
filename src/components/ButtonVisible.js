@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import IconButton from 'material-ui/IconButton';
-import Visibility  from '../Icons/Visibility';
-import VisibilityOff from '../Icons/VisibilityOff';
+import Visibility  from './Icons/Visibility';
+import VisibilityOff from './Icons/VisibilityOff';
 import styles from '../styles/IconStyles'
 
 const ButtonVisible = (props) => {
