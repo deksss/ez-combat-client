@@ -1,13 +1,12 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Field from './Field'
-import ButtonVisible from './ButtonVisible'
-import ButtonDelete from './ButtonDelete'
-import ButtonCopy from './ButtonCopy'
-import UnitName from './UnitName'
-import UnitCard from './UnitCard'
-import Paper from 'material-ui/Paper'
-
+import React from "react";
+import PropTypes from "prop-types";
+import Field from "./Field";
+import ButtonVisible from "./ButtonVisible";
+import ButtonDelete from "./ButtonDelete";
+import ButtonCopy from "./ButtonCopy";
+import UnitName from "./UnitName";
+import UnitCard from "./UnitCard";
+import Paper from "material-ui/Paper";
 
 const Unit = ({ unit }) => {
   const {
@@ -18,84 +17,76 @@ const Unit = ({ unit }) => {
     unitActions,
     fieldActions,
     canEdit
-  } = unit
+  } = unit;
 
-  const createHandleChangeField = (fieldId) => {
-    return (value) => fieldActions.onChangeField(fieldId, value)
-  }
+  const createHandleChangeField = fieldId => {
+    return value => fieldActions.onChangeField(fieldId, value);
+  };
 
-  const createHandleChangeName = (fieldId) => {
-    return (name) => fieldActions.changeName(fieldId, name)
-  }
+  const createHandleChangeName = fieldId => {
+    return name => fieldActions.changeName(fieldId, name);
+  };
 
-  const createHandleToggleVisible = (fieldId) => {
-    return () => fieldActions.toggleVisible(fieldId)
-  }
+  const createHandleToggleVisible = fieldId => {
+    return () => fieldActions.toggleVisible(fieldId);
+  };
 
-  const createHandleDelete = (fieldId) => {
-    return () => fieldActions.delete(fieldId)
-  }
+  const createHandleDelete = fieldId => {
+    return () => fieldActions.delete(fieldId);
+  };
 
-  const renderField = (field) => {
-    return <Field field={field}
-                  key={field._id}
-                  onChangeField={createHandleChangeField(field._id)}
-                  toggleVisible={createHandleToggleVisible(field._id)}
-                  changeName={createHandleChangeName(field._id)}
-                  delete={createHandleDelete(field._id)} />
-  }
+  const renderField = field => {
+    return (
+      <Field
+        field={field}
+        key={field._id}
+        onChangeField={createHandleChangeField(field._id)}
+        toggleVisible={createHandleToggleVisible(field._id)}
+        changeName={createHandleChangeName(field._id)}
+        delete={createHandleDelete(field._id)}
+      />
+    );
+  };
 
   const handleAddField = () => {
-    unitActions.addField({_id})
-  }
+    unitActions.addField({ _id });
+  };
 
   if (canEdit) {
     return (
-      <Paper zDepth={1}
-             style={{filter: visibleToUsers ? 'none' : 'brightness(0.8)',
-                     minWidth: '200px',
-                     margin: '5px'
-        }}>
-        <UnitCard>
+      <UnitCard
+        style={{
+          filter: visibleToUsers ? "none" : "brightness(0.8)",
+          minWidth: "250px",
+          margin: "5px"
+        }}
+      >
+        <div style={{ display: "flex", height: "50px" }}>
+          <UnitName name={name} onChange={unitActions.changeName} _id={_id} />
 
-          <div style={{display: 'flex', height: '50px' }}>
-            <UnitName name={name}
-                      onChange={unitActions.changeName}
-                      _id={_id}/>
+          <ButtonCopy _id={_id} runAction={unitActions.copy} />
+          <ButtonVisible
+            _id={_id}
+            runAction={unitActions.toggleVisibility}
+            visibleToUsers={visibleToUsers}
+          />
+          <ButtonDelete _id={_id} runAction={unitActions.delete} />
+        </div>
 
-            <ButtonCopy _id={_id}
-                        runAction={unitActions.copy}/>
-            <ButtonVisible _id={_id}
-                           runAction={unitActions.toggleVisibility}
-                           visibleToUsers={visibleToUsers}/>
-            <ButtonDelete _id={_id}
-                          runAction={unitActions.delete} />
-          </div>
+        <button onClick={handleAddField}>+f</button>
 
-          <button onClick={handleAddField}>+f</button>
-
-          <ul>
-            {fields.map(renderField)}
-          </ul>
-
-        </ UnitCard>
-      </Paper>
-    )
+        <ul>{fields.map(renderField)}</ul>
+      </UnitCard>
+    );
   } else {
     return (
-      <UnitCard
-        style={{minWidth: '200px' }}>
-        <h3>
-          {name}
-        </h3>
-        <ul>
-          {fields.map(renderField)}
-        </ul>
-      </ UnitCard>
-    )
+      <UnitCard style={{ minWidth: "250px" }}>
+        <h3>{name}</h3>
+        <ul>{fields.map(renderField)}</ul>
+      </UnitCard>
+    );
   }
-
-}
+};
 
 Unit.propTypes = {
   unit: PropTypes.shape({
@@ -103,8 +94,8 @@ Unit.propTypes = {
     fields: PropTypes.array.isRequired,
     visibleToUsers: PropTypes.bool.isRequired,
     unitActions: PropTypes.object.isRequired,
-    fieldActions: PropTypes.object.isRequired,
-  }).isRequired,
-}
+    fieldActions: PropTypes.object.isRequired
+  }).isRequired
+};
 
-export default Unit
+export default Unit;

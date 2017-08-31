@@ -4,10 +4,11 @@ import Paper from "material-ui/Paper";
 import { Scrollbars } from 'react-custom-scrollbars';
 
 const style = {
-  minWidth: '95%',
+  minWidth: '300px',
   minHeight: '250px',
   margin: '5px',
-  padding: '5px'
+  padding: '5px',
+  maxWidth: '90vw'
 }
 
 export default class Units extends Component {
@@ -33,11 +34,12 @@ export default class Units extends Component {
         </Paper>
       );
     }
+    //hack: need replace
+    const width = Math.min(items.length * 250, window.innerWidth - 200)
 
     return (
-
         <Paper zDepth={1} style={style}>
-        <Scrollbars style={{ width: '100%', height: 240 }}>
+        <Scrollbars style={{ minWidth: '300px', width: width, height: 250 }}>
           <div style={{ display: "flex" }}>{items.map(renderItem)}</div>
         </Scrollbars>
         </Paper>
