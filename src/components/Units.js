@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Paper from "material-ui/Paper";
+import { Scrollbars } from 'react-custom-scrollbars';
 
 const style = {
-  minWidth: '480px',
+  minWidth: '95%',
   minHeight: '250px',
   margin: '5px',
   padding: '5px'
@@ -34,9 +35,13 @@ export default class Units extends Component {
     }
 
     return (
-      <Paper zDepth={1} style={style}>
-        <div style={{ display: "flex" }}>{items.map(renderItem)}</div>
-      </Paper>
+
+        <Paper zDepth={1} style={style}>
+        <Scrollbars style={{ width: '100%', height: 240 }}>
+          <div style={{ display: "flex" }}>{items.map(renderItem)}</div>
+        </Scrollbars>
+        </Paper>
+
     );
   }
 }
