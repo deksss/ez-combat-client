@@ -6,7 +6,6 @@ import ButtonDelete from "./ButtonDelete";
 import ButtonCopy from "./ButtonCopy";
 import UnitName from "./UnitName";
 import UnitCard from "./UnitCard";
-import Paper from "material-ui/Paper";
 
 const Unit = ({ unit }) => {
   const {

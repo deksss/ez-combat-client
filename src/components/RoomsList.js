@@ -5,8 +5,10 @@ import { List } from "material-ui/List";
 import FloatingActionButton from "material-ui/FloatingActionButton";
 import ContentAdd from "material-ui/svg-icons/content/add";
 import TextField from "material-ui/TextField";
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
-export default class RoomsList extends Component {
+class RoomsList extends Component {
   static propTypes = {
     items: PropTypes.array.isRequired,
     join: PropTypes.func.isRequired,
@@ -85,3 +87,5 @@ export default class RoomsList extends Component {
     );
   }
 }
+
+export default DragDropContext(HTML5Backend)(RoomsList);
