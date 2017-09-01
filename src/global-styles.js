@@ -25,6 +25,7 @@ injectGlobal`
   #root {
     background-color: #fafafa;
     min-height: 100%;
+    height: 100vh;
     min-width: 100%;
   }
 
