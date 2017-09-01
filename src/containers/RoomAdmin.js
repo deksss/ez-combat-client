@@ -7,6 +7,7 @@ import TemplatesList from "../components/TemplatesList";
 import { connect } from "react-redux";
 import { templatesToggle } from "../actions";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import RoomHeader from "../components/RoomHeader";
 
 const mapStateToProps = state => {
   return {
@@ -41,6 +42,7 @@ class RoomAdmin extends Component {
     return (
       <MuiThemeProvider>
         <div>
+          <RoomHeader roomId={this.props.roomId} />
           <div style={{ display: "flex", margin: "0.5em" }}>
             <Link to={`/`}> back </Link>
             <span> _Room: {this.props.roomId}</span>

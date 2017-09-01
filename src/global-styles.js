@@ -1,13 +1,25 @@
-import { injectGlobal } from 'styled-components';
+import { injectGlobal } from "styled-components";
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
+
+  html {
+      -ms-text-size-adjust: 100%;
+      -webkit-text-size-adjust: 100%;
+  }
   body {
-    font-family: Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      font-family: Hammersmith One, Roboto, Helvetica, Arial, sans-serif;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+
   }
 
   body.fontLoaded {
-    font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: Hammersmith One, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
   #root {
@@ -18,7 +30,20 @@ injectGlobal`
 
   p,
   label {
-    font-family: Roboto, Times, 'Times New Roman', serif;
+    font-family: Hammersmith One, Times, 'Times New Roman', serif;
     line-height: 1.5em;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  blockquote,
+  figure,
+  ol,
+  ul {
+      margin: 0;
+      padding: 0;
   }
 `;
