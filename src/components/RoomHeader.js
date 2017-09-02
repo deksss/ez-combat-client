@@ -6,16 +6,22 @@ import Help from "./Icons/Help";
 import Settings from "./Icons/Settings";
 import Home from "./Icons/Home";
 import styles from "../styles/IconStyles";
+import { Link } from "react-router";
 
 const HeaderStyled = styled.div`
   display: flex;
-  height: 48px;
+  justify-content: space-between;
+  height: 37px;
   width: 100%;
   background-color: #8bc34a;
   color: #ffffff;
   font-size: 20px;
-  align-items: center;
   font-family: "Hammersmith One";
+`;
+
+const HeaderStyledBlock = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 export default class RoomHeader extends Component {
@@ -30,22 +36,29 @@ export default class RoomHeader extends Component {
   render() {
     return (
       <HeaderStyled>
-        <IconButton onClick={() => console.log(this)}
-                    iconStyle={styles.mediumIcon}
-                    style={styles.medium}>
-          <Home />
-        </IconButton>
-        <span>{this.props.roomId}</span>
-        <IconButton onClick={() => console.log(this)}
-                    iconStyle={styles.mediumIcon}
-                    style={styles.medium}>
-          <Settings />
-        </IconButton>
-        <IconButton onClick={() => console.log(this)}
-                    iconStyle={styles.mediumIcon}
-                    style={styles.medium}>
-          <Help />
-        </IconButton>
+        <HeaderStyledBlock>
+          <Link to={`/`}>
+            <IconButton onClick={() => console.log(this)}
+                        iconStyle={styles.mediumIcon}
+                        style={styles.medium}>
+              <Home />
+            </IconButton>
+          </Link>
+
+          <span>{this.props.roomId}</span>
+        </HeaderStyledBlock>
+        <HeaderStyledBlock>
+          <IconButton onClick={() => console.log(this)}
+                      iconStyle={styles.mediumIcon}
+                      style={styles.medium}>
+            <Settings />
+          </IconButton>
+          <IconButton onClick={() => console.log(this)}
+                      iconStyle={styles.mediumIcon}
+                      style={styles.medium}>
+            <Help />
+          </IconButton>
+        </HeaderStyledBlock>
       </HeaderStyled>
     );
   }

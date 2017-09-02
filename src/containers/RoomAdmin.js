@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router";
 import PropTypes from "prop-types";
 import Players from "./Players";
 import Npcs from "./Npcs";
@@ -42,9 +41,10 @@ class RoomAdmin extends Component {
     return (
       <MuiThemeProvider>
         <div>
-          <RoomHeader roomId={this.props.roomId} />
+          <RoomHeader roomId={this.props.roomId}
+                      />
           <div style={{ display: "flex", margin: "0.5em" }}>
-            <Link to={`/`}> back </Link>
+
             <span> _Room: {this.props.roomId}</span>
           </div>
           <button
