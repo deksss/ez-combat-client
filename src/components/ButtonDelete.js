@@ -5,7 +5,7 @@ import DeleteForever from "./Icons/DeleteForever";
 import styles from "../styles/IconStyles";
 
 const ButtonDelete = props => {
-  const { _id, runAction } = props;
+  const { _id, runAction, color } = props;
 
   const handleClick = () => {
     runAction(_id);
@@ -14,9 +14,8 @@ const ButtonDelete = props => {
   return (
     <IconButton
       onClick={handleClick}
-      iconStyle={styles.smallIcon}
-      style={styles.small}
-    >
+      iconStyle={Object.assign({}, styles.smallIcon, {color: color})}
+      style={styles.small}>
       <DeleteForever />
     </IconButton>
   );

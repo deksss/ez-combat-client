@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Unit from '../components/Unit'
 import Units from '../components/Units'
-import AddUnit from '../components/AddUnit'
 import { addNpc,
   addNpcField,
   updateNpcField,
@@ -15,6 +14,7 @@ import { addNpc,
 import { junkSend } from '../actions/ws'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import UnitsToolbar from "../components/UnitsToolbar"
 
 
 const mapDispatchToProps = (dispatch) => ({
@@ -185,7 +185,7 @@ class Npcs extends Component {
                 items={items}
            />
           {admin &&
-            <AddUnit onClick={this.handleAddNpc} />
+            <UnitsToolbar addClick={this.handleAddNpc} />
           }
         </div>
       </div>

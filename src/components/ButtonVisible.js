@@ -6,7 +6,7 @@ import VisibilityOff from './Icons/VisibilityOff';
 import styles from '../styles/IconStyles'
 
 const ButtonVisible = (props) => {
-  const { _id, runAction, visibleToUsers } = props
+  const { _id, runAction, visibleToUsers, color } = props
 
   const handleClick = () => {
     runAction(_id);
@@ -14,7 +14,7 @@ const ButtonVisible = (props) => {
 
   return (
     <IconButton onClick={handleClick}
-                iconStyle={styles.smallIcon}
+                iconStyle={Object.assign({}, styles.smallIcon, {color: color})}
                 style={styles.small}>
       {visibleToUsers ? <Visibility /> : <VisibilityOff />}
     </IconButton>

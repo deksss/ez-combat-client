@@ -65,10 +65,11 @@ const Unit = ({ unit }) => {
     textDecoration: 'none',
     fontSize: '20px'
   };
+
   const unitHeaderStyleShowed = Object.assign({},
     unitHeaderStyle,
     {
-      backgroundColor: '#96C85B',
+      backgroundColor: '#A4A4A4',
       color: '#795548',
     }
   );
@@ -80,6 +81,8 @@ const Unit = ({ unit }) => {
     }
   );
 
+  const buttonColor = visibleToUsers ? '#795548' : '#FFFFFF';
+
   if (canEdit) {
     return (
       <Paper zDepth={1} style={{marginRight: '20px'}}>
@@ -87,13 +90,16 @@ const Unit = ({ unit }) => {
         <div style={visibleToUsers ? unitHeaderStyleShowed : unitHeaderStyleHiden}>
           <UnitName name={name} onChange={unitActions.changeName} _id={_id} />
           <div>
-            <ButtonCopy _id={_id} runAction={unitActions.copy} />
+            <ButtonCopy _id={_id} runAction={unitActions.copy} color={buttonColor} />
             <ButtonVisible
               _id={_id}
               runAction={unitActions.toggleVisibility}
               visibleToUsers={visibleToUsers}
+              color={buttonColor}
             />
-            <ButtonDelete _id={_id} runAction={unitActions.delete} />
+            <ButtonDelete _id={_id}
+                          runAction={unitActions.delete}
+                          color={buttonColor} />
           </div>
         </div>
 

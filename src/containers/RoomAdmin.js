@@ -9,7 +9,6 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import RoomHeader from "../components/RoomHeader";
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import List from "../components/Icons/List";
-import styles from "../styles/IconStyles";
 
 const mapStateToProps = state => {
   return {
