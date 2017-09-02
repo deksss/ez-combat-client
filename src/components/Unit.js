@@ -6,6 +6,7 @@ import ButtonDelete from "./ButtonDelete";
 import ButtonCopy from "./ButtonCopy";
 import UnitName from "./UnitName";
 import UnitCard from "./UnitCard";
+import Paper from "material-ui/Paper";
 
 const Unit = ({ unit }) => {
   const {
@@ -51,31 +52,56 @@ const Unit = ({ unit }) => {
     unitActions.addField({ _id });
   };
 
+  const unitHeaderStyle = {
+    paddingLeft: '20px',
+    paddingRight: '20px',
+    display: "flex",
+    height: "55px",
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    lineHeight: '100%',
+    fontWeight: 'normal',
+    fontStyle: 'normal',
+    textDecoration: 'none',
+    fontSize: '20px'
+  };
+  const unitHeaderStyleShowed = Object.assign({},
+    unitHeaderStyle,
+    {
+      backgroundColor: '#96C85B',
+      color: '#795548',
+    }
+  );
+  const unitHeaderStyleHiden = Object.assign({},
+    unitHeaderStyle,
+    {
+      backgroundColor: '#7B5F47',
+      color: '#FFFFFF',
+    }
+  );
+
   if (canEdit) {
     return (
-      <UnitCard
-        style={{
-          filter: visibleToUsers ? "none" : "brightness(0.8)",
-          minWidth: "250px",
-          margin: "5px"
-        }}
-      >
-        <div style={{ display: "flex", height: "50px" }}>
+      <Paper zDepth={1} style={{marginRight: '20px'}}>
+      <UnitCard>
+        <div style={visibleToUsers ? unitHeaderStyleShowed : unitHeaderStyleHiden}>
           <UnitName name={name} onChange={unitActions.changeName} _id={_id} />
-
-          <ButtonCopy _id={_id} runAction={unitActions.copy} />
-          <ButtonVisible
-            _id={_id}
-            runAction={unitActions.toggleVisibility}
-            visibleToUsers={visibleToUsers}
-          />
-          <ButtonDelete _id={_id} runAction={unitActions.delete} />
+          <div>
+            <ButtonCopy _id={_id} runAction={unitActions.copy} />
+            <ButtonVisible
+              _id={_id}
+              runAction={unitActions.toggleVisibility}
+              visibleToUsers={visibleToUsers}
+            />
+            <ButtonDelete _id={_id} runAction={unitActions.delete} />
+          </div>
         </div>
 
         <button onClick={handleAddField}>+f</button>
 
         <ul>{fields.map(renderField)}</ul>
       </UnitCard>
+      </Paper>
     );
   } else {
     return (

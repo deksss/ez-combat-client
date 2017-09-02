@@ -59,9 +59,9 @@ export default class UnitName extends Component {
       );
     } else {
       return (
-        <h3 onDoubleClick={this.editOn} style={{ minWidth: "150px" }}>
+        <span onDoubleClick={this.editOn} style={{ minWidth: "150px" }}>
           {name}
-        </h3>
+        </span>
       );
     }
   }

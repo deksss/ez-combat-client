@@ -7,6 +7,9 @@ import { connect } from "react-redux";
 import { templatesToggle } from "../actions";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import RoomHeader from "../components/RoomHeader";
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import List from "../components/Icons/List";
+import styles from "../styles/IconStyles";
 
 const mapStateToProps = state => {
   return {
@@ -41,18 +44,16 @@ class RoomAdmin extends Component {
     return (
       <MuiThemeProvider>
         <div>
-          <RoomHeader roomId={this.props.roomId}
-                      />
-          <div style={{ display: "flex", margin: "0.5em" }}>
+          <RoomHeader roomId={this.props.roomId} />
+          <div style={{ position: "fixed",
+                        right: showTemplates ? "305px" : '5px',
+                        top: '47px'}}>
+            <FloatingActionButton backgroundColor='#8BC34A'
+                                  onClick={this.handleTemplatesToggle}>
 
-            <span> _Room: {this.props.roomId}</span>
+              <List />
+            </FloatingActionButton>
           </div>
-          <button
-            style={{ position: "absolute", right: showTemplates ? "300px" : 0 }}
-            onClick={this.handleTemplatesToggle}
-          >
-            {showTemplates ? "Hide Templates" : "Show Templates"}
-          </button>
           <TemplatesList showTemplates={showTemplates} />
           <Npcs admin={true} />
           <hr />

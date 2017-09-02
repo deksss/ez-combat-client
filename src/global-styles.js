@@ -35,6 +35,10 @@ injectGlobal`
     line-height: 1.5em;
   }
 
+  span {
+    font-family: Hammersmith One, Roboto, Helvetica, Arial, sans-serif;
+  }
+
   h1,
   h2,
   h3,
@@ -46,5 +50,6 @@ injectGlobal`
   ul {
       margin: 0;
       padding: 0;
+      font-family: Hammersmith One, Roboto, Helvetica, Arial, sans-serif;
   }
 `;

@@ -18,6 +18,11 @@ const styles = {
     height: 40,
     padding: 4
   },
+  bigIcon: {
+    width: 24,
+    height: 24,
+    color: '#795548'
+  },
 };
 
 export default styles;

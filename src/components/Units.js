@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Paper from "material-ui/Paper";
 import { Scrollbars } from 'react-custom-scrollbars';
 
 const style = {
@@ -25,24 +24,23 @@ export default class Units extends Component {
     const { items, renderItem } = this.props;
 
     const isEmpty = items.length === 0;
+    //hack: need replace
+    const width = Math.min(items.length * 410, window.innerWidth - 100)
     if (isEmpty) {
       return (
-        <Paper zDepth={2} style={style}>
+        <div style={style}>
           <h4>
             <i>Nothing here!</i>
           </h4>
-        </Paper>
+        </div>
       );
     }
-    //hack: need replace
-    const width = Math.min(items.length * 250, window.innerWidth - 200)
-
     return (
-        <Paper zDepth={1} style={style}>
+        <div style={style}>
         <Scrollbars style={{ minWidth: '300px', width: width, height: 250 }}>
           <div style={{ display: "flex" }}>{items.map(renderItem)}</div>
         </Scrollbars>
-        </Paper>
+        </div>
 
     );
   }
