@@ -16,7 +16,9 @@ const Unit = ({ unit }) => {
     _id,
     unitActions,
     fieldActions,
-    canEdit
+    canEdit,
+    style,
+    styleHidden
   } = unit;
 
   const createHandleChangeField = fieldId => {
@@ -65,23 +67,28 @@ const Unit = ({ unit }) => {
     textDecoration: 'none',
     fontSize: '20px'
   };
-
+  
   const unitHeaderStyleShowed = Object.assign({},
     unitHeaderStyle,
     {
-      backgroundColor: '#A4A4A4',
-      color: '#795548',
+      //backgroundColor: '#7B5F47',
+      //color: '#FFFFFF',
+      color: style.color,
+      backgroundColor: style.backgroundColor,
     }
   );
   const unitHeaderStyleHiden = Object.assign({},
     unitHeaderStyle,
     {
-      backgroundColor: '#7B5F47',
-      color: '#FFFFFF',
+      //backgroundColor: '#A4A4A4',
+      //color: '#FFFFFF',
+      color: styleHidden.color,
+      backgroundColor: styleHidden.backgroundColor,
     }
   );
 
-  const buttonColor = visibleToUsers ? '#795548' : '#FFFFFF';
+  //const buttonColor = visibleToUsers ? '#FFFFFF' : '#FFFFFF';
+  const buttonColor = visibleToUsers ? style.color : styleHidden.color;
 
   if (canEdit) {
     return (

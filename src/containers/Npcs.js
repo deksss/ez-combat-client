@@ -15,6 +15,8 @@ import { junkSend } from '../actions/ws'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import UnitsToolbar from "../components/UnitsToolbar"
+import { ALTERNATIVE, ALTERNATIVE_HIDDEN } from "../styles/constants";
+
 
 
 const mapDispatchToProps = (dispatch) => ({
@@ -174,12 +176,13 @@ class Npcs extends Component {
          fields: item.fields
            .filter(field => admin || field.visibleToUsers)
            .map(field => Object.assign({}, field, {canEdit: admin})),
-         canEdit: admin
+         canEdit: admin,
+         style: ALTERNATIVE,
+         styleHidden: ALTERNATIVE_HIDDEN
         }))
 
     return (
-      <div style={{ border: '1px dot black'}}>
-        <span>NPCs:</span>
+      <div style={{marginTop: 10}}>
         <div style={{ display: 'flex' }}>
           <Units renderItem={this.renderUnit}
                 items={items}

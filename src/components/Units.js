@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Scrollbars } from 'react-custom-scrollbars';
 
 const style = {
-  minWidth: '300px',
+  //minWidth: '300px',
   minHeight: '250px',
   margin: '5px',
   padding: '5px',
@@ -14,10 +14,6 @@ export default class Units extends Component {
   static propTypes = {
     items: PropTypes.array.isRequired,
     renderItem: PropTypes.func.isRequired
-  };
-
-  static defaultProps = {
-    items: [{ name: "one" }, { name: "two" }]
   };
 
   render() {

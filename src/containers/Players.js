@@ -15,7 +15,7 @@ import { addPlayer,
 import { junkSend } from '../actions/ws'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-
+import { MAIN, MAIN_HIDDEN } from "../styles/constants"
 
 const mapDispatchToProps = (dispatch) => ({
   addPlayerClick: (parentId) => {
@@ -176,12 +176,13 @@ class Players extends Component {
          fields: item.fields
            .filter(field => admin || field.visibleToUsers)
            .map(field => Object.assign({}, field, {canEdit: admin})),
-         canEdit: admin
+         canEdit: admin,
+         style: MAIN,
+         styleHidden: MAIN_HIDDEN
         }))
 
     return (
       <div style={{ border: '1px dot black'}}>
-        <span>PLAYERs:</span>
         <div style={{ display: 'flex' }}>
           <Units renderItem={this.renderUnit}
                 items={items}

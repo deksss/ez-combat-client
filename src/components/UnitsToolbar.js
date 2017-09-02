@@ -10,6 +10,7 @@ import { MAIN_BG_COLOR, MAIN_COLOR } from '../styles/constants';
 
 const style = {
   padding: 10,
+  paddingLeft: 0,
   display: 'flex',
   flexDirection: 'column'
 }
