@@ -44,6 +44,7 @@ injectGlobal`
   h3,
   h4,
   p,
+  div,
   blockquote,
   figure,
   ol,

@@ -7,6 +7,9 @@ import ButtonCopy from "./ButtonCopy";
 import UnitName from "./UnitName";
 import UnitCard from "./UnitCard";
 import Paper from "material-ui/Paper";
+import FloatingActionButton from "material-ui/FloatingActionButton";
+import ContentAdd from "material-ui/svg-icons/content/add";
+import { MAIN_BG_COLOR } from "../styles/constants";
 
 const Unit = ({ unit }) => {
   const {
@@ -55,65 +58,77 @@ const Unit = ({ unit }) => {
   };
 
   const unitHeaderStyle = {
-    paddingLeft: '20px',
-    paddingRight: '20px',
+    paddingLeft: "20px",
+    paddingRight: "20px",
     display: "flex",
     height: "55px",
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    lineHeight: '100%',
-    fontWeight: 'normal',
-    fontStyle: 'normal',
-    textDecoration: 'none',
-    fontSize: '20px'
+    alignItems: "center",
+    justifyContent: "space-between",
+    lineHeight: "100%",
+    fontWeight: "normal",
+    fontStyle: "normal",
+    textDecoration: "none",
+    fontSize: "20px"
   };
-  
-  const unitHeaderStyleShowed = Object.assign({},
-    unitHeaderStyle,
-    {
-      //backgroundColor: '#7B5F47',
-      //color: '#FFFFFF',
-      color: style.color,
-      backgroundColor: style.backgroundColor,
-    }
-  );
-  const unitHeaderStyleHiden = Object.assign({},
-    unitHeaderStyle,
-    {
-      //backgroundColor: '#A4A4A4',
-      //color: '#FFFFFF',
-      color: styleHidden.color,
-      backgroundColor: styleHidden.backgroundColor,
-    }
-  );
+
+  const unitHeaderStyleShowed = Object.assign({}, unitHeaderStyle, {
+    //backgroundColor: '#7B5F47',
+    //color: '#FFFFFF',
+    color: style.color,
+    backgroundColor: style.backgroundColor
+  });
+  const unitHeaderStyleHiden = Object.assign({}, unitHeaderStyle, {
+    //backgroundColor: '#A4A4A4',
+    //color: '#FFFFFF',
+    color: styleHidden.color,
+    backgroundColor: styleHidden.backgroundColor
+  });
 
   //const buttonColor = visibleToUsers ? '#FFFFFF' : '#FFFFFF';
   const buttonColor = visibleToUsers ? style.color : styleHidden.color;
 
   if (canEdit) {
     return (
-      <Paper zDepth={1} style={{marginRight: '20px'}}>
-      <UnitCard>
-        <div style={visibleToUsers ? unitHeaderStyleShowed : unitHeaderStyleHiden}>
-          <UnitName name={name} onChange={unitActions.changeName} _id={_id} />
-          <div>
-            <ButtonCopy _id={_id} runAction={unitActions.copy} color={buttonColor} />
-            <ButtonVisible
-              _id={_id}
-              runAction={unitActions.toggleVisibility}
-              visibleToUsers={visibleToUsers}
-              color={buttonColor}
-            />
-            <ButtonDelete _id={_id}
-                          runAction={unitActions.delete}
-                          color={buttonColor} />
+      <Paper zDepth={1} style={{ marginRight: "20px" }}>
+        <UnitCard>
+          <div
+            style={
+              visibleToUsers ? unitHeaderStyleShowed : unitHeaderStyleHiden
+            }
+          >
+            <UnitName name={name} onChange={unitActions.changeName} _id={_id} />
+            <div>
+              <ButtonCopy
+                _id={_id}
+                runAction={unitActions.copy}
+                color={buttonColor}
+              />
+              <ButtonVisible
+                _id={_id}
+                runAction={unitActions.toggleVisibility}
+                visibleToUsers={visibleToUsers}
+                color={buttonColor}
+              />
+              <ButtonDelete
+                _id={_id}
+                runAction={unitActions.delete}
+                color={buttonColor}
+              />
+            </div>
           </div>
-        </div>
-
-        <button onClick={handleAddField}>+f</button>
-
-        <ul>{fields.map(renderField)}</ul>
-      </UnitCard>
+          <ul style={{ paddingLeft: 20, paddingRight: 20 }}>
+            {fields.map(renderField)}
+          </ul>
+          <FloatingActionButton
+            mini={true}
+            style={{ width: 30, height: 30, marginLeft: 20, marginTop: 10 }}
+            iconStyle={{ width: 30, height: 30 }}
+            backgroundColor={MAIN_BG_COLOR}
+            onClick={handleAddField}
+          >
+            <ContentAdd />
+          </FloatingActionButton>
+        </UnitCard>
       </Paper>
     );
   } else {

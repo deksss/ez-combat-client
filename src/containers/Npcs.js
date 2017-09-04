@@ -15,7 +15,7 @@ import { junkSend } from '../actions/ws'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import UnitsToolbar from "../components/UnitsToolbar"
-import { ALTERNATIVE, ALTERNATIVE_HIDDEN } from "../styles/constants";
+import { MAIN, MAIN_HIDDEN } from "../styles/constants";
 
 
 
@@ -177,8 +177,8 @@ class Npcs extends Component {
            .filter(field => admin || field.visibleToUsers)
            .map(field => Object.assign({}, field, {canEdit: admin})),
          canEdit: admin,
-         style: ALTERNATIVE,
-         styleHidden: ALTERNATIVE_HIDDEN
+         style: MAIN,
+         styleHidden: MAIN_HIDDEN
         }))
 
     return (

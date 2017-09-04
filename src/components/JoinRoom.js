@@ -33,7 +33,6 @@ export default class JoinRoom extends Component {
   };
 
   handleKeyUp = e => {
-    console.log(this.getInputValue());
     if (e.keyCode === 13) {
       this.handleJoinClick();
     }
