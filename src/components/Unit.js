@@ -89,7 +89,9 @@ const Unit = ({ unit }) => {
 
   if (canEdit) {
     return (
-      <Paper zDepth={1} style={{ marginRight: "20px" }}>
+      <Paper zDepth={1}
+             style={{ marginRight: "20px",
+              backgroundColor: visibleToUsers ? "#FFFFFF" : '#E0E0E0' }}>
         <UnitCard>
           <div
             style={

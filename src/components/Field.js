@@ -7,6 +7,7 @@ import Item from "./Item";
 import TextField from "material-ui/TextField";
 import { MAIN_COLOR } from "../styles/constants";
 
+
 export default class Field extends Component {
   static propTypes = {
     field: PropTypes.shape({

@@ -7,17 +7,18 @@ const RoomsListItem = ({ room }) => {
 
   //need move to top level component
   const handleClick = () => {
-    if (owner_code) {
-      modJoinHandler({ _id, owner_code, name });
-    } else {
-      joinHandler({ _id });
-    }
+    modJoinHandler({ _id, owner_code, name });
+  };
+
+  const handleClickUser = () => {
+    joinHandler({ _id });
   };
 
   return (
     <ListItem>
       <h4>Name: {name}</h4> join ID: {_id}, mod code: {owner_code}
-      <button onClick={handleClick}>Enter</button>
+      {owner_code && <button onClick={handleClick}>Enter</button>}
+      <button onClick={handleClickUser}>Enter as regular user</button>
     </ListItem>
   );
 };
