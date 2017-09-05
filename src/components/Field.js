@@ -33,7 +33,7 @@ export default class Field extends Component {
     const changeName = name => this.props.changeName(name);
     if (canEdit) {
       return (
-        <Item>
+        <Item style={{backgroundColor: visibleToUsers ? "#FFFFFF" : "#C0C0C0"}}>
           <FieldName name={name} onChange={changeName} _id={_id} />
           <TextField
             placeholder={placeholder}

@@ -116,7 +116,7 @@ const Unit = ({ unit }) => {
               />
             </div>
           </div>
-          <ul style={{ paddingLeft: 20, paddingRight: 20 }}>
+          <ul>
             {fields.map(renderField)}
           </ul>
           <FloatingActionButton
