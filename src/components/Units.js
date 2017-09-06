@@ -26,7 +26,7 @@ export default class Units extends Component {
       return (
         <div style={style}>
           <h4>
-            <i>Nothing here!</i>
+            <i>Empty!</i>
           </h4>
         </div>
       );

@@ -10,6 +10,7 @@ export default class UnitName extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
+    readOnly: PropTypes.bool.isRequired,
     _id: PropTypes.string.isRequired
   };
 
@@ -46,7 +47,14 @@ export default class UnitName extends Component {
   };
 
   render() {
-    const { name } = this.props;
+    const { name, readOnly } = this.props;
+    if (readOnly) {
+      return (
+        <span>
+          {name}
+        </span>
+      );
+    }
 
     if (this.state.edit) {
       return (

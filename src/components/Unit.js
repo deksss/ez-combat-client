@@ -89,16 +89,25 @@ const Unit = ({ unit }) => {
 
   if (canEdit) {
     return (
-      <Paper zDepth={1}
-             style={{ marginRight: "20px",
-              backgroundColor: visibleToUsers ? "#FFFFFF" : '#E0E0E0' }}>
+      <Paper
+        zDepth={1}
+        style={{
+          marginRight: "20px",
+          backgroundColor: visibleToUsers ? "#FFFFFF" : "#E0E0E0"
+        }}
+      >
         <UnitCard>
           <div
             style={
               visibleToUsers ? unitHeaderStyleShowed : unitHeaderStyleHiden
             }
           >
-            <UnitName name={name} onChange={unitActions.changeName} _id={_id} />
+            <UnitName
+              name={name}
+              onChange={unitActions.changeName}
+              _id={_id}
+              readOnly={false}
+            />
             <div>
               <ButtonCopy
                 _id={_id}
@@ -118,9 +127,7 @@ const Unit = ({ unit }) => {
               />
             </div>
           </div>
-          <ul>
-            {fields.map(renderField)}
-          </ul>
+          <ul>{fields.map(renderField)}</ul>
           <FloatingActionButton
             mini={true}
             style={{ width: 30, height: 30, marginLeft: 20, marginTop: 10 }}
@@ -135,10 +142,25 @@ const Unit = ({ unit }) => {
     );
   } else {
     return (
-      <UnitCard style={{ minWidth: "250px" }}>
-        <h3>{name}</h3>
-        <ul>{fields.map(renderField)}</ul>
-      </UnitCard>
+      <Paper
+        zDepth={1}
+        style={{
+          marginRight: "20px",
+          backgroundColor: "#FFFFFF"
+        }}
+      >
+        <UnitCard>
+          <div style={unitHeaderStyleShowed}>
+            <UnitName
+              name={name}
+              readOnly={true}
+              onChange={() => {}}
+              _id={_id}
+            />
+          </div>
+          <ul>{fields.map(renderField)}</ul>
+        </UnitCard>
+      </Paper>
     );
   }
 };

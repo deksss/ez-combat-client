@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { Link } from "react-router";
 import PropTypes from "prop-types";
 import Players from "./Players";
 import Npcs from "./Npcs";
 import { connect } from "react-redux";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import RoomHeader from "../components/RoomHeader";
 
 const mapStateToProps = state => {
   return {
@@ -25,10 +25,7 @@ class Room extends Component {
     return (
       <MuiThemeProvider>
         <div>
-          <div style={{ display: "flex", margin: "0.5em" }}>
-            <Link to={`/`}> back </Link>
-            <span> _Room: {this.props.roomId}</span>
-          </div>
+          <RoomHeader roomId={this.props.roomId} />
           <Npcs admin={false} />
           <hr />
           <Players admin={false} />

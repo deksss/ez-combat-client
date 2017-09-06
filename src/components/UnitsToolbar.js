@@ -12,11 +12,13 @@ const style = {
   padding: 10,
   paddingLeft: 0,
   display: 'flex',
-  flexDirection: 'column'
+  flexDirection: 'column',
+  color: MAIN_COLOR
 }
 
 const itemStyle = {
-  marginBottom: 10
+  marginBottom: 10,
+  color: MAIN_COLOR
 }
 
 export default class UnitsToolbar extends Component {
@@ -29,7 +31,7 @@ export default class UnitsToolbar extends Component {
   render() {
     //const { addClick, hideAllClick, deleteAllClick } = this.props;
     const { addClick } = this.props;
-
+console.log(MAIN_COLOR)
     return (
         <div style={style}>
           <FloatingActionButton mini={true}
@@ -40,6 +42,7 @@ export default class UnitsToolbar extends Component {
             <ContentAdd />
           </FloatingActionButton>
           <FloatingActionButton mini={true}
+                                iconStyle={{color:MAIN_COLOR}}
                                 style={itemStyle}
                                 backgroundColor={MAIN_BG_COLOR}
                                 onClick={addClick}>
@@ -56,6 +59,7 @@ export default class UnitsToolbar extends Component {
           <FloatingActionButton mini={true}
                                 style={itemStyle}
                                 backgroundColor={MAIN_BG_COLOR}
+                                iconStyle={{color: MAIN_COLOR}}
                                 onClick={addClick}>
 
             <SortAz />

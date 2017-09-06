@@ -32,9 +32,10 @@ export default class Field extends Component {
     const deleteField = () => this.props.delete();
     const setVisibility = () => this.props.toggleVisible();
     const changeName = name => this.props.changeName(name);
+    const itemStyle = {backgroundColor: visibleToUsers ? "#FFFFFF" : "#C0C0C0"};
     if (canEdit) {
       return (
-        <Item style={{backgroundColor: visibleToUsers ? "#FFFFFF" : "#C0C0C0"}}>
+        <Item style={itemStyle}>
           <FieldName name={name} onChange={changeName} _id={_id} />
           <TextField
             placeholder={placeholder}
@@ -57,9 +58,11 @@ export default class Field extends Component {
       );
     } else {
       return (
-        <Item>
-          <span>{name}:</span>
-          <span>{value}</span>
+        <Item style={{color: MAIN_COLOR, marginTop: '10px'}}>
+          <div>
+            <span style={{ fontSize: 15, marginRight: 15 }}>{name}:</span>
+            <span style={{ fontSize: 15, fontFamily: 'Heebo' }}>{value}</span>
+          </div>
         </Item>
       );
     }
