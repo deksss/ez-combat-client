@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { MAIN_COLOR } from "../styles/constants";
+import Snackbar from "material-ui/Snackbar";
 
 export default class FieldName extends Component {
   constructor(props) {
     super(props);
-    this.state = { edit: false };
+    this.state = { edit: false, msgOpen: false };
   }
 
   static propTypes = {
@@ -30,10 +31,19 @@ export default class FieldName extends Component {
 
   handleKeyUp = e => {
     if (e.keyCode === 13) {
-      this.setState({
-        edit: false
-      });
-      this.props.onChange(this.getInputValue());
+      const value = this.getInputValue();
+      if (value === "") {
+        this.setState({
+          edit: true,
+          msgOpen: true
+        });
+      } else {
+        this.setState({
+          edit: false,
+          msgOpen: false
+        });
+        this.props.onChange(value);
+      }
     }
   };
 
@@ -43,17 +53,31 @@ export default class FieldName extends Component {
     });
   };
 
+  handleRequestClose = () => {
+    this.setState({
+      msgOpen: false
+    });
+  };
+
   render() {
     const { name } = this.props;
 
     if (this.state.edit) {
       return (
-        <input
-          size="10"
-          ref="input"
-          defaultValue={name}
-          onKeyUp={this.handleKeyUp}
-        />
+        <div>
+          <input
+            size="10"
+            ref="input"
+            defaultValue={name}
+            onKeyUp={this.handleKeyUp}
+          />
+          <Snackbar
+            open={this.state.msgOpen}
+            message="The field name must be non-empty"
+            autoHideDuration={4000}
+            onRequestClose={this.handleRequestClose}
+          />
+        </div>
       );
     } else {
       return (

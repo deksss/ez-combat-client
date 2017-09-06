@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import Snackbar from "material-ui/Snackbar";
 
 export default class UnitName extends Component {
   constructor(props) {
     super(props);
-    this.state = { edit: false };
+    this.state = { edit: false, msgOpen: false };
   }
 
   static propTypes = {
@@ -30,13 +31,22 @@ export default class UnitName extends Component {
 
   handleKeyUp = e => {
     if (e.keyCode === 13) {
-      this.setState({
-        edit: false
-      });
-      this.props.onChange({
-        name: this.getInputValue(),
-        _id: this.props._id
-      });
+      const value = this.getInputValue();
+      if (value !== "") {
+        this.setState({
+          edit: false,
+          msgOpen: false
+        });
+        this.props.onChange({
+          name: value,
+          _id: this.props._id
+        });
+      } else {
+        this.setState({
+          edit: true,
+          msgOpen: true
+        });
+      }
     }
   };
 
@@ -46,24 +56,34 @@ export default class UnitName extends Component {
     });
   };
 
+  handleRequestClose = () => {
+    this.setState({
+      msgOpen: false
+    });
+  };
+
   render() {
     const { name, readOnly } = this.props;
     if (readOnly) {
-      return (
-        <span>
-          {name}
-        </span>
-      );
+      return <span>{name}</span>;
     }
 
     if (this.state.edit) {
       return (
-        <input
-          size="20"
-          ref="input"
-          defaultValue={name}
-          onKeyUp={this.handleKeyUp}
-        />
+        <div>
+          <input
+            size="20"
+            ref="input"
+            defaultValue={name}
+            onKeyUp={this.handleKeyUp}
+          />
+          <Snackbar
+            open={this.state.msgOpen}
+            message="The field name must be non-empty"
+            autoHideDuration={4000}
+            onRequestClose={this.handleRequestClose}
+          />
+        </div>
       );
     } else {
       return (
