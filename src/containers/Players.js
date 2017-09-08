@@ -182,10 +182,8 @@ class Players extends Component {
     return (
       <div style={{ border: "1px dot black" }}>
         <div style={{ display: "flex" }}>
+          {admin && <UnitsToolbar addClick={this.handleAddPlayer} />}
           <Units renderItem={this.renderUnit} items={items} />
-          {admin &&
-            <UnitsToolbar addClick={this.handleAddPlayer} />
-          }
         </div>
       </div>
     );
