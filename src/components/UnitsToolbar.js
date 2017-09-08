@@ -31,7 +31,6 @@ export default class UnitsToolbar extends Component {
   render() {
     //const { addClick, hideAllClick, deleteAllClick } = this.props;
     const { addClick } = this.props;
-console.log(MAIN_COLOR)
     return (
         <div style={style}>
           <FloatingActionButton mini={true}

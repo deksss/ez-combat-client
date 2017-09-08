@@ -21,8 +21,6 @@ export default class Field extends Component {
   };
 
   handleChange = (e, value) => {
-    console.log(e);
-    console.log(value);
     this.props.onChangeField(value);
   };
 
