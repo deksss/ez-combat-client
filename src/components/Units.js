@@ -17,14 +17,14 @@ export default class Units extends Component {
   };
 
   render() {
-    const { items, renderItem } = this.props;
+    const { items, renderItem, emptyMsg } = this.props;
 
     const isEmpty = items.length === 0;
     if (isEmpty) {
       return (
         <div style={style}>
           <h4>
-            <i>Empty!</i>
+            <i>{emptyMsg}</i>
           </h4>
         </div>
       );

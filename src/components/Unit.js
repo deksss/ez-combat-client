@@ -10,10 +10,12 @@ import Paper from "material-ui/Paper";
 import FloatingActionButton from "material-ui/FloatingActionButton";
 import ContentAdd from "material-ui/svg-icons/content/add";
 import { MAIN_BG_COLOR } from "../styles/constants";
+import UnitPermission from "./UnitPermission";
 
 const Unit = ({ unit }) => {
   const {
     name,
+    permission,
     fields,
     visibleToUsers,
     _id,
@@ -120,6 +122,13 @@ const Unit = ({ unit }) => {
                 visibleToUsers={visibleToUsers}
                 color={buttonColor}
               />
+              {unitActions.changePermission && (
+                <UnitPermission
+                  permission={permission}
+                  onChange={unitActions.changePermission}
+                  _id={_id}
+                />
+              )}
               <ButtonDelete
                 _id={_id}
                 runAction={unitActions.delete}

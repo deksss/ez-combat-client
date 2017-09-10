@@ -15,10 +15,13 @@ const RoomsListItem = ({ room }) => {
   };
 
   return (
-    <ListItem>
-      <h4>Name: {name}</h4> join ID: {_id}, mod code: {owner_code}
-      {owner_code && <button onClick={handleClick}>Enter</button>}
+    <ListItem style={{display: 'flex'}}>
+      <h4>Name: {name}</h4> join ID: {_id}
+      <div> mod code: {owner_code} </div>
+      <div>
+        {owner_code && <button onClick={handleClick}>Enter</button>}
       <button onClick={handleClickUser}>Enter as regular user</button>
+      </div>
     </ListItem>
   );
 };

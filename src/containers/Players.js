@@ -11,7 +11,8 @@ import {
   changeName,
   togglePlayerFieldVisible,
   updatePlayerFieldName,
-  deletePlayerField
+  deletePlayerField,
+  changePermission
 } from "../actions/players";
 import { junkSend } from "../actions/ws";
 import { connect } from "react-redux";
@@ -51,7 +52,11 @@ const mapDispatchToProps = dispatch => ({
   },
   deletePlayerField: (unitId, fieldId) => {
     dispatch(deletePlayerField(unitId, fieldId));
-  }
+  },
+  changePermission: options => {
+    dispatch(changePermission(options));
+    dispatch(junkSend());
+  },
 });
 
 const mapStateToProps = state => {
@@ -59,7 +64,8 @@ const mapStateToProps = state => {
     items: state.players.filter(
       player => player.parentId === state.rooms.currentId && !player.deleted
     ),
-    roomId: state.rooms.currentId
+    roomId: state.rooms.currentId,
+    userId: state.user.userId,
   };
 };
 
@@ -67,7 +73,8 @@ class Players extends Component {
   static propTypes = {
     items: PropTypes.array.isRequired,
     roomId: PropTypes.string.isRequired,
-    admin: PropTypes.bool.isRequired
+    admin: PropTypes.bool.isRequired,
+    userId: PropTypes.string.isRequired
   };
 
   createHandleAddField = unit => {
@@ -162,7 +169,8 @@ class Players extends Component {
             toggleVisibility: this.createHandleVisibleUnit(item),
             copy: this.createHandleCopyUnit(item),
             addField: this.createHandleAddField(item),
-            changeName: this.props.changeName
+            changeName: this.props.changeName,
+            changePermission: this.props.changePermission,
           },
           fieldActions: {
             onChangeField: this.createHandleUpdateField(item),
@@ -173,7 +181,7 @@ class Players extends Component {
           fields: item.fields
             .filter(field => admin || field.visibleToUsers)
             .map(field => Object.assign({}, field, { canEdit: admin })),
-          canEdit: admin,
+          canEdit: admin || item.permission.includes(this.props.userId),
           style: MAIN,
           styleHidden: MAIN_HIDDEN
         })
@@ -183,7 +191,7 @@ class Players extends Component {
       <div style={{ border: "1px dot black" }}>
         <div style={{ display: "flex" }}>
           {admin && <UnitsToolbar addClick={this.handleAddPlayer} />}
-          <Units renderItem={this.renderUnit} items={items} />
+          <Units renderItem={this.renderUnit} items={items} emptyMsg={'Add PLAYER here!'} />
         </div>
       </div>
     );

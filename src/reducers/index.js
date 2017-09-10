@@ -5,8 +5,9 @@ import players from "./players";
 import npcs from "./npcs";
 import unitTemplates from "./unitTemplates";
 import fieldTemplates from "./fieldTemplates";
-import rooms from "./rooms";
-import ws from "./ws";
+import rooms from "./rooms"
+import ws from "./ws";;
+import user from "./user";
 
 function reduceReducers(...reducers) {
   return (previous, current) =>
@@ -67,7 +68,8 @@ const rootReducer = reduceReducers(
     npcs,
     unitTemplates,
     fieldTemplates,
-    ws
+    ws,
+    user
   }),
   (state, action) => {
     switch (action.type) {

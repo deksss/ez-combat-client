@@ -8,7 +8,9 @@ export default class JoinRoom extends Component {
     value: PropTypes.string.isRequired,
     onJoin: PropTypes.func.isRequired,
     onJoinMod: PropTypes.func.isRequired,
-    rooms: PropTypes.array.isRequired
+    rooms: PropTypes.array.isRequired,
+    userId:  PropTypes.string.isRequired,
+    changeUserId: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -28,9 +30,16 @@ export default class JoinRoom extends Component {
     });
   };
 
+
+
   handleChange = event => {
     this.setInputValue(event.target.value)
   };
+
+//  handleChangeUnit = event => {
+//    console.log()
+//    this.setInputValue(event.target.value)
+//  };
 
   handleKeyUp = e => {
     if (e.keyCode === 13) {
@@ -53,6 +62,18 @@ export default class JoinRoom extends Component {
     const placeholder = "enter room ID";
     return (
       <div>
+        <div>
+          <TextField
+            ref={input => {
+              this.inputUser = input;
+            }}
+            value={this.props.userId}
+            placeholder={'user ID, must be 5 or more chr'}
+            onChange={this.props.changeUserId}
+            id="join-user-name"
+            style={{width: 300}}
+          />
+        </div>
         <TextField
           ref={input => {
             this.input = input;
@@ -61,7 +82,7 @@ export default class JoinRoom extends Component {
           defaultValue={this.props.value}
           placeholder={placeholder}
           onChange={this.handleChange}
-          id="join-room-go"
+          id="join-room-name"
         />
         <RaisedButton
           style={{ margin: "0.5em" }}

@@ -13,7 +13,8 @@ const style = {
   paddingLeft: 0,
   display: 'flex',
   flexDirection: 'column',
-  color: MAIN_COLOR
+  color: MAIN_COLOR,
+  marginLeft: 10
 }
 
 const itemStyle = {

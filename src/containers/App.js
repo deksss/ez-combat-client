@@ -7,6 +7,7 @@ import JoinRoom from "../components/JoinRoom";
 import RoomsList from "../components/RoomsList";
 import Ws from "./Ws";
 import { setCurrentRoom, addRoom } from "../actions/rooms";
+import { setUserId } from "../actions/index";
 import { joinRoom } from "../actions/ws";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
@@ -19,7 +20,8 @@ class App extends Component {
     // Injected by React Router
     children: PropTypes.node,
     setRoom: PropTypes.func.isRequired,
-    joinRoom: PropTypes.func.isRequired
+    joinRoom: PropTypes.func.isRequired,
+    changeUserId: PropTypes.func.isRequired,
   };
 
   handleJoin = options => {
@@ -71,6 +73,8 @@ class App extends Component {
             addRoom={this.addRoom}
             onJoinMod={this.handleJoinMod}
             rooms={this.props.rooms}
+            userId={this.props.userId}
+            changeUserId={this.props.changeUserId}
           />
           <hr />
           <RoomsList
@@ -95,13 +99,17 @@ const mapDispatchToProps = dispatch => ({
   },
   addRoom: options => {
     dispatch(addRoom(options));
+  },
+  changeUserId: userId => {
+    dispatch(setUserId(userId.target.value))
   }
 });
 
 const mapStateToProps = (state, ownProps) => ({
   errorMessage: state.errorMessage,
   rooms: state.rooms.list,
-  inputValue: ownProps.location.pathname.substring(1)
+  inputValue: ownProps.location.pathname.substring(1),
+  userId: state.user.userId,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -8,6 +8,8 @@ export const ADD_FIELD_TO_PLAYER = 'ADD_FIELD_TO_PLAYER'
 export const TOGGLE_FIELD_VISIBLE = 'TOGGLE_FIELD_VISIBLE'
 export const UPDATE_PLAYER_FIELD_NAME = 'UPDATE_PLAYER_FIELD_NAME'
 export const DELETE_PLAYER_FIELD = 'DELETE_PLAYER_FIELD'
+export const CHANGE_PLAYER_PERMISSION = 'CHANGE_PLAYER_PERMISSION'
+
 
 export const addPlayerField = (playerId) => ({
   type: ADD_FIELD_TO_PLAYER,
@@ -64,4 +66,10 @@ export const togglePlayerFieldVisible = (unitId, fieldId) => ({
   type: TOGGLE_FIELD_VISIBLE,
   unitId: unitId,
   fieldId: fieldId
+})
+
+export const changePermission = (options) => ({
+  type: CHANGE_PLAYER_PERMISSION,
+  playerId: options._id,
+  permission: options.permission
 })

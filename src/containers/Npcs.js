@@ -183,7 +183,7 @@ class Npcs extends Component {
       <div style={{ marginTop: 10 }}>
         <div style={{ display: "flex" }}>
           {admin && <UnitsToolbar addClick={this.handleAddNpc} />}
-          <Units renderItem={this.renderUnit} items={items} />
+          <Units renderItem={this.renderUnit} items={items} emptyMsg={'Add NPC here!'}/>
         </div>
       </div>
     );
