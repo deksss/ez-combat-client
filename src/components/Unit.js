@@ -23,7 +23,8 @@ const Unit = ({ unit }) => {
     fieldActions,
     canEdit,
     style,
-    styleHidden
+    styleHidden,
+    canCRUD
   } = unit;
 
   const createHandleChangeField = fieldId => {
@@ -108,33 +109,35 @@ const Unit = ({ unit }) => {
               name={name}
               onChange={unitActions.changeName}
               _id={_id}
-              readOnly={false}
+              readOnly={canCRUD}
             />
-            <div>
-              <ButtonCopy
-                _id={_id}
-                runAction={unitActions.copy}
-                color={buttonColor}
-              />
-              <ButtonVisible
-                _id={_id}
-                runAction={unitActions.toggleVisibility}
-                visibleToUsers={visibleToUsers}
-                color={buttonColor}
-              />
-              {unitActions.changePermission && (
-                <UnitPermission
-                  permission={permission}
-                  onChange={unitActions.changePermission}
+            {canCRUD && (
+              <div>
+                <ButtonCopy
                   _id={_id}
+                  runAction={unitActions.copy}
+                  color={buttonColor}
                 />
-              )}
-              <ButtonDelete
-                _id={_id}
-                runAction={unitActions.delete}
-                color={buttonColor}
-              />
-            </div>
+                <ButtonVisible
+                  _id={_id}
+                  runAction={unitActions.toggleVisibility}
+                  visibleToUsers={visibleToUsers}
+                  color={buttonColor}
+                />
+                {unitActions.changePermission && (
+                  <UnitPermission
+                    permission={permission}
+                    onChange={unitActions.changePermission}
+                    _id={_id}
+                  />
+                )}
+                <ButtonDelete
+                  _id={_id}
+                  runAction={unitActions.delete}
+                  color={buttonColor}
+                />
+              </div>
+            )}
           </div>
           <ul>{fields.map(renderField)}</ul>
           <FloatingActionButton

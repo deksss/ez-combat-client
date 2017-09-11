@@ -174,6 +174,7 @@ class Npcs extends Component {
             .filter(field => admin || field.visibleToUsers)
             .map(field => Object.assign({}, field, { canEdit: admin })),
           canEdit: admin,
+          canCRUD: admin,
           style: MAIN,
           styleHidden: MAIN_HIDDEN
         })

@@ -56,7 +56,7 @@ const mapDispatchToProps = dispatch => ({
   changePermission: options => {
     dispatch(changePermission(options));
     dispatch(junkSend());
-  },
+  }
 });
 
 const mapStateToProps = state => {
@@ -65,7 +65,7 @@ const mapStateToProps = state => {
       player => player.parentId === state.rooms.currentId && !player.deleted
     ),
     roomId: state.rooms.currentId,
-    userId: state.user.userId,
+    userId: state.user.userId
   };
 };
 
@@ -160,17 +160,24 @@ class Players extends Component {
 
   render() {
     const admin = this.props.admin;
+    //can rewrite in single reduce
     const items = this.props.items
-      .filter(item => admin || item.visibleToUsers)
-      .map(item =>
-        Object.assign({}, item, {
+      .filter(
+        item =>
+          admin ||
+          item.visibleToUsers ||
+          item.permission.includes(this.props.userId)
+      )
+      .map(item => {
+        const canEdit = admin || item.permission.includes(this.props.userId);
+        return Object.assign({}, item, {
           unitActions: {
             delete: this.createHandleDeleteUnit(item),
             toggleVisibility: this.createHandleVisibleUnit(item),
             copy: this.createHandleCopyUnit(item),
             addField: this.createHandleAddField(item),
             changeName: this.props.changeName,
-            changePermission: this.props.changePermission,
+            changePermission: this.props.changePermission
           },
           fieldActions: {
             onChangeField: this.createHandleUpdateField(item),
@@ -179,19 +186,24 @@ class Players extends Component {
             delete: this.createHandleDeleteField(item)
           },
           fields: item.fields
-            .filter(field => admin || field.visibleToUsers)
-            .map(field => Object.assign({}, field, { canEdit: admin })),
-          canEdit: admin || item.permission.includes(this.props.userId),
+            .filter(field => admin || field.visibleToUsers || canEdit)
+            .map(field => Object.assign({}, field, { canEdit: canEdit })),
+          canEdit: canEdit,
+          canCRUD: admin,
           style: MAIN,
           styleHidden: MAIN_HIDDEN
-        })
-      );
+        });
+      });
 
     return (
       <div style={{ border: "1px dot black" }}>
         <div style={{ display: "flex" }}>
           {admin && <UnitsToolbar addClick={this.handleAddPlayer} />}
-          <Units renderItem={this.renderUnit} items={items} emptyMsg={'Add PLAYER here!'} />
+          <Units
+            renderItem={this.renderUnit}
+            items={items}
+            emptyMsg={"Add PLAYER here!"}
+          />
         </div>
       </div>
     );
