@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import {MAIN_COLOR } from '../styles/constants';
+import Accessibility from 'material-ui/svg-icons/action/accessibility';
+import IconButton from "material-ui/IconButton";
+import styles from "../styles/IconStyles";
 
 export default class UnitPermission extends Component {
   constructor(props) {
@@ -60,7 +64,7 @@ export default class UnitPermission extends Component {
       return (
         <div>
           <input
-            size="20"
+            size="50"
             ref="input"
             defaultValue={permission}
             onKeyUp={this.handleKeyUp}
@@ -69,9 +73,13 @@ export default class UnitPermission extends Component {
       );
     } else {
       return (
-        <span onDoubleClick={this.editOn}>
-          prm
-        </span>
+        <IconButton
+          onClick={this.editOn}
+          iconStyle={Object.assign({}, styles.smallIcon, {color: MAIN_COLOR})}
+          style={styles.small}>
+          <Accessibility />
+        </IconButton>
+
       );
     }
   }
