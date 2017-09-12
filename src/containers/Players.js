@@ -14,7 +14,7 @@ import {
   deletePlayerField,
   changePermission
 } from "../actions/players";
-import { junkSend } from "../actions/ws";
+import { junkSend, actionSend } from "../actions/ws";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { MAIN, MAIN_HIDDEN } from "../styles/constants";
@@ -24,11 +24,19 @@ const mapDispatchToProps = dispatch => ({
   addPlayerClick: parentId => {
     dispatch(addPlayer(parentId));
   },
-  addFieldClick: unit => {
+  addFieldClick: (unit, send) => {
     dispatch(addPlayerField(unit.playerId));
+    if (send) {
+      dispatch(actionSend(addPlayerField(unit.playerId)));
+    } else {
+
+    }
   },
-  updateField: (unitId, fieldId, value) => {
+  updateField: (unitId, fieldId, value, send) => {
     dispatch(updatePlayerField(unitId, fieldId, value));
+    if (send) {
+      dispatch(actionSend(updatePlayerField(unitId, fieldId, value)));
+    }
   },
   junkSend: () => dispatch(junkSend()),
   deleteUnit: unitId => {
@@ -44,14 +52,23 @@ const mapDispatchToProps = dispatch => ({
     dispatch(changeName(options));
     dispatch(junkSend());
   },
-  togglePlayerFieldVisible: (unitId, fieldId) => {
+  togglePlayerFieldVisible: (unitId, fieldId, send) => {
     dispatch(togglePlayerFieldVisible(unitId, fieldId));
+    if (send) {
+      dispatch(actionSend(togglePlayerFieldVisible(unitId, fieldId)));
+    }
   },
-  updatePlayerFieldName: (unitId, fieldId, name) => {
+  updatePlayerFieldName: (unitId, fieldId, name, send) => {
     dispatch(updatePlayerFieldName(unitId, fieldId, name));
+    if (send) {
+      dispatch(actionSend(updatePlayerFieldName(unitId, fieldId, name)));
+    }
   },
-  deletePlayerField: (unitId, fieldId) => {
+  deletePlayerField: (unitId, fieldId, send) => {
     dispatch(deletePlayerField(unitId, fieldId));
+    if (send) {
+      dispatch(actionSend(deletePlayerField(unitId, fieldId)));
+    }
   },
   changePermission: options => {
     dispatch(changePermission(options));
@@ -81,8 +98,8 @@ class Players extends Component {
     const addField = this.props.addFieldClick;
     const id = unit._id;
     return () => {
-      addField({ playerId: id });
-      this.props.junkSend();
+      addField({ playerId: id }, !this.props.admin);
+      this.props.admin && this.props.junkSend();
     };
   };
 
@@ -117,8 +134,8 @@ class Players extends Component {
     const updateField = this.props.updateField;
     const unitId = unit._id;
     return (fieldId, value) => {
-      updateField(unitId, fieldId, value);
-      this.props.junkSend();
+      updateField(unitId, fieldId, value, !this.props.admin);
+      this.props.admin && this.props.junkSend();
     };
   };
 
@@ -126,8 +143,8 @@ class Players extends Component {
     const togglePlayerFieldVisible = this.props.togglePlayerFieldVisible;
     const unitId = unit._id;
     return fieldId => {
-      togglePlayerFieldVisible(unitId, fieldId);
-      this.props.junkSend();
+      togglePlayerFieldVisible(unitId, fieldId, !this.props.admin);
+      this.props.admin && this.props.junkSend();
     };
   };
 
@@ -135,8 +152,8 @@ class Players extends Component {
     const updatePlayerFieldName = this.props.updatePlayerFieldName;
     const unitId = unit._id;
     return (fieldId, name) => {
-      updatePlayerFieldName(unitId, fieldId, name);
-      this.props.junkSend();
+      updatePlayerFieldName(unitId, fieldId, name, !this.props.admin);
+      this.props.admin && this.props.junkSend();
     };
   };
 
@@ -144,8 +161,8 @@ class Players extends Component {
     const deletePlayerField = this.props.deletePlayerField;
     const unitId = unit._id;
     return fieldId => {
-      deletePlayerField(unitId, fieldId);
-      this.props.junkSend();
+      deletePlayerField(unitId, fieldId, !this.props.admin);
+      this.props.admin && this.props.junkSend();
     };
   };
 

@@ -22,11 +22,14 @@ export default class FieldName extends Component {
   }
 
   getInputValue = () => {
-    return this.refs.input.value;
+    return this.refs.input && this.refs.input.value;
   };
 
   setInputValue = name => {
-    this.refs.input.value = name;
+    if (this.refs.input) {
+      this.refs.input.value = name;
+    }
+  
   };
 
   handleKeyUp = e => {

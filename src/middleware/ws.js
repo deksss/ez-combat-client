@@ -1,7 +1,8 @@
 import * as socketActions from "../actions/ws.js";
 import { junkUpdate } from "../actions/index.js";
+import { junkSend } from "../actions/ws.js";
 
-const getCurRoomData = allData => ({
+const getCurRoomData = (allData, sendType) => ({
   data: {
     npcs: allData.npcs.filter(npc => npc.parentId === allData.rooms.currentId),
     players: allData.players.filter(
@@ -18,7 +19,21 @@ const sendUpsertToServer = (socket, store) => {
     const dataForSend = getCurRoomData(allData);
     const data = JSON.stringify(dataForSend);
     socket.send(data);
-    return Date.now()
+    return Date.now();
+  }
+  return 0;
+};
+
+const sendActionToServer = (socket, action, room) => {
+  if (socket && socket.readyState === 1) {
+    const dataObj = {
+      type: "action",
+      action: action,
+      room: room
+    };
+    const dataStr = JSON.stringify(dataObj);
+    socket.send(dataStr);
+    return Date.now();
   }
   return 0;
 };
@@ -44,9 +59,13 @@ export default function createSocketMiddleware() {
     } else {
       try {
         const data = JSON.parse(evt.data);
-        store.dispatch(junkUpdate(data));
+        if (data.remote) {
+          store.dispatch(data.action);
+          store.dispatch(junkSend());
+        } else {
+          store.dispatch(junkUpdate(data));
+        }
       } catch (e) {
-        console.log(evt);
         console.log(e);
       }
     }
@@ -84,6 +103,17 @@ export default function createSocketMiddleware() {
         setTimeout(() => {
           prevSendTime = sendUpsertToServer(socket, store);
         }, delay);
+        break;
+      case "SOCKETS_ACTION_SEND":
+        console.log("try send player");
+        const timeDiffAction = Date.now() - prevSendTime;
+        const delayAction =
+          timeDiffAction > MIN_DELAY ? 0 : MIN_DELAY - timeDiffAction;
+
+        setTimeout(() => {
+          let curRoomID = store.getState().rooms.currentId;
+          prevSendTime = sendActionToServer(socket, action, curRoomID);
+        }, delayAction);
         break;
       case "JOIN_ROOM":
         console.log("action");

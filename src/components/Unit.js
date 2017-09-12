@@ -109,7 +109,7 @@ const Unit = ({ unit }) => {
               name={name}
               onChange={unitActions.changeName}
               _id={_id}
-              readOnly={canCRUD}
+              readOnly={!canCRUD}
             />
             {canCRUD && (
               <div>
