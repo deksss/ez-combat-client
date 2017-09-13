@@ -26,12 +26,15 @@ const HeaderStyledBlock = styled.div`
 
 export default class RoomHeader extends Component {
   static propTypes = {
-    roomId: PropTypes.string.isRequired
+    roomId: PropTypes.string.isRequired,
+    toggleSettings: PropTypes.func.isRequired,
   };
 
   handleAddClick = () => {
     console.log(this.props);
   };
+
+  handleToggleSettings = () => this.props.toggleSettings();
 
   render() {
     return (
@@ -48,7 +51,7 @@ export default class RoomHeader extends Component {
           <span>{this.props.roomId}</span>
         </HeaderStyledBlock>
         <HeaderStyledBlock>
-          <IconButton onClick={() => console.log(this)}
+          <IconButton onClick={this.handleToggleSettings}
                       iconStyle={styles.mediumIcon}
                       style={styles.medium}>
             <Settings />

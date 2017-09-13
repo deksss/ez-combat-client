@@ -5,9 +5,11 @@ import players from "./players";
 import npcs from "./npcs";
 import unitTemplates from "./unitTemplates";
 import fieldTemplates from "./fieldTemplates";
-import rooms from "./rooms"
-import ws from "./ws";;
+import rooms from "./rooms";
+import ws from "./ws";
 import user from "./user";
+import sidebar from "./sidebar";
+import FileSaver from "file-saver";
 
 function reduceReducers(...reducers) {
   return (previous, current) =>
@@ -59,7 +61,6 @@ function dumbUpdate(state, action) {
   });
 }
 
-
 const rootReducer = reduceReducers(
   combineReducers({
     routing,
@@ -70,12 +71,23 @@ const rootReducer = reduceReducers(
     unitTemplates,
     fieldTemplates,
     ws,
-    user
+    user,
+    sidebar
   }),
   (state, action) => {
     switch (action.type) {
       case "JUNK_UPDATE":
         return dumbUpdate(state, action);
+      case "SAVE_STORE_TO_FILE":
+        //todo: move logic to saga
+        const filename = "ez-combat-store";
+        const blob = new Blob([JSON.stringify(state)], {
+          type: "application/json"
+        });
+        FileSaver.saveAs(blob, filename + ".json");
+        return state;
+      case "LOAD_STORE_FROM_JSON":
+        return Object.assign({}, state, action.data);
       default:
         return state;
     }

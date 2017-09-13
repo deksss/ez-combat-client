@@ -4,22 +4,36 @@ import Players from "./Players";
 import Npcs from "./Npcs";
 import TemplatesList from "../components/TemplatesList";
 import { connect } from "react-redux";
-import { templatesToggle } from "../actions";
+import {
+  templatesToggle,
+  settingsToggle,
+  saveStoreToFile,
+  loadStoreFromJson
+} from "../actions";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import RoomHeader from "../components/RoomHeader";
-import FloatingActionButton from 'material-ui/FloatingActionButton';
+import FloatingActionButton from "material-ui/FloatingActionButton";
 import List from "../components/Icons/List";
+import GeneralSettings from "./GeneralSettings";
 
 const mapStateToProps = state => {
   return {
     showTemplates: state.templates.showTemplates,
-    roomId: state.rooms.currentId
+    roomId: state.rooms.currentId,
+    showGeneralSettings: state.sidebar.showGeneralSettings
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   templatesToggleClick: () => {
     dispatch(templatesToggle());
+  },
+  toggleSettings: () => dispatch(settingsToggle()),
+  saveStoreToFile: () => {
+    dispatch(saveStoreToFile());
+  },
+  loadFromFile: (data) => {
+    dispatch(loadStoreFromJson(data));
   }
 });
 
@@ -38,18 +52,32 @@ class RoomAdmin extends Component {
   };
 
   render() {
-    const { showTemplates } = this.props;
+    const {
+      showTemplates,
+      showGeneralSettings,
+      toggleSettings,
+      saveStoreToFile,
+      loadFromFile
+    } = this.props;
 
     return (
       <MuiThemeProvider>
         <div>
-          <RoomHeader roomId={this.props.roomId} />
-          <div style={{ position: "fixed",
-                        right: showTemplates ? "305px" : '5px',
-                        top: '47px'}}>
-            <FloatingActionButton backgroundColor='#8BC34A'
-                                  onClick={this.handleTemplatesToggle}>
-
+          <RoomHeader
+            roomId={this.props.roomId}
+            toggleSettings={toggleSettings}
+          />
+          <div
+            style={{
+              position: "fixed",
+              right: showTemplates ? "305px" : "5px",
+              top: "47px"
+            }}
+          >
+            <FloatingActionButton
+              backgroundColor="#8BC34A"
+              onClick={this.handleTemplatesToggle}
+            >
               <List />
             </FloatingActionButton>
           </div>
@@ -57,6 +85,12 @@ class RoomAdmin extends Component {
           <Npcs admin={true} />
           <hr />
           <Players admin={true} />
+          <GeneralSettings
+            showGeneralSettings={showGeneralSettings}
+            close={toggleSettings}
+            save={saveStoreToFile}
+            load={loadFromFile}
+          />
         </div>
       </MuiThemeProvider>
     );

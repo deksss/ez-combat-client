@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
+import Paper from "material-ui/Paper";
 
 export default class JoinRoom extends Component {
   static propTypes = {
@@ -9,7 +10,7 @@ export default class JoinRoom extends Component {
     onJoin: PropTypes.func.isRequired,
     onJoinMod: PropTypes.func.isRequired,
     rooms: PropTypes.array.isRequired,
-    userId:  PropTypes.string.isRequired,
+    userId: PropTypes.string.isRequired,
     changeUserId: PropTypes.func.isRequired
   };
 
@@ -30,16 +31,14 @@ export default class JoinRoom extends Component {
     });
   };
 
-
-
   handleChange = event => {
-    this.setInputValue(event.target.value)
+    this.setInputValue(event.target.value);
   };
 
-//  handleChangeUnit = event => {
-//    console.log()
-//    this.setInputValue(event.target.value)
-//  };
+  //  handleChangeUnit = event => {
+  //    console.log()
+  //    this.setInputValue(event.target.value)
+  //  };
 
   handleKeyUp = e => {
     if (e.keyCode === 13) {
@@ -59,37 +58,42 @@ export default class JoinRoom extends Component {
   };
 
   render() {
-    const placeholder = "enter room ID";
     return (
-      <div>
-        <div>
-          <TextField
-            ref={input => {
-              this.inputUser = input;
-            }}
-            value={this.props.userId}
-            placeholder={'user ID, must be 5 or more chr'}
-            onChange={this.props.changeUserId}
-            id="join-user-name"
-            style={{width: 300}}
-          />
-        </div>
+      <Paper zDepth={1} style={{
+        padding: 20,
+        paddingBottom: 10,
+        display: 'flex',
+        flexDirection: 'column'
+      }}>
+        <TextField
+          ref={input => {
+            this.inputUser = input;
+          }}
+          value={this.props.userId}
+          onChange={this.props.changeUserId}
+          id="join-user-name"
+          style={{ width: 300 }}
+          floatingLabelText="User ID:"
+        />
+        <br />
         <TextField
           ref={input => {
             this.input = input;
           }}
           onKeyUp={this.handleKeyUp}
           defaultValue={this.props.value}
-          placeholder={placeholder}
           onChange={this.handleChange}
           id="join-room-name"
+          floatingLabelText="Room name:"
         />
+        <br />
         <RaisedButton
           style={{ margin: "0.5em" }}
           onClick={this.handleJoinClick}
-          label="Go"
+          label="Join Room"
+          primary={true}
         />
-      </div>
+      </Paper>
     );
   }
 }

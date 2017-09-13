@@ -28,8 +28,7 @@ export default class FieldName extends Component {
   setInputValue = name => {
     if (this.refs.input) {
       this.refs.input.value = name;
-    }
-  
+    }  
   };
 
   handleKeyUp = e => {
