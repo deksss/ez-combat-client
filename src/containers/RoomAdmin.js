@@ -10,6 +10,7 @@ import {
   saveStoreToFile,
   loadStoreFromJson
 } from "../actions";
+import { rollD20 } from "../actions/rolls";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import RoomHeader from "../components/RoomHeader";
 import FloatingActionButton from "material-ui/FloatingActionButton";
@@ -21,7 +22,8 @@ const mapStateToProps = state => {
   return {
     showTemplates: state.templates.showTemplates,
     roomId: state.rooms.currentId,
-    showGeneralSettings: state.sidebar.showGeneralSettings
+    showGeneralSettings: state.sidebar.showGeneralSettings,
+    d20: state.rolls.d20
   };
 };
 
@@ -33,15 +35,19 @@ const mapDispatchToProps = dispatch => ({
   saveStoreToFile: () => {
     dispatch(saveStoreToFile());
   },
-  loadFromFile: (data) => {
+  loadFromFile: data => {
     dispatch(loadStoreFromJson(data));
+  },
+  rollD20: () => {
+    dispatch(rollD20());
   }
 });
 
 class RoomAdmin extends Component {
   static propTypes = {
     showTemplates: PropTypes.bool.isRequired,
-    roomId: PropTypes.string.isRequired
+    roomId: PropTypes.string.isRequired,
+    d20: PropTypes.string.isRequired
   };
 
   componentWillMount() {}
@@ -58,7 +64,9 @@ class RoomAdmin extends Component {
       showGeneralSettings,
       toggleSettings,
       saveStoreToFile,
-      loadFromFile
+      loadFromFile,
+      rollD20,
+      d20
     } = this.props;
 
     return (
@@ -85,7 +93,7 @@ class RoomAdmin extends Component {
           <TemplatesList showTemplates={showTemplates} />
           <Npcs admin={true} />
           <br />
-          <D20 value={"2"}/>
+          <D20 value={d20} roll={rollD20} />
           <br />
           <Players admin={true} />
           <GeneralSettings

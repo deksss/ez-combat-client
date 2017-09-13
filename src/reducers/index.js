@@ -10,6 +10,7 @@ import ws from "./ws";
 import user from "./user";
 import sidebar from "./sidebar";
 import FileSaver from "file-saver";
+import rolls from "./rolls";
 
 function reduceReducers(...reducers) {
   return (previous, current) =>
@@ -72,7 +73,8 @@ const rootReducer = reduceReducers(
     fieldTemplates,
     ws,
     user,
-    sidebar
+    sidebar,
+    rolls
   }),
   (state, action) => {
     switch (action.type) {
