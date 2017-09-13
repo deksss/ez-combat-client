@@ -15,6 +15,7 @@ import RoomHeader from "../components/RoomHeader";
 import FloatingActionButton from "material-ui/FloatingActionButton";
 import List from "../components/Icons/List";
 import GeneralSettings from "./GeneralSettings";
+import D20 from "../components/dices/D20";
 
 const mapStateToProps = state => {
   return {
@@ -83,7 +84,9 @@ class RoomAdmin extends Component {
           </div>
           <TemplatesList showTemplates={showTemplates} />
           <Npcs admin={true} />
-          <hr />
+          <br />
+          <D20 value={"2"}/>
+          <br />
           <Players admin={true} />
           <GeneralSettings
             showGeneralSettings={showGeneralSettings}

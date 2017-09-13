@@ -32,11 +32,15 @@ export default class GeneralSettings extends React.Component {
     return (
       <div>
         <Drawer open={this.props.showGeneralSettings} openSecondary={true}>
-          <button onClick={this.props.close}>Close</button>
-          <button onClick={this.props.save}>Save</button>
-          <Dropzone onDrop={this.onDrop.bind(this)}>
-            <p>Load data from file.</p>
-          </Dropzone>
+          <div style={{padding:20}}>
+            <button onClick={this.props.close}>Close</button>
+            <br/>
+            <button onClick={this.props.save}>Save to file</button>
+            <br/>
+            <Dropzone onDrop={this.onDrop.bind(this)}>
+              <p>Load data from file.</p>
+            </Dropzone>
+          </div>
         </Drawer>
       </div>
     );
