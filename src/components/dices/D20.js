@@ -50,7 +50,7 @@ class D20 extends React.Component {
 };
 
 D20.propTypes = {
-  value: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
   roll: PropTypes.func.isRequired,
 };
 

@@ -5,12 +5,25 @@ import Npcs from "./Npcs";
 import { connect } from "react-redux";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import RoomHeader from "../components/RoomHeader";
+import D20 from "../components/dices/D20";
+import { randomFace } from "../common/roller";
+import { actionSend } from "../actions/ws";
+import { rollD20 } from "../actions/rolls";
 
 const mapStateToProps = state => {
   return {
-    roomId: state.rooms.currentId
+    roomId: state.rooms.currentId,
+    d20: state.rolls.d20
   };
 };
+
+const mapDispatchToProps = dispatch => ({
+  rollD20: () => {
+    const roll = randomFace(20);
+    dispatch(rollD20({ user: "User", roll: roll }));
+    dispatch(actionSend(rollD20({ user: "User", roll: roll })));
+  }
+});
 
 class Room extends Component {
   static propTypes = {
@@ -22,12 +35,15 @@ class Room extends Component {
   componentWillReceiveProps(nextProps) {}
 
   render() {
+    const { rollD20, d20 } = this.props;
     return (
       <MuiThemeProvider>
         <div>
           <RoomHeader roomId={this.props.roomId} />
           <Npcs admin={false} />
-          <hr />
+          <br />
+          <D20 value={d20} roll={rollD20} />
+          <br />
           <Players admin={false} />
         </div>
       </MuiThemeProvider>
@@ -35,4 +51,4 @@ class Room extends Component {
   }
 }
 
-export default connect(mapStateToProps)(Room);
+export default connect(mapStateToProps, mapDispatchToProps)(Room);

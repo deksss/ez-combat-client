@@ -17,6 +17,8 @@ import FloatingActionButton from "material-ui/FloatingActionButton";
 import List from "../components/Icons/List";
 import GeneralSettings from "./GeneralSettings";
 import D20 from "../components/dices/D20";
+import { randomFace } from "../common/roller";
+import { actionSend } from "../actions/ws";
 
 const mapStateToProps = state => {
   return {
@@ -39,7 +41,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(loadStoreFromJson(data));
   },
   rollD20: () => {
-    dispatch(rollD20());
+    const roll = randomFace(20);
+    dispatch(rollD20({ user: "Admin", roll: roll }));
+    dispatch(actionSend(rollD20({ user: "Admin", roll: roll })));
   }
 });
 
@@ -47,7 +51,7 @@ class RoomAdmin extends Component {
   static propTypes = {
     showTemplates: PropTypes.bool.isRequired,
     roomId: PropTypes.string.isRequired,
-    d20: PropTypes.string.isRequired
+    d20: PropTypes.number.isRequired
   };
 
   componentWillMount() {}
