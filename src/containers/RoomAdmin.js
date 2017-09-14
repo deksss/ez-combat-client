@@ -43,7 +43,7 @@ const mapDispatchToProps = dispatch => ({
   },
   rollD20: () => {
     const roll = randomFace(20);
-    //    dispatch(rollD20({ name: "Admin", roll: roll }));
+       dispatch(rollD20({ name: "Admin", roll: roll }));
     dispatch(actionSend(rollD20({ name: "GM", roll: roll })));
   }
 });
@@ -98,8 +98,8 @@ class RoomAdmin extends Component {
           <TemplatesList showTemplates={showTemplates} />
           <Npcs admin={true} />
           <br />
-          <div style={{ display: "flex", height: 150, width: "500" }}>
-            <RollList list={d20.log} />
+          <div style={{ display: "flex", height: 150, width: "500px" }}>
+            <RollList list={d20.log || []} />
             <D20
               value={d20.roll}
               name={d20.name}

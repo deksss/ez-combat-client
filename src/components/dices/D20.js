@@ -10,7 +10,7 @@ class D20 extends React.Component {
     this.state = {rolling: false};
   }
   componentWillReceiveProps(nextProps) {
-    if (this.props.date !== this.props.date) {
+    if (this.props.date !== nextProps.date) {
       this.setState({rolling: false});
       setTimeout(() => {this.setState({rolling: true})}, 0);
     }

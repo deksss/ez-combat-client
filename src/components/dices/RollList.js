@@ -7,15 +7,16 @@ import uuid from "../../common/uuid";
 class RollList extends React.Component {
 
   renderD20roll(data) {
-    const text = `(${data.date})   ${data.name}: ${data.roll}`;
-    return <ListItem primaryText={text} style={{width: 150}} key={uuid()} />;
+    const text = `(${data.date}) ${data.name}:
+    ${data.roll}`;
+    return <ListItem primaryText={text} style={{width: 300}} key={uuid()} />;
   }
 
   render() {
     const { list } = this.props;
     if (list.length) {
       return (
-        <Scrollbars style={{width: 200, height: 150}}>
+        <Scrollbars style={{width: 350, height: 150}}>
           <List>
             {list.reverse().map(this.renderD20roll)}
           </List>
@@ -23,7 +24,7 @@ class RollList extends React.Component {
       );
     } else {
       return (
-        <div style={{width: 200, height: 100}}>
+        <div style={{width: 350, height: 150}}>
         </div>
       );
     }
