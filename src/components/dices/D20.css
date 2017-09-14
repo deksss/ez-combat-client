@@ -15,7 +15,7 @@
     transform: rotateX(480deg) rotateY(960deg) rotateZ(0deg);
   }
 }
-.content {
+.roll-20-content {
   margin: auto auto;
   position: relative;
   width: 80px;

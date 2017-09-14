@@ -3,7 +3,7 @@ const rolls = (state = { d20: { roll: 20, name: "Nobody", log: [] } }, action) =
     case "ROLL_D20":
       const {roll, name} = action;
       return Object.assign({}, state, {
-        d20: { roll, name, log: [...state.d20.log, ...[{roll, name}]]  }
+        d20: { roll, name, log: [...state.d20.log, ...[{roll, name, date: new Date()}]]  }
       });
     default:
       return state;

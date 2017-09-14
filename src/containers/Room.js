@@ -42,7 +42,7 @@ class Room extends Component {
           <RoomHeader roomId={this.props.roomId} />
           <Npcs admin={false} />
           <br />
-          <D20 value={d20.value} name={d20.name} roll={rollD20} />
+          <D20 value={d20.roll} name={d20.name} rollHandle={rollD20} />
           <br />
           <Players admin={false} />
         </div>

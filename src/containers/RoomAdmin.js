@@ -21,7 +21,6 @@ import RollList from "../components/dices/RollList";
 import { randomFace } from "../common/roller";
 import { actionSend } from "../actions/ws";
 
-
 const mapStateToProps = state => {
   return {
     showTemplates: state.templates.showTemplates,
@@ -44,7 +43,7 @@ const mapDispatchToProps = dispatch => ({
   },
   rollD20: () => {
     const roll = randomFace(20);
-    dispatch(rollD20({ name: "Admin", roll: roll }));
+    //    dispatch(rollD20({ name: "Admin", roll: roll }));
     dispatch(actionSend(rollD20({ name: "GM", roll: roll })));
   }
 });
@@ -99,8 +98,15 @@ class RoomAdmin extends Component {
           <TemplatesList showTemplates={showTemplates} />
           <Npcs admin={true} />
           <br />
-          <D20 value={d20.roll} name={d20.name} rollHandle={rollD20} />
-          <RollList list={d20.log} />
+          <div style={{ display: "flex", height: 150, width: "500" }}>
+            <RollList list={d20.log} />
+            <D20
+              value={d20.roll}
+              name={d20.name}
+              rollHandle={rollD20}
+              date={d20.date}
+            />
+          </div>
           <br />
           <Players admin={true} />
           <GeneralSettings

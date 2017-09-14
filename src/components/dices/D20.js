@@ -10,15 +10,17 @@ class D20 extends React.Component {
     this.state = {rolling: false};
   }
   componentWillReceiveProps(nextProps) {
-    this.setState({rolling: false});
-    setTimeout(() => {this.setState({rolling: true})}, 0);
+    if (this.props.date !== this.props.date) {
+      this.setState({rolling: false});
+      setTimeout(() => {this.setState({rolling: true})}, 0);
+    }
   }
 
   render() {
     const { value, rollHandle } = this.props;
     const roollingClass = this.state.rolling ? "die rolling" : "die";
     return (
-      <div className="content">
+      <div className="roll-20-content">
         <div
           className={roollingClass}
           data-face={value}
