@@ -26,7 +26,9 @@ export default class UnitName extends Component {
   };
 
   setInputValue = name => {
-    this.refs.input.value = name;
+    if (this.refs.input) {
+      this.refs.input.value = name;
+    }
   };
 
   handleKeyUp = e => {
