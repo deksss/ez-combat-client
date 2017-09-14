@@ -20,7 +20,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   rollD20: () => {
     const roll = randomFace(20);
-    dispatch(rollD20({ user: "User", roll: roll }));
+  //  dispatch(rollD20({ user: "User", roll: roll }));
     dispatch(actionSend(rollD20({ user: "User", roll: roll })));
   }
 });

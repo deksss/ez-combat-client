@@ -1,4 +1,4 @@
-const rolls = (state = { d20: '1' }, action) => {
+const rolls = (state = { d20: 1 }, action) => {
   switch (action.type) {
     case "ROLL_D20":
       return Object.assign({}, state, {

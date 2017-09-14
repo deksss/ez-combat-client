@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+// eslint-disable-next-line
+import style from "./D20.css";
 
 class D20 extends React.Component {
   constructor(props) {

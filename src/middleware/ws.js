@@ -7,7 +7,8 @@ const getCurRoomData = (allData, sendType) => ({
     npcs: allData.npcs.filter(npc => npc.parentId === allData.rooms.currentId),
     players: allData.players.filter(
       player => player.parentId === allData.rooms.currentId
-    )
+    ),
+    rolls: {d20: allData.rolls.d20}
   },
   type: "update",
   room: allData.rooms.currentId

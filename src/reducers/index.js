@@ -58,7 +58,8 @@ function dumbUpdate(state, action) {
         })
         .filter(player => player !== false),
       ...playersNew
-    ]
+    ],
+    rolls: action.data.rolls
   });
 }
 

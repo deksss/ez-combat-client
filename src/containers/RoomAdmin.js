@@ -42,7 +42,7 @@ const mapDispatchToProps = dispatch => ({
   },
   rollD20: () => {
     const roll = randomFace(20);
-    dispatch(rollD20({ user: "Admin", roll: roll }));
+//    dispatch(rollD20({ user: "Admin", roll: roll }));
     dispatch(actionSend(rollD20({ user: "Admin", roll: roll })));
   }
 });
