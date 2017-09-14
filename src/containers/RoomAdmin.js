@@ -17,8 +17,10 @@ import FloatingActionButton from "material-ui/FloatingActionButton";
 import List from "../components/Icons/List";
 import GeneralSettings from "./GeneralSettings";
 import D20 from "../components/dices/D20";
+import RollList from "../components/dices/RollList";
 import { randomFace } from "../common/roller";
 import { actionSend } from "../actions/ws";
+
 
 const mapStateToProps = state => {
   return {
@@ -42,8 +44,8 @@ const mapDispatchToProps = dispatch => ({
   },
   rollD20: () => {
     const roll = randomFace(20);
-//    dispatch(rollD20({ user: "Admin", roll: roll }));
-    dispatch(actionSend(rollD20({ user: "Admin", roll: roll })));
+    dispatch(rollD20({ name: "Admin", roll: roll }));
+    dispatch(actionSend(rollD20({ name: "GM", roll: roll })));
   }
 });
 
@@ -51,7 +53,7 @@ class RoomAdmin extends Component {
   static propTypes = {
     showTemplates: PropTypes.bool.isRequired,
     roomId: PropTypes.string.isRequired,
-    d20: PropTypes.number.isRequired
+    d20: PropTypes.object.isRequired
   };
 
   componentWillMount() {}
@@ -97,7 +99,8 @@ class RoomAdmin extends Component {
           <TemplatesList showTemplates={showTemplates} />
           <Npcs admin={true} />
           <br />
-          <D20 value={d20} roll={rollD20} />
+          <D20 value={d20.roll} name={d20.name} rollHandle={rollD20} />
+          <RollList list={d20.log} />
           <br />
           <Players admin={true} />
           <GeneralSettings

@@ -21,7 +21,7 @@ const mapDispatchToProps = dispatch => ({
   rollD20: () => {
     const roll = randomFace(20);
   //  dispatch(rollD20({ user: "User", roll: roll }));
-    dispatch(actionSend(rollD20({ user: "User", roll: roll })));
+    dispatch(actionSend(rollD20({ name: "User", roll: roll })));
   }
 });
 
@@ -42,7 +42,7 @@ class Room extends Component {
           <RoomHeader roomId={this.props.roomId} />
           <Npcs admin={false} />
           <br />
-          <D20 value={d20} roll={rollD20} />
+          <D20 value={d20.value} name={d20.name} roll={rollD20} />
           <br />
           <Players admin={false} />
         </div>

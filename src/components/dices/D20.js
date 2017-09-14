@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 // eslint-disable-next-line
 import style from "./D20.css";
 
+
 class D20 extends React.Component {
   constructor(props) {
     super(props);
@@ -14,7 +15,7 @@ class D20 extends React.Component {
   }
 
   render() {
-    const { value, roll } = this.props;
+    const { value, rollHandle } = this.props;
     const roollingClass = this.state.rolling ? "die rolling" : "die";
     return (
       <div className="content">
@@ -22,7 +23,8 @@ class D20 extends React.Component {
           className={roollingClass}
           data-face={value}
           id="d20"
-          onClick={roll}
+          onClick={rollHandle}
+          onDragEnd={rollHandle}
           value={value}
         >
           <figure className="face face-1" />
@@ -52,8 +54,9 @@ class D20 extends React.Component {
 };
 
 D20.propTypes = {
-  number: PropTypes.string.isRequired,
-  roll: PropTypes.func.isRequired,
+  value: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  rollHandle: PropTypes.func.isRequired,
 };
 
 export default D20;
