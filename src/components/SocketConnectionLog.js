@@ -7,10 +7,10 @@ export default class SocketConnectionLog extends Component {
   };
   render() {
     const color = this.props.connected ? "green" : "red";
-    const text = this.props.connected ? "online" : "offline";
+    const text = this.props.connected ? "o" : "-";
     return (
       <div>
-        Connection:<span style={{ color: color }}>{text}</span>
+        <span style={{ color: color }}>{text}</span>
       </div>
     );
   }
