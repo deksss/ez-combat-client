@@ -16,7 +16,7 @@ const HeaderStyled = styled.div`
   background-color: #8bc34a;
   color: #ffffff;
   font-size: 20px;
-  font-family: "Hammersmith One";
+  font-family: "Roboto";
 `;
 
 const HeaderStyledBlock = styled.div`
@@ -27,6 +27,7 @@ const HeaderStyledBlock = styled.div`
 export default class RoomHeader extends Component {
   static propTypes = {
     roomId: PropTypes.string.isRequired,
+    userId: PropTypes.string.isRequired,
     toggleSettings: PropTypes.func.isRequired,
   };
 
@@ -47,8 +48,8 @@ export default class RoomHeader extends Component {
               <Home />
             </IconButton>
           </Link>
-
-          <span>{this.props.roomId}</span>
+        <span>{this.props.userId} in: </span>
+        <h4>{this.props.roomId}</h4>
         </HeaderStyledBlock>
         <HeaderStyledBlock>
           <IconButton onClick={this.handleToggleSettings}
@@ -58,6 +59,7 @@ export default class RoomHeader extends Component {
           </IconButton>
           <IconButton onClick={() => console.log(this)}
                       iconStyle={styles.mediumIcon}
+                      disabled={true}
                       style={styles.medium}>
             <Help />
           </IconButton>

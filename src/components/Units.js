@@ -24,7 +24,7 @@ export default class Units extends Component {
       return (
         <div style={style}>
           <h4>
-            <i>{emptyMsg}</i>
+            {emptyMsg}
           </h4>
         </div>
       );

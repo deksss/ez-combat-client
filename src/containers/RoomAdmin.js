@@ -26,7 +26,8 @@ const mapStateToProps = state => {
     showTemplates: state.templates.showTemplates,
     roomId: state.rooms.currentId,
     showGeneralSettings: state.sidebar.showGeneralSettings,
-    d20: state.rolls.d20
+    d20: state.rolls.d20,
+    userId: state.user.userId
   };
 };
 
@@ -43,7 +44,7 @@ const mapDispatchToProps = dispatch => ({
   },
   rollD20: () => {
     const roll = randomFace(20);
-       dispatch(rollD20({ name: "Admin", roll: roll }));
+    //dispatch(rollD20({ name: "Admin", roll: roll }));
     dispatch(actionSend(rollD20({ name: "GM", roll: roll })));
   }
 });
@@ -52,7 +53,8 @@ class RoomAdmin extends Component {
   static propTypes = {
     showTemplates: PropTypes.bool.isRequired,
     roomId: PropTypes.string.isRequired,
-    d20: PropTypes.object.isRequired
+    d20: PropTypes.object.isRequired,
+    userId: PropTypes.string.isRequired
   };
 
   componentWillMount() {}
@@ -80,6 +82,7 @@ class RoomAdmin extends Component {
           <RoomHeader
             roomId={this.props.roomId}
             toggleSettings={toggleSettings}
+            userId={this.props.userId}
           />
           <div
             style={{
@@ -91,6 +94,7 @@ class RoomAdmin extends Component {
             <FloatingActionButton
               backgroundColor="#8BC34A"
               onClick={this.handleTemplatesToggle}
+              disabled={true}
             >
               <List />
             </FloatingActionButton>

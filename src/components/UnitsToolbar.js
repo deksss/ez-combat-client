@@ -45,6 +45,7 @@ export default class UnitsToolbar extends Component {
                                 iconStyle={{color:MAIN_COLOR}}
                                 style={itemStyle}
                                 backgroundColor={MAIN_BG_COLOR}
+                                disabled={true}
                                 onClick={addClick}>
 
             <Visibility color={MAIN_COLOR} />
@@ -52,6 +53,7 @@ export default class UnitsToolbar extends Component {
           <FloatingActionButton mini={true}
                                 style={itemStyle}
                                 backgroundColor={MAIN_BG_COLOR}
+                                disabled={true}
                                 onClick={addClick}>
 
             <Delete />
@@ -59,6 +61,7 @@ export default class UnitsToolbar extends Component {
           <FloatingActionButton mini={true}
                                 style={itemStyle}
                                 backgroundColor={MAIN_BG_COLOR}
+                                disabled={true}
                                 iconStyle={{color: MAIN_COLOR}}
                                 onClick={addClick}>
 

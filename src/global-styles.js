@@ -9,7 +9,7 @@ injectGlobal`
   }
   body {
       margin: 0;
-      font-family: Hammersmith One, Roboto, Helvetica, Arial, sans-serif;
+      font-family: Roboto, Helvetica, Arial, sans-serif;
       -moz-osx-font-smoothing: grayscale;
       -webkit-font-smoothing: antialiased;
   }
@@ -19,7 +19,7 @@ injectGlobal`
   }
 
   body.fontLoaded {
-    font-family: Hammersmith One, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
   #root {
@@ -31,12 +31,12 @@ injectGlobal`
 
   p,
   label {
-    font-family: Hammersmith One, Times, 'Times New Roman', serif;
+    font-family: Roboto, Times, 'Times New Roman', serif;
     line-height: 1.5em;
   }
 
   span {
-    font-family: Hammersmith One, Roboto, Helvetica, Arial, sans-serif;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
   }
 
   h1,
@@ -51,7 +51,7 @@ injectGlobal`
   ul {
       margin: 0;
       padding: 0;
-      font-family: Hammersmith One, Roboto, Helvetica, Arial, sans-serif;
+      font-family: Roboto, Helvetica, Arial, sans-serif;
   }
 
 
