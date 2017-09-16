@@ -16,8 +16,6 @@ export default class GeneralSettings extends React.Component {
   };
 
   onDrop(files) {
-    console.log(files);
-
     const file = files[0];
     const fr = new FileReader();
     fr.onload = (e) => {
@@ -35,10 +33,10 @@ export default class GeneralSettings extends React.Component {
           <div style={{padding:20}}>
             <button onClick={this.props.close}>Close</button>
             <br/>
-            <button onClick={this.props.save}>Save to file</button>
+            <button onClick={this.props.save}>Save room to preset file</button>
             <br/>
             <Dropzone onDrop={this.onDrop.bind(this)}>
-              <p>Load data from file.</p>
+              <p>Load data for this room from preset file.</p>
             </Dropzone>
           </div>
         </Drawer>

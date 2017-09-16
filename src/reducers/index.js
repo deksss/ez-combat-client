@@ -11,6 +11,7 @@ import user from "./user";
 import sidebar from "./sidebar";
 import FileSaver from "file-saver";
 import rolls from "./rolls";
+import {savePreset, loadPreset} from '../common/preset'
 
 function reduceReducers(...reducers) {
   return (previous, current) =>
@@ -83,14 +84,15 @@ const rootReducer = reduceReducers(
         return dumbUpdate(state, action);
       case "SAVE_STORE_TO_FILE":
         //todo: move logic to saga
-        const filename = "ez-combat-store";
-        const blob = new Blob([JSON.stringify(state)], {
+        const filename = `ez-combat-preset-${state.rooms.currentId}`;
+        const dataForSave = savePreset(state);
+        const blob = new Blob([JSON.stringify(dataForSave)], {
           type: "application/json"
         });
         FileSaver.saveAs(blob, filename + ".json");
         return state;
       case "LOAD_STORE_FROM_JSON":
-        return Object.assign({}, state, action.data);
+        return loadPreset(state, action.data);
       default:
         return state;
     }

@@ -219,7 +219,7 @@ class Players extends Component {
           <Units
             renderItem={this.renderUnit}
             items={items}
-            emptyMsg={`( ͡° ͜ʖ ͡°)    (✪‿✪)ノ   ╚═( ͡° ͜ʖ ͡°)═╝   (∩^o^)⊃━☆ﾟ.*･｡ﾟ`}
+            emptyMsg={`\u00A0\u00A0\u00A0\u00A0 ( ͡° ͜ʖ ͡°)\u00A0\u00A0\u00A0\u00A0 (✪‿✪)ノ\u00A0\u00A0\u00A0\u00A0╚═( ͡° ͜ʖ ͡°)═╝\u00A0\u00A0\u00A0\u00A0 (∩^o^)⊃━☆ﾟ.*･｡ﾟ`}
           />
         </div>
       </div>
