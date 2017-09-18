@@ -48,7 +48,7 @@ export default class RoomHeader extends Component {
               <Home />
             </IconButton>
           </Link>
-        <span>{this.props.userId} in: </span>
+        <span>{this.props.userId} in room: </span>
         <h4>{this.props.roomId}</h4>
         </HeaderStyledBlock>
         <HeaderStyledBlock>

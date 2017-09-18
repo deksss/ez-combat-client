@@ -3,16 +3,19 @@ import PropTypes from "prop-types";
 // eslint-disable-next-line
 import style from "./D20.css";
 
-
 class D20 extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {rolling: false};
+    this.state = { rolling: false };
   }
   componentWillReceiveProps(nextProps) {
+    console.log(this.props.date);
+    console.log(nextProps.date);
     if (this.props.date !== nextProps.date) {
-      this.setState({rolling: false});
-      setTimeout(() => {this.setState({rolling: true})}, 0);
+      this.setState({ rolling: false });
+      setTimeout(() => {
+        this.setState({ rolling: true });
+      }, 0);
     }
   }
 
@@ -53,12 +56,12 @@ class D20 extends React.Component {
       </div>
     );
   }
-};
+}
 
 D20.propTypes = {
   value: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  rollHandle: PropTypes.func.isRequired,
+  rollHandle: PropTypes.func.isRequired
 };
 
 export default D20;

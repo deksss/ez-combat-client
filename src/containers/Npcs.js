@@ -184,9 +184,13 @@ class Npcs extends Component {
       <div style={{ marginTop: 10 }}>
         <div style={{ display: "flex" }}>
           {admin && <UnitsToolbar addClick={this.handleAddNpc} />}
-          <Units renderItem={this.renderUnit}
-                 items={items}
-                 emptyMsg={' \u00A0\u00A0\u00A0\u00A0 ༼ つ ͠° ͟ ͟ʖ ͡° ༽つ \u00A0\u00A0\u00A0\u00A0(＞﹏＜)\u00A0\u00A0\u00A0\u00A0ヽ(￣～￣　)ノ\u00A0\u00A0\u00A0\u00A0 (ಠ o ಠ)¤=[]:::::>'}/>
+          <Units
+            renderItem={this.renderUnit}
+            items={items}
+            emptyMsg={
+              " \u00A0\u00A0\u00A0\u00A0 ༼ つ ͠° ͟ ͟ʖ ͡° ༽つ \u00A0\u00A0\u00A0\u00A0(＞﹏＜)\u00A0\u00A0\u00A0\u00A0ヽ(￣～￣　)ノ\u00A0\u00A0\u00A0\u00A0 (ಠ o ಠ)¤=[]:::::>"
+            }
+          />
         </div>
       </div>
     );

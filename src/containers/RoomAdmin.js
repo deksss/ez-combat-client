@@ -10,7 +10,7 @@ import {
   saveStoreToFile,
   loadStoreFromJson
 } from "../actions";
-import { rollD20 } from "../actions/rolls";
+import { rollD20, rollCustom } from "../actions/rolls";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import RoomHeader from "../components/RoomHeader";
 import FloatingActionButton from "material-ui/FloatingActionButton";
@@ -18,8 +18,9 @@ import List from "../components/Icons/List";
 import GeneralSettings from "./GeneralSettings";
 import D20 from "../components/dices/D20";
 import RollList from "../components/dices/RollList";
-import { randomFace } from "../common/roller";
+import { randomFace, roll } from "../common/roller";
 import { actionSend } from "../actions/ws";
+import CustomRoller from "../components/dices/CustomRoller";
 
 const mapStateToProps = state => {
   return {
@@ -27,7 +28,8 @@ const mapStateToProps = state => {
     roomId: state.rooms.currentId,
     showGeneralSettings: state.sidebar.showGeneralSettings,
     d20: state.rolls.d20,
-    userId: state.user.userId
+    userId: state.user.userId,
+    rollsLog: state.rolls.log
   };
 };
 
@@ -44,8 +46,31 @@ const mapDispatchToProps = dispatch => ({
   },
   rollD20: () => {
     const roll = randomFace(20);
-    //dispatch(rollD20({ name: "Admin", roll: roll }));
+    //  dispatch(rollD20({ name: "Admin", roll: roll }));
     dispatch(actionSend(rollD20({ name: "GM", roll: roll })));
+  },
+  customRoll: rawString => {
+    const result = roll(rawString);
+    if (result.res && result.type) {
+      dispatch(
+        actionSend(
+          rollCustom({
+            name: "GM",
+            rolls: result.res,
+            types: result.type,
+            rawString: rawString
+          })
+        )
+      );
+    }
+    /*  dispatch(
+      rollCustom({
+        name: "Admin",
+        rolls: result.res,
+        types: result.type,
+        rawString: rawString
+      })
+    );*/
   }
 });
 
@@ -54,7 +79,8 @@ class RoomAdmin extends Component {
     showTemplates: PropTypes.bool.isRequired,
     roomId: PropTypes.string.isRequired,
     d20: PropTypes.object.isRequired,
-    userId: PropTypes.string.isRequired
+    userId: PropTypes.string.isRequired,
+    customRoll: PropTypes.func.isRequired
   };
 
   componentWillMount() {}
@@ -73,7 +99,9 @@ class RoomAdmin extends Component {
       saveStoreToFile,
       loadFromFile,
       rollD20,
-      d20
+      d20,
+      customRoll,
+      rollsLog
     } = this.props;
 
     return (
@@ -102,8 +130,11 @@ class RoomAdmin extends Component {
           <TemplatesList showTemplates={showTemplates} />
           <Npcs admin={true} />
           <br />
-          <div style={{ display: "flex", height: 150, width: "500px" }}>
-            <RollList list={d20.log || []} />
+          <div style={{ display: "flex", height: 180, width: "800px" }}>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <CustomRoller rollHandle={customRoll} />
+              <RollList list={rollsLog || []} />
+            </div>
             <D20
               value={d20.roll}
               name={d20.name}
