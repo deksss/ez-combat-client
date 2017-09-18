@@ -28,24 +28,28 @@ export default class FieldName extends Component {
   setInputValue = name => {
     if (this.refs.input) {
       this.refs.input.value = name;
-    }  
+    }
   };
+
+save = () => {
+  const value = this.getInputValue();
+  if (value === "") {
+    this.setState({
+      edit: true,
+      msgOpen: true
+    });
+  } else {
+    this.setState({
+      edit: false,
+      msgOpen: false
+    });
+    this.props.onChange(value);
+  }
+};
 
   handleKeyUp = e => {
     if (e.keyCode === 13) {
-      const value = this.getInputValue();
-      if (value === "") {
-        this.setState({
-          edit: true,
-          msgOpen: true
-        });
-      } else {
-        this.setState({
-          edit: false,
-          msgOpen: false
-        });
-        this.props.onChange(value);
-      }
+      this.save()
     }
   };
 
@@ -72,6 +76,7 @@ export default class FieldName extends Component {
             ref="input"
             defaultValue={name}
             onKeyUp={this.handleKeyUp}
+            onBlur={this.save}
           />
           <Snackbar
             open={this.state.msgOpen}

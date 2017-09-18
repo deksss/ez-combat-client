@@ -31,24 +31,28 @@ export default class UnitName extends Component {
     }
   };
 
+  save = () => {
+    const value = this.getInputValue();
+    if (value !== "") {
+      this.setState({
+        edit: false,
+        msgOpen: false
+      });
+      this.props.onChange({
+        name: value,
+        _id: this.props._id
+      });
+    } else {
+      this.setState({
+        edit: true,
+        msgOpen: true
+      });
+    }
+  };
+
   handleKeyUp = e => {
     if (e.keyCode === 13) {
-      const value = this.getInputValue();
-      if (value !== "") {
-        this.setState({
-          edit: false,
-          msgOpen: false
-        });
-        this.props.onChange({
-          name: value,
-          _id: this.props._id
-        });
-      } else {
-        this.setState({
-          edit: true,
-          msgOpen: true
-        });
-      }
+      this.save();
     }
   };
 
@@ -78,6 +82,7 @@ export default class UnitName extends Component {
             ref="input"
             defaultValue={name}
             onKeyUp={this.handleKeyUp}
+            onBlur={this.save}
           />
           <Snackbar
             open={this.state.msgOpen}
