@@ -29,7 +29,6 @@ const rollToString = data => {
 
 class RollList extends React.Component {
   renderRoll(data, index) {
-    console.log(index)
     if (data.type && data.type === "d20") {
       const text = `(${data.name}): \u00A0 roll: \u00A0 ${data.roll}`;
       return (

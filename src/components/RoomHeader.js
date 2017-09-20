@@ -32,7 +32,6 @@ export default class RoomHeader extends Component {
   };
 
   handleAddClick = () => {
-    console.log(this.props);
   };
 
   handleToggleSettings = () => this.props.toggleSettings();

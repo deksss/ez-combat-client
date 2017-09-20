@@ -8,8 +8,6 @@ export const savePreset = state => {
   const players = state.players
     .filter( player => player.parentId === curRoom)
     .map(player => Object.assign({}, player,  {parentId: 'preset'})) || {};
-    console.log(curRoom)
-    console.log(state)
   return {npcs, players};
 }
 

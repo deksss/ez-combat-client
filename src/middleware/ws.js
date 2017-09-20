@@ -116,10 +116,7 @@ export default function createSocketMiddleware() {
           prevSendTime = sendActionToServer(socket, action, curRoomID);
         }, delayAction);
         break;
-      case "JOIN_ROOM":
-        console.log("action");
-        console.log(action);
-        console.log(socket);
+      case "JOIN_ROOM":;
         if (socket && socket.readyState === 1 && action._id) {
           const data = JSON.stringify({
             join: true,
