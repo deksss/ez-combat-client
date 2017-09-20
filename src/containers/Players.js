@@ -12,7 +12,8 @@ import {
   togglePlayerFieldVisible,
   updatePlayerFieldName,
   deletePlayerField,
-  changePermission
+  changePermission,
+  updatePlayerFieldRank
 } from "../actions/players";
 import { junkSend, actionSend } from "../actions/ws";
 import { connect } from "react-redux";
@@ -62,6 +63,12 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updatePlayerFieldName(unitId, fieldId, name));
     if (send) {
       dispatch(actionSend(updatePlayerFieldName(unitId, fieldId, name)));
+    }
+  },
+  moveField: (unitId, fieldId, index, send) => {
+    dispatch(updatePlayerFieldRank(unitId, fieldId, index));
+    if (send) {
+      dispatch(actionSend(updatePlayerFieldRank(unitId, fieldId, index)));
     }
   },
   deletePlayerField: (unitId, fieldId, send) => {
@@ -157,6 +164,16 @@ class Players extends Component {
     };
   };
 
+  createHandleFieldIndexChange = unit => {
+    const moveField = this.props.moveField;
+    const unitId = unit._id;
+    return (fieldId, index) => {
+      moveField(unitId, fieldId, index, !this.props.admin);
+      this.props.admin && this.props.junkSend();
+    };
+  };
+
+
   createHandleDeleteField = unit => {
     const deletePlayerField = this.props.deletePlayerField;
     const unitId = unit._id;
@@ -200,7 +217,8 @@ class Players extends Component {
             onChangeField: this.createHandleUpdateField(item),
             toggleVisible: this.createHandleToggleField(item),
             changeName: this.createHandleFieldNameChange(item),
-            delete: this.createHandleDeleteField(item)
+            delete: this.createHandleDeleteField(item),
+            moveField: this.createHandleFieldIndexChange(item)
           },
           fields: item.fields
             .filter(field => admin || field.visibleToUsers || canEdit)

@@ -11,7 +11,8 @@ import {
   changeName,
   toggleNpcFieldVisible,
   updateNpcFieldName,
-  deleteNpcField
+  deleteNpcField,
+  updateNpcFieldRank,
 } from "../actions/npcs";
 import { junkSend } from "../actions/ws";
 import { connect } from "react-redux";
@@ -48,6 +49,9 @@ const mapDispatchToProps = dispatch => ({
   },
   updateNpcFieldName: (unitId, fieldId, name) => {
     dispatch(updateNpcFieldName(unitId, fieldId, name));
+  },
+  moveField: (unitId, fieldId, index, send) => {
+    dispatch(updateNpcFieldRank(unitId, fieldId, index));
   },
   deleteNpcField: (unitId, fieldId) => {
     dispatch(deleteNpcField(unitId, fieldId));
@@ -142,6 +146,15 @@ class Npcs extends Component {
     };
   };
 
+  createHandleFieldIndexChange = unit => {
+    const moveField = this.props.moveField;
+    const unitId = unit._id;
+    return (fieldId, index) => {
+      moveField(unitId, fieldId, index, !this.props.admin);
+      this.props.admin && this.props.junkSend();
+    };
+  };
+
   handleAddNpc = () => {
     this.props.addNpcClick(this.props.roomId);
     this.props.junkSend();
@@ -168,7 +181,8 @@ class Npcs extends Component {
             onChangeField: this.createHandleUpdateField(item),
             toggleVisible: this.createHandleToggleField(item),
             changeName: this.createHandleFieldNameChange(item),
-            delete: this.createHandleDeleteField(item)
+            delete: this.createHandleDeleteField(item),
+            moveField: this.createHandleFieldIndexChange(item)
           },
           fields: item.fields
             .filter(field => admin || field.visibleToUsers)

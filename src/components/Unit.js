@@ -11,8 +11,8 @@ import FloatingActionButton from "material-ui/FloatingActionButton";
 import ContentAdd from "material-ui/svg-icons/content/add";
 import { MAIN_BG_COLOR } from "../styles/constants";
 import UnitPermission from "./UnitPermission";
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
+import { DragDropContext } from "react-dnd";
+import HTML5Backend from "react-dnd-html5-backend";
 
 const Unit = ({ unit }) => {
   const {
@@ -26,7 +26,7 @@ const Unit = ({ unit }) => {
     canEdit,
     style,
     styleHidden,
-    canCRUD
+    canCRUD,
   } = unit;
 
   const createHandleChangeField = fieldId => {
@@ -45,6 +45,10 @@ const Unit = ({ unit }) => {
     return () => fieldActions.delete(fieldId);
   };
 
+  const createHandleMove = fieldId => {
+    return index => fieldActions.moveField(fieldId, index);
+  };
+
   const renderField = field => {
     return (
       <Field
@@ -54,6 +58,7 @@ const Unit = ({ unit }) => {
         toggleVisible={createHandleToggleVisible(field._id)}
         changeName={createHandleChangeName(field._id)}
         delete={createHandleDelete(field._id)}
+        moveField={createHandleMove(field._id)}
       />
     );
   };
@@ -91,6 +96,7 @@ const Unit = ({ unit }) => {
 
   //const buttonColor = visibleToUsers ? '#FFFFFF' : '#FFFFFF';
   const buttonColor = visibleToUsers ? style.color : styleHidden.color;
+  const itemsSorted = fields.slice().sort((a, b) => b.index < a.index);
 
   if (canEdit) {
     return (
@@ -141,7 +147,7 @@ const Unit = ({ unit }) => {
               </div>
             )}
           </div>
-          <ul>{fields.map(renderField)}</ul>
+          <ul>{itemsSorted.map(renderField)}</ul>
           <FloatingActionButton
             mini={true}
             style={{ width: 30, height: 30, marginLeft: 20, marginTop: 10 }}
@@ -172,7 +178,7 @@ const Unit = ({ unit }) => {
               _id={_id}
             />
           </div>
-          <ul>{fields.map(renderField)}</ul>
+          <ul>{itemsSorted.map(renderField)}</ul>
         </UnitCard>
       </Paper>
     );

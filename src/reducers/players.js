@@ -19,7 +19,7 @@ const addPlayerField = (state, action) => {
               DEFAULT_FIELD,
               {
                 _id: uuid(),
-                rank: player.fields.length + 1
+                index: player.fields.length + 1
               },
               action.data
             )
@@ -41,8 +41,8 @@ const addPlayer = (state, action) => {
         {
           _id: uuid(),
           name: action.name || `Player`,
-          rank: state.length + 1,
-          permission: 'mod'
+          index: state.length + 1,
+          permission: "mod"
         },
         action.data
       )
@@ -71,11 +71,18 @@ const updatePlayerField = (state, action) => {
 const updatePlayerFieldRank = (state, action) => {
   return state.map(player => {
     if (player._id === action.unitId) {
+      const prevRank = player.fields.find(field => action.fieldId === field._id)
+        .index;
       return Object.assign(player, {
         fields: player.fields.map(field => {
           if (action.fieldId === field._id) {
             return Object.assign({}, field, {
-              rank: action.rank
+              index: action.index
+            });
+          }
+          if (action.index === field.index) {
+            return Object.assign({}, field, {
+              index: prevRank
             });
           }
           return field;
@@ -116,7 +123,7 @@ const copyPlayer = (state, action) => {
       Object.assign({}, data, {
         _id: uuid(),
         name: `${data.name}_copy`,
-        rank: state.length + 1
+        index: state.length + 1
       })
     ]
   ];
@@ -214,9 +221,9 @@ const players = (state = [], action) => {
     case "TOGGLE_FIELD_VISIBLE":
       return togglePlayerFieldVisible(state, action);
     case "CHANGE_PLAYER_PERMISSION":
-        return changeWhoCanEdit(state, action);
+      return changeWhoCanEdit(state, action);
     case "UPDATE_PLAYER_FIELD_RANK":
-        return updatePlayerFieldRank(state, action);
+      return updatePlayerFieldRank(state, action);
     default:
       return state;
   }

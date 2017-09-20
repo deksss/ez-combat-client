@@ -19,7 +19,7 @@ const addNpcField = (state, action) => {
               DEFAULT_FIELD,
               {
                 _id: uuid(),
-                rank: npc.fields.length + 1
+                index: npc.fields.length + 1
               },
               action.data
             )
@@ -41,8 +41,8 @@ const addNpc = (state, action) => {
         {
           _id: uuid(),
           name: action.name || `Enemy`,
-          rank: state.length + 1,
-          permission: 'mod, '
+          index: state.length + 1,
+          permission: "mod, "
         },
         action.data
       )
@@ -57,7 +57,7 @@ const updateNpcField = (state, action) => {
         fields: npc.fields.map(field => {
           if (action.fieldId === field._id) {
             return Object.assign({}, field, {
-              value: action.value,
+              value: action.value
             });
           }
           return field;
@@ -71,11 +71,18 @@ const updateNpcField = (state, action) => {
 const updateNpcFieldRank = (state, action) => {
   return state.map(npc => {
     if (npc._id === action.unitId) {
+      const prevRank = npc.fields.find(field => action.fieldId === field._id)
+        .index;
       return Object.assign(npc, {
         fields: npc.fields.map(field => {
           if (action.fieldId === field._id) {
             return Object.assign({}, field, {
-              rank: action.rank,
+              index: action.index
+            });
+          }
+          if (action.index === field.index) {
+            return Object.assign({}, field, {
+              index: prevRank
             });
           }
           return field;
@@ -116,7 +123,7 @@ const copyNpc = (state, action) => {
       Object.assign({}, data, {
         _id: uuid(),
         name: `${data.name}_copy`,
-        rank: state.length + 1
+        index: state.length + 1
       })
     ]
   ];
@@ -132,7 +139,6 @@ const changeName = (state, action) => {
     return npc;
   });
 };
-
 
 const updateNpcFieldName = (state, action) => {
   return state.map(npc => {

@@ -40,7 +40,7 @@ class CustomRoller extends React.Component {
 
 
     return (
-      <div class="dice-custom-form">
+      <div className="dice-custom-form">
         <TextField
           ref={input => {
             this.input = input;

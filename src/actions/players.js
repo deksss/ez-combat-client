@@ -79,5 +79,5 @@ export const updatePlayerFieldRank = (unitId, fieldId, value) => ({
   type: UPDATE_PLAYER_FIELD_RANK,
   unitId: unitId,
   fieldId: fieldId,
-  rank: value
+  index: value
 });

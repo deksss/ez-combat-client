@@ -71,5 +71,5 @@ export const updateNpcFieldRank = (unitId, fieldId, value) => ({
   type: UPDATE_NPC_FIELD_RANK,
   unitId: unitId,
   fieldId: fieldId,
-  rank: value
+  index: value
 });

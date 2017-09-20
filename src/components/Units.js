@@ -18,20 +18,18 @@ export default class Units extends Component {
 
   render() {
     const { items, renderItem, emptyMsg } = this.props;
-
-    const isEmpty = items.length === 0;
+    const itemsSorted = items.slice().sort((a, b) => b.index < a.index);
+    const isEmpty = itemsSorted.length === 0;
     if (isEmpty) {
       return (
         <div style={style}>
-          <h4>
-            {emptyMsg}
-          </h4>
+          <h4>{emptyMsg}</h4>
         </div>
       );
     }
     return (
       <Scrollbars style={style}>
-        <div style={{ display: "flex" }}>{items.map(renderItem)}</div>
+        <div style={{ display: "flex" }}>{itemsSorted.map(renderItem)}</div>
       </Scrollbars>
     );
   }
