@@ -11,6 +11,8 @@ import FloatingActionButton from "material-ui/FloatingActionButton";
 import ContentAdd from "material-ui/svg-icons/content/add";
 import { MAIN_BG_COLOR } from "../styles/constants";
 import UnitPermission from "./UnitPermission";
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 const Unit = ({ unit }) => {
   const {
@@ -187,4 +189,4 @@ Unit.propTypes = {
   }).isRequired
 };
 
-export default Unit;
+export default DragDropContext(HTML5Backend)(Unit);

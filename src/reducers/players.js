@@ -18,7 +18,8 @@ const addPlayerField = (state, action) => {
               {},
               DEFAULT_FIELD,
               {
-                _id: uuid()
+                _id: uuid(),
+                rank: player.fields.length + 1
               },
               action.data
             )
@@ -57,6 +58,24 @@ const updatePlayerField = (state, action) => {
           if (action.fieldId === field._id) {
             return Object.assign({}, field, {
               value: action.value
+            });
+          }
+          return field;
+        })
+      });
+    }
+    return Object.assign({}, player);
+  });
+};
+
+const updatePlayerFieldRank = (state, action) => {
+  return state.map(player => {
+    if (player._id === action.unitId) {
+      return Object.assign(player, {
+        fields: player.fields.map(field => {
+          if (action.fieldId === field._id) {
+            return Object.assign({}, field, {
+              rank: action.rank
             });
           }
           return field;
@@ -196,6 +215,8 @@ const players = (state = [], action) => {
       return togglePlayerFieldVisible(state, action);
     case "CHANGE_PLAYER_PERMISSION":
         return changeWhoCanEdit(state, action);
+    case "UPDATE_PLAYER_FIELD_RANK":
+        return updatePlayerFieldRank(state, action);
     default:
       return state;
   }

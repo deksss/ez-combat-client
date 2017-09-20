@@ -22,6 +22,7 @@ import { randomFace, roll } from "../common/roller";
 import { actionSend } from "../actions/ws";
 import CustomRoller from "../components/dices/CustomRoller";
 
+
 const mapStateToProps = state => {
   return {
     showTemplates: state.templates.showTemplates,

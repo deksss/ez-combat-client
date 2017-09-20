@@ -18,7 +18,8 @@ const addNpcField = (state, action) => {
               {},
               DEFAULT_FIELD,
               {
-                _id: uuid()
+                _id: uuid(),
+                rank: npc.fields.length + 1
               },
               action.data
             )
@@ -56,7 +57,25 @@ const updateNpcField = (state, action) => {
         fields: npc.fields.map(field => {
           if (action.fieldId === field._id) {
             return Object.assign({}, field, {
-              value: action.value
+              value: action.value,
+            });
+          }
+          return field;
+        })
+      });
+    }
+    return Object.assign({}, npc);
+  });
+};
+
+const updateNpcFieldRank = (state, action) => {
+  return state.map(npc => {
+    if (npc._id === action.unitId) {
+      return Object.assign(npc, {
+        fields: npc.fields.map(field => {
+          if (action.fieldId === field._id) {
+            return Object.assign({}, field, {
+              rank: action.rank,
             });
           }
           return field;
@@ -184,6 +203,8 @@ const npcs = (state = [], action) => {
       return updateNpcFieldName(state, action);
     case "TOGGLE_FIELD_VISIBLE":
       return toggleNpcFieldVisible(state, action);
+    case "UPDATE_NPC_FIELD_RANK":
+      return updateNpcFieldRank(state, action);
     default:
       return state;
   }
