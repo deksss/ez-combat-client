@@ -27,44 +27,27 @@ const fieldTarget = {
     const dragIndex = monitor.getItem().index;
     const hoverIndex = props.field.index;
 
-    // Don't replace items with themselves
     if (dragIndex === hoverIndex) {
       return;
     }
 
-    // Determine rectangle on screen
     const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
 
-    // Get vertical middle
     const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
 
-    // Determine mouse position
     const clientOffset = monitor.getClientOffset();
 
-    // Get pixels to the top
     const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 
-    // Only perform the move when the mouse has crossed half of the items height
-    // When dragging downwards, only move when the cursor is below 50%
-    // When dragging upwards, only move when the cursor is above 50%
-
-    // Dragging downwards
     if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
       return;
     }
 
-    // Dragging upwards
     if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
       return;
     }
 
-    // Time to actually perform the action
     props.moveField(dragIndex);
-
-    // Note: we're mutating the monitor item here!
-    // Generally it's better to avoid mutations,
-    // but it's good here for the sake of performance
-    // to avoid expensive index searches.
     monitor.getItem().index = hoverIndex;
   }
 };
@@ -93,9 +76,37 @@ export default DropTarget(ItemTypes.FIELD, fieldTarget, connect => ({
         isDragging: PropTypes.bool.isRequired
       };
 
-      handleChange = (e, value) => {
-        this.props.onChangeField(value);
+      constructor(props) {
+        super(props);
+        this.state = {
+          value: props.field.value
+        };
+      }
+
+      getInputValue = () => {
+        return this.state.value;
       };
+
+      setInputValue = val => {
+        this.setState({
+          value: val
+        });
+      };
+
+      handleChange = event => {
+        this.setInputValue(event.target.value);
+      };
+
+      handleKeyUp = e => {
+        if (e.keyCode === 13) {
+          this.props.onChangeField(this.getInputValue());
+        }
+      };
+
+      handleBlur = e => {
+        this.props.onChangeField(this.getInputValue());
+      };
+
 
       render() {
         const placeholder = "enter value";
@@ -118,9 +129,11 @@ export default DropTarget(ItemTypes.FIELD, fieldTarget, connect => ({
                   <TextField
                     placeholder={placeholder}
                     onChange={this.handleChange}
+                    onKeyUp={this.handleKeyUp}
+                    onBlur={this.handleBlur}
                     multiLine={true}
                     rows={1}
-                    value={value}
+                    value={this.state.value}
                     textareaStyle={{ color: MAIN_COLOR }}
                     id={`input_${_id}`}
                   />

@@ -4,10 +4,10 @@ import { Scrollbars } from "react-custom-scrollbars";
 
 const style = {
   //minWidth: '300px',
-  height: "300px",
+  height: "calc(50vh - 155px)",
   margin: "5px",
   padding: "5px",
-  width: "calc(100vw - 150px)"
+  width: "100vw"
 };
 
 export default class Units extends Component {
@@ -20,6 +20,8 @@ export default class Units extends Component {
     const { items, renderItem, emptyMsg } = this.props;
     const itemsSorted = items.slice().sort((a, b) => b.index < a.index);
     const isEmpty = itemsSorted.length === 0;
+    style.height  = this.props.height || style.height
+
     if (isEmpty) {
       return (
         <div style={style}>
