@@ -5,6 +5,7 @@ import { Scrollbars } from "react-custom-scrollbars";
 const style = {
   //minWidth: '300px',
   height: "calc(50vh - 155px)",
+  minHeight: 200,
   margin: "5px",
   padding: "5px",
   width: "100vw"

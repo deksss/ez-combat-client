@@ -235,7 +235,7 @@ class Players extends Component {
         <div style={{ display: "flex" }}>
           {admin && <UnitsToolbar addClick={this.handleAddPlayer} />}
           <Units
-            height={"calc(100vh - 450px)"}
+            height={"60vh"}
             renderItem={this.renderUnit}
             items={items}
             emptyMsg={`\u00A0\u00A0\u00A0\u00A0 ( ͡° ͜ʖ ͡°)\u00A0\u00A0\u00A0\u00A0 (✪‿✪)ノ\u00A0\u00A0\u00A0\u00A0╚═( ͡° ͜ʖ ͡°)═╝\u00A0\u00A0\u00A0\u00A0 (∩^o^)⊃━☆ﾟ.*･｡ﾟ`}

@@ -49,7 +49,7 @@ class CustomRoller extends React.Component {
           onChange={this.handleChange}
           value={this.state.value}
           id="custom-roll-input"
-          floatingLabelText="Enter formula, like: 2d6 + d10 + 2:"
+          floatingLabelText="Roll(like: 2d6 + d10 + 2)"
         />
       </div>
     );

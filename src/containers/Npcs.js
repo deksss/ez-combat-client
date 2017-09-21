@@ -199,7 +199,7 @@ class Npcs extends Component {
         <div style={{ display: "flex" }}>
           {admin && <UnitsToolbar addClick={this.handleAddNpc} />}
           <Units
-            height={"250px"}
+            height={"20vh"}
             renderItem={this.renderUnit}
             items={items}
             emptyMsg={

@@ -1,15 +1,1 @@
-.custom-roll-result {
-  display: block;
-  width: 95%;
-  margin: 0.3em 0;
-  padding: 0.3em;
-  line-height: 1.2em;
-  border-radius: 0.3em;
-  background: #EEE;
-}
 
-.type { vertical-align:super; font-size:60%; color:grey; }
-.roll {}
-.crit { color:darken(green,5%); }
-.fum { color:darken(red,10%); }
-.total { color:black; font-weight:bold; }

@@ -69,7 +69,7 @@ class Room extends Component {
           />
           <Npcs admin={false} />
 
-          <div style={{ display: "flex", height: 180, width: "800px" }}>
+          <div style={{ display: "flex", heigh: "180px", width: "100%" }}>
             <div style={{ display: "flex", flexDirection: "column" }}>
               <CustomRoller rollHandle={this.rollCustom} />
               <RollList list={rollsLog || []} />

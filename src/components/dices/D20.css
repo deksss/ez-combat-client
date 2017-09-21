@@ -16,10 +16,9 @@
   }
 }
 .roll-20-content {
-  margin: auto auto;
-  position: relative;
-  width: 80px;
+  width:150px;
   height: 80px;
+  position: relative;
   perspective: 1500px;
 }
 
