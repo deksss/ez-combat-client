@@ -52,6 +52,7 @@ const fieldTarget = {
   }
 };
 
+
 export default DropTarget(ItemTypes.FIELD, fieldTarget, connect => ({
   connectDropTarget: connect.dropTarget()
 }))(
@@ -81,6 +82,10 @@ export default DropTarget(ItemTypes.FIELD, fieldTarget, connect => ({
         this.state = {
           value: props.field.value
         };
+      }
+
+      componentWillReceiveProps(nextProps) {
+        this.setInputValue(nextProps.field.value);
       }
 
       getInputValue = () => {

@@ -72,6 +72,7 @@ save = () => {
       return (
         <div>
           <input
+            autoFocus
             size="10"
             ref="input"
             defaultValue={name}

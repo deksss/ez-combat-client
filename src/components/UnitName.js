@@ -68,8 +68,10 @@ export default class UnitName extends Component {
     });
   };
 
+
   render() {
     const { name, readOnly } = this.props;
+
     if (readOnly) {
       return <span>{name}</span>;
     }
@@ -83,6 +85,7 @@ export default class UnitName extends Component {
             defaultValue={name}
             onKeyUp={this.handleKeyUp}
             onBlur={this.save}
+            autoFocus
           />
           <Snackbar
             open={this.state.msgOpen}
