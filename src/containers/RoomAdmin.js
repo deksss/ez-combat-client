@@ -19,7 +19,6 @@ import GeneralSettings from "./GeneralSettings";
 import D20 from "../components/dices/D20";
 import RollList from "../components/dices/RollList";
 import { randomFace, roll } from "../common/roller";
-import { actionSend } from "../actions/ws";
 import CustomRoller from "../components/dices/CustomRoller";
 
 
@@ -47,21 +46,18 @@ const mapDispatchToProps = dispatch => ({
   },
   rollD20: () => {
     const roll = randomFace(20);
-    //dispatch(rollD20({ name: "Admin", roll: roll }));
-    dispatch(actionSend(rollD20({ name: "GM", roll: roll })));
+    dispatch(rollD20({ name: "GM", roll: roll }));
   },
   customRoll: rawString => {
     const result = roll(rawString);
     if (result.res && result.type) {
       dispatch(
-        actionSend(
           rollCustom({
             name: "GM",
             rolls: result.res,
             types: result.type,
             rawString: rawString
           })
-        )
       );
     }
     /*  dispatch(

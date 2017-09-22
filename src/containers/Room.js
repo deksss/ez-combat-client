@@ -7,7 +7,6 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import RoomHeader from "../components/RoomHeader";
 import D20 from "../components/dices/D20";
 import { randomFace, roll } from "../common/roller";
-import { actionSend } from "../actions/ws";
 import { rollD20, rollCustom } from "../actions/rolls";
 import RollList from "../components/dices/RollList";
 import CustomRoller from "../components/dices/CustomRoller";
@@ -24,21 +23,18 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   rollD20: userId => {
     const roll = randomFace(20);
-    //  dispatch(rollD20({ user: "User", roll: roll }));
-    dispatch(actionSend(rollD20({ name: userId, roll: roll })));
+    dispatch(rollD20({ name: userId, roll: roll }));
   },
   customRoll: (rawString, userId) => {
     const result = roll(rawString);
     if (result.res && result.type) {
       dispatch(
-        actionSend(
           rollCustom({
             name: userId,
             rolls: result.res,
             types: result.type,
             rawString: rawString
           })
-        )
       );
     }
   }

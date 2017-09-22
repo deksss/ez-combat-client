@@ -4,7 +4,8 @@ export const ROLL_CUSTOM = "ROLL_CUSTOM";
 export const rollD20 = data => ({
   type: ROLL_D20,
   roll: data.roll,
-  name: data.name
+  name: data.name,
+  toServer: true,
 });
 
 export const rollCustom = data => ({
@@ -12,5 +13,6 @@ export const rollCustom = data => ({
   rolls: data.rolls,
   types: data.types,
   name: data.name,
-  rawString: data.rawString
+  rawString: data.rawString,
+  toServer: true,
 });

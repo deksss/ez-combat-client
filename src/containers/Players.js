@@ -15,7 +15,6 @@ import {
   changePermission,
   updatePlayerFieldRank
 } from "../actions/players";
-import { junkSend, actionSend } from "../actions/ws";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { MAIN, MAIN_HIDDEN } from "../styles/constants";
@@ -27,19 +26,10 @@ const mapDispatchToProps = dispatch => ({
   },
   addFieldClick: (unit, send) => {
     dispatch(addPlayerField(unit.playerId));
-    if (send) {
-      dispatch(actionSend(addPlayerField(unit.playerId)));
-    } else {
-
-    }
   },
   updateField: (unitId, fieldId, value, send) => {
     dispatch(updatePlayerField(unitId, fieldId, value));
-    if (send) {
-      dispatch(actionSend(updatePlayerField(unitId, fieldId, value)));
-    }
   },
-  junkSend: () => dispatch(junkSend()),
   deleteUnit: unitId => {
     dispatch(deletePlayer(unitId));
   },
@@ -51,35 +41,21 @@ const mapDispatchToProps = dispatch => ({
   },
   changeName: options => {
     dispatch(changeName(options));
-    dispatch(junkSend());
   },
   togglePlayerFieldVisible: (unitId, fieldId, send) => {
     dispatch(togglePlayerFieldVisible(unitId, fieldId));
-    if (send) {
-      dispatch(actionSend(togglePlayerFieldVisible(unitId, fieldId)));
-    }
   },
   updatePlayerFieldName: (unitId, fieldId, name, send) => {
     dispatch(updatePlayerFieldName(unitId, fieldId, name));
-    if (send) {
-      dispatch(actionSend(updatePlayerFieldName(unitId, fieldId, name)));
-    }
   },
   moveField: (unitId, fieldId, index, send) => {
     dispatch(updatePlayerFieldRank(unitId, fieldId, index));
-    if (send) {
-      dispatch(actionSend(updatePlayerFieldRank(unitId, fieldId, index)));
-    }
   },
   deletePlayerField: (unitId, fieldId, send) => {
     dispatch(deletePlayerField(unitId, fieldId));
-    if (send) {
-      dispatch(actionSend(deletePlayerField(unitId, fieldId)));
-    }
   },
   changePermission: options => {
     dispatch(changePermission(options));
-    dispatch(junkSend());
   }
 });
 
@@ -106,7 +82,6 @@ class Players extends Component {
     const id = unit._id;
     return () => {
       addField({ playerId: id }, !this.props.admin);
-      this.props.admin && this.props.junkSend();
     };
   };
 
@@ -115,7 +90,6 @@ class Players extends Component {
     const id = unit._id;
     return () => {
       deleteUnit(id);
-      this.props.junkSend();
     };
   };
 
@@ -124,7 +98,6 @@ class Players extends Component {
     const id = unit._id;
     return () => {
       toggleUnitVisible(id);
-      this.props.junkSend();
     };
   };
 
@@ -133,7 +106,6 @@ class Players extends Component {
     const id = unit._id;
     return () => {
       copyUnit(id);
-      this.props.junkSend();
     };
   };
 
@@ -142,7 +114,6 @@ class Players extends Component {
     const unitId = unit._id;
     return (fieldId, value) => {
       updateField(unitId, fieldId, value, !this.props.admin);
-      this.props.admin && this.props.junkSend();
     };
   };
 
@@ -151,7 +122,6 @@ class Players extends Component {
     const unitId = unit._id;
     return fieldId => {
       togglePlayerFieldVisible(unitId, fieldId, !this.props.admin);
-      this.props.admin && this.props.junkSend();
     };
   };
 
@@ -160,7 +130,6 @@ class Players extends Component {
     const unitId = unit._id;
     return (fieldId, name) => {
       updatePlayerFieldName(unitId, fieldId, name, !this.props.admin);
-      this.props.admin && this.props.junkSend();
     };
   };
 
@@ -169,7 +138,6 @@ class Players extends Component {
     const unitId = unit._id;
     return (fieldId, index) => {
       moveField(unitId, fieldId, index, !this.props.admin);
-      this.props.admin && this.props.junkSend();
     };
   };
 
@@ -179,13 +147,11 @@ class Players extends Component {
     const unitId = unit._id;
     return fieldId => {
       deletePlayerField(unitId, fieldId, !this.props.admin);
-      this.props.admin && this.props.junkSend();
     };
   };
 
   handleAddPlayer = () => {
     this.props.addPlayerClick(this.props.roomId);
-    this.props.junkSend();
   };
 
   renderUnit(unit) {

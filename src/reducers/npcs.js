@@ -18,7 +18,7 @@ const addNpcField = (state, action) => {
               {},
               DEFAULT_FIELD,
               {
-                _id: uuid(),
+                _id: action._id || uuid(),
                 index: npc.fields.length + 1
               },
               action.data
@@ -39,7 +39,7 @@ const addNpc = (state, action) => {
         {},
         DEFAULT_NPC,
         {
-          _id: uuid(),
+          _id: action._id || uuid(),
           name: action.name || `Enemy`,
           index: state.length + 1,
           permission: "mod, "
@@ -121,7 +121,7 @@ const copyNpc = (state, action) => {
     ...state,
     ...[
       Object.assign({}, data, {
-        _id: uuid(),
+        _id: action._id || uuid(),
         name: `${data.name}_copy`,
         index: state.length + 1
       })
@@ -207,7 +207,7 @@ const npcs = (state = [], action) => {
       return deleteNpcField(state, action);
     case "UPDATE_NPC_FIELD_NAME":
       return updateNpcFieldName(state, action);
-    case "TOGGLE_FIELD_VISIBLE":
+    case "TOGGLE_NPC_FIELD_VISIBLE":
       return toggleNpcFieldVisible(state, action);
     case "UPDATE_NPC_FIELD_RANK":
       return updateNpcFieldRank(state, action);

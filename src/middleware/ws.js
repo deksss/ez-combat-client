@@ -1,8 +1,7 @@
 import * as socketActions from "../actions/ws.js";
 import { junkUpdate } from "../actions/index.js";
-import { junkSend } from "../actions/ws.js";
 
-const getCurRoomData = (allData, sendType) => ({
+const getCurRoomDataForClient = (allData, wsId) => ({
   data: {
     npcs: allData.npcs.filter(npc => npc.parentId === allData.rooms.currentId),
     players: allData.players.filter(
@@ -10,14 +9,15 @@ const getCurRoomData = (allData, sendType) => ({
     ),
     rolls: allData.rolls
   },
-  type: "update",
+  type: "data_for_client",
+  wsId: wsId,
   room: allData.rooms.currentId
 });
 
-const sendUpsertToServer = (socket, store) => {
+const sendDataToClient = (socket, store, wsId) => {
   if (socket && socket.readyState === 1) {
     const allData = store.getState();
-    const dataForSend = getCurRoomData(allData);
+    const dataForSend = getCurRoomDataForClient(allData, wsId);
     const data = JSON.stringify(dataForSend);
     socket.send(data);
     return Date.now();
@@ -61,9 +61,16 @@ export default function createSocketMiddleware() {
       try {
         const data = JSON.parse(evt.data);
         if (data.remote) {
-          store.dispatch(data.action);
-          store.dispatch(junkSend());
-        } else {
+          const actionLocal = Object.assign({}, data.action, {
+            toServer: false
+          });
+          console.log(actionLocal);
+          store.dispatch(actionLocal);
+          //store.dispatch(junkSend());
+        } else if (data.getAll) {
+          console.log("try to send all data to client");
+          sendDataToClient(socket, store, data.wsId);
+        } else if (data.update) {
           store.dispatch(junkUpdate(data));
         }
       } catch (e) {
@@ -73,6 +80,17 @@ export default function createSocketMiddleware() {
   };
 
   return store => next => action => {
+    if (action && action.toServer) {
+      console.log("try send action");
+      const timeDiffAction = Date.now() - prevSendTime;
+      const delayAction =
+        timeDiffAction > MIN_DELAY ? 0 : MIN_DELAY - timeDiffAction;
+
+      setTimeout(() => {
+        let curRoomID = store.getState().rooms.currentId;
+        prevSendTime = sendActionToServer(socket, action, curRoomID);
+      }, delayAction);
+    }
     switch (action.type) {
       case "SOCKETS_CONNECT":
         if (socket !== null) {
@@ -96,27 +114,7 @@ export default function createSocketMiddleware() {
         }
         socket = null;
         break;
-      case "SOCKETS_JUNK_SEND":
-        console.log("try send");
-        const timeDiff = Date.now() - prevSendTime;
-        const delay = timeDiff > MIN_DELAY ? 0 : MIN_DELAY - timeDiff;
-
-        setTimeout(() => {
-          prevSendTime = sendUpsertToServer(socket, store);
-        }, delay);
-        break;
-      case "SOCKETS_ACTION_SEND":
-        console.log("try send player");
-        const timeDiffAction = Date.now() - prevSendTime;
-        const delayAction =
-          timeDiffAction > MIN_DELAY ? 0 : MIN_DELAY - timeDiffAction;
-
-        setTimeout(() => {
-          let curRoomID = store.getState().rooms.currentId;
-          prevSendTime = sendActionToServer(socket, action, curRoomID);
-        }, delayAction);
-        break;
-      case "JOIN_ROOM":;
+      case "JOIN_ROOM":
         if (socket && socket.readyState === 1 && action._id) {
           const data = JSON.stringify({
             join: true,

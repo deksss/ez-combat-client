@@ -8,7 +8,6 @@ export const SOCKETS_MESSAGE_RECEIVING = "SOCKETS_MESSAGE_RECEIVING";
 export const SOCKETS_MESSAGE_RECEIVE = "SOCKETS_MESSAGE_RECEIVE";
 export const JOIN_ROOM = "JOIN_ROOM";
 export const SOCKETS_JUNK_SEND = "SOCKETS_JUNK_SEND";
-export const SOCKETS_ACTION_SEND = "SOCKETS_ACTION_SEND";
 
 export function socketsConnecting() {
   return { type: SOCKETS_CONNECTING };
@@ -35,12 +34,5 @@ export function joinRoom(options = {}) {
 export function junkSend() {
   return {
     type: SOCKETS_JUNK_SEND
-  };
-}
-
-export function actionSend(data) {
-  return {
-    type: SOCKETS_ACTION_SEND,
-    data: data
   };
 }

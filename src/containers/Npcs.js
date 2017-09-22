@@ -14,7 +14,6 @@ import {
   deleteNpcField,
   updateNpcFieldRank,
 } from "../actions/npcs";
-import { junkSend } from "../actions/ws";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import UnitsToolbar from "../components/UnitsToolbar";
@@ -30,7 +29,6 @@ const mapDispatchToProps = dispatch => ({
   updateField: (unitId, fieldId, value) => {
     dispatch(updateNpcField(unitId, fieldId, value));
   },
-  junkSend: () => dispatch(junkSend()),
   deleteUnit: unitId => {
     dispatch(deleteNpc(unitId));
   },
@@ -42,7 +40,6 @@ const mapDispatchToProps = dispatch => ({
   },
   changeName: options => {
     dispatch(changeName(options));
-    dispatch(junkSend());
   },
   toggleNpcFieldVisible: (unitId, fieldId) => {
     dispatch(toggleNpcFieldVisible(unitId, fieldId));
@@ -79,7 +76,6 @@ class Npcs extends Component {
     const id = unit._id;
     return () => {
       addField({ npcId: id });
-      this.props.junkSend();
     };
   };
 
@@ -88,7 +84,6 @@ class Npcs extends Component {
     const id = unit._id;
     return () => {
       deleteUnit(id);
-      this.props.junkSend();
     };
   };
 
@@ -97,7 +92,6 @@ class Npcs extends Component {
     const id = unit._id;
     return () => {
       toggleUnitVisible(id);
-      this.props.junkSend();
     };
   };
 
@@ -106,7 +100,6 @@ class Npcs extends Component {
     const id = unit._id;
     return () => {
       copyUnit(id);
-      this.props.junkSend();
     };
   };
 
@@ -115,7 +108,6 @@ class Npcs extends Component {
     const unitId = unit._id;
     return (fieldId, value) => {
       updateField(unitId, fieldId, value);
-      this.props.junkSend();
     };
   };
 
@@ -124,7 +116,6 @@ class Npcs extends Component {
     const unitId = unit._id;
     return fieldId => {
       toggleNpcFieldVisible(unitId, fieldId);
-      this.props.junkSend();
     };
   };
 
@@ -133,7 +124,6 @@ class Npcs extends Component {
     const unitId = unit._id;
     return (fieldId, name) => {
       updateNpcFieldName(unitId, fieldId, name);
-      this.props.junkSend();
     };
   };
 
@@ -142,7 +132,6 @@ class Npcs extends Component {
     const unitId = unit._id;
     return fieldId => {
       deleteNpcField(unitId, fieldId);
-      this.props.junkSend();
     };
   };
 
@@ -151,13 +140,11 @@ class Npcs extends Component {
     const unitId = unit._id;
     return (fieldId, index) => {
       moveField(unitId, fieldId, index, !this.props.admin);
-      this.props.admin && this.props.junkSend();
     };
   };
 
   handleAddNpc = () => {
     this.props.addNpcClick(this.props.roomId);
-    this.props.junkSend();
   };
 
   renderUnit(unit) {

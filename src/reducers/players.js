@@ -18,7 +18,7 @@ const addPlayerField = (state, action) => {
               {},
               DEFAULT_FIELD,
               {
-                _id: uuid(),
+                _id: action._id || uuid() ,
                 index: player.fields.length + 1
               },
               action.data
@@ -39,7 +39,7 @@ const addPlayer = (state, action) => {
         {},
         DEFAULT_PLAYER,
         {
-          _id: uuid(),
+          _id: action._id || uuid(),
           name: action.name || `Player`,
           index: state.length + 1,
           permission: "mod"
@@ -121,7 +121,7 @@ const copyPlayer = (state, action) => {
     ...state,
     ...[
       Object.assign({}, data, {
-        _id: uuid(),
+        _id: action._id || uuid(),
         name: `${data.name}_copy`,
         index: state.length + 1
       })
@@ -218,7 +218,7 @@ const players = (state = [], action) => {
       return deletePlayerField(state, action);
     case "UPDATE_PLAYER_FIELD_NAME":
       return updatePlayerFieldName(state, action);
-    case "TOGGLE_FIELD_VISIBLE":
+    case "TOGGLE_PLAYER_FIELD_VISIBLE":
       return togglePlayerFieldVisible(state, action);
     case "CHANGE_PLAYER_PERMISSION":
       return changeWhoCanEdit(state, action);
