@@ -1,4 +1,5 @@
 import uuid from "../common/uuid";
+import randomDigit from "../common/randomDigit"
 
 const rooms = (
   state = { list: [], currentId: null, isCurrentRoomMod: false },
@@ -16,7 +17,7 @@ const rooms = (
       });
     case "ADD_NEW_ROOM":
       const name = action.name || `new_room`;
-      const addedCurrent = `${name}#${uuid().slice(0,4)}`;
+      const addedCurrent = `${name}#${randomDigit(4)}`;
       const OWNER_CODE = uuid();
       return Object.assign(
         {},
