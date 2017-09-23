@@ -14,18 +14,19 @@ export const CHANGE_PLAYER_PERMISSION = "CHANGE_PLAYER_PERMISSION";
 export const UPDATE_PLAYER_FIELD_RANK = "UPDATE_PLAYER_FIELD_RANK";
 
 
-export const addPlayerField = playerId => ({
+export const addPlayerField = unitId => ({
   type: ADD_FIELD_TO_PLAYER,
-  playerId: playerId,
+  unitId: unitId,
   toServer: true,
   _id: uuid()
 });
 
-export const addPlayer = parentId => ({
+export const addPlayer = (parentId, name) => ({
   type: ADD_PLAYER,
   data: { parentId: parentId },
   toServer: true,
-  _id: uuid()
+  _id: uuid(),
+  name: name || 'Player'
 });
 
 export const updatePlayerField = (unitId, fieldId, value) => ({
@@ -36,28 +37,28 @@ export const updatePlayerField = (unitId, fieldId, value) => ({
   toServer: true,
 });
 
-export const deletePlayer = playerId => ({
+export const deletePlayer = unitId => ({
   type: DELETE_PLAYER,
-  playerId: playerId,
+  unitId: unitId,
   toServer: true,
 });
 
-export const toggleVisiblePlayer = playerId => ({
+export const toggleVisiblePlayer = unitId => ({
   type: TOGGLE_PLAYER_VISIBLE_TO_USERS,
-  playerId: playerId,
+  unitId: unitId,
   toServer: true,
 });
 
-export const copyPlayer = playerId => ({
+export const copyPlayer = unitId => ({
   type: COPY_PLAYER,
-  playerId: playerId,
+  unitId: unitId,
   toServer: true,
   _id: uuid()
 });
 
 export const changeName = options => ({
   type: CHANGE_PLAYER_NAME,
-  playerId: options._id,
+  unitId: options._id,
   name: options.name,
   toServer: true,
 });
@@ -86,7 +87,7 @@ export const togglePlayerFieldVisible = (unitId, fieldId) => ({
 
 export const changePermission = options => ({
   type: CHANGE_PLAYER_PERMISSION,
-  playerId: options._id,
+  unitId: options._id,
   permission: options.permission,
   toServer: true,
 });

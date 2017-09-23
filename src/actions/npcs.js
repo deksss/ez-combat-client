@@ -12,18 +12,19 @@ export const UPDATE_NPC_FIELD_NAME = "UPDATE_NPC_FIELD_NAME";
 export const DELETE_NPC_FIELD = "DELETE_NPC_FIELD";
 export const UPDATE_NPC_FIELD_RANK = "UPDATE_NPC_FIELD_RANK";
 
-export const addNpcField = npcId => ({
+export const addNpcField = unitId => ({
   type: ADD_FIELD_TO_NPC,
-  npcId: npcId,
+  unitId: unitId,
   toServer: true,
   _id: uuid()
 });
 
-export const addNpc = parentId => ({
+export const addNpc = (parentId, name) => ({
   type: ADD_NPC,
   data: { parentId: parentId },
   toServer: true,
-  _id: uuid()
+  _id: uuid(),
+  name: name || 'NPC'
 });
 
 export const updateNpcField = (unitId, fieldId, value) => ({
@@ -34,28 +35,28 @@ export const updateNpcField = (unitId, fieldId, value) => ({
   toServer: true,
 });
 
-export const deleteNpc = npcId => ({
+export const deleteNpc = unitId => ({
   type: DELETE_NPC,
-  npcId: npcId,
+  unitId: unitId,
   toServer: true,
 });
 
-export const toggleVisibleNpc = npcId => ({
+export const toggleVisibleNpc = unitId => ({
   type: TOGGLE_NPC_VISIBLE_TO_USERS,
-  npcId: npcId,
+  unitId: unitId,
   toServer: true,
 });
 
-export const copyNpc = npcId => ({
+export const copyNpc = unitId => ({
   type: COPY_NPC,
-  npcId: npcId,
+  unitId: unitId,
   toServer: true,
   _id: uuid()
 });
 
 export const changeName = options => ({
   type: CHANGE_NPC_NAME,
-  npcId: options._id,
+  unitId: options._id,
   name: options.name,
   toServer: true,
 });

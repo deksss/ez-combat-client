@@ -1,216 +1,39 @@
-import uuid from "../common/uuid";
-import { DEFAULT_FIELD } from "./fieldTemplates";
-
-const DEFAULT_NPC = {
-  name: "Ez",
-  fields: [],
-  visibleToUsers: false
-};
-
-const addNpcField = (state, action) => {
-  return state.map(npc => {
-    if (npc._id === action.npcId) {
-      return Object.assign(npc, {
-        fields: [
-          ...npc.fields,
-          ...[
-            Object.assign(
-              {},
-              DEFAULT_FIELD,
-              {
-                _id: action._id || uuid(),
-                index: npc.fields.length + 1
-              },
-              action.data
-            )
-          ]
-        ]
-      });
-    }
-    return Object.assign({}, npc);
-  });
-};
-
-const addNpc = (state, action) => {
-  return [
-    ...state,
-    ...[
-      Object.assign(
-        {},
-        DEFAULT_NPC,
-        {
-          _id: action._id || uuid(),
-          name: action.name || `Enemy`,
-          index: state.length + 1,
-          permission: "mod, "
-        },
-        action.data
-      )
-    ]
-  ];
-};
-
-const updateNpcField = (state, action) => {
-  return state.map(npc => {
-    if (npc._id === action.unitId) {
-      return Object.assign(npc, {
-        fields: npc.fields.map(field => {
-          if (action.fieldId === field._id) {
-            return Object.assign({}, field, {
-              value: action.value
-            });
-          }
-          return field;
-        })
-      });
-    }
-    return Object.assign({}, npc);
-  });
-};
-
-const updateNpcFieldRank = (state, action) => {
-  return state.map(npc => {
-    if (npc._id === action.unitId) {
-      const prevRank = npc.fields.find(field => action.fieldId === field._id)
-        .index;
-      return Object.assign(npc, {
-        fields: npc.fields.map(field => {
-          if (action.fieldId === field._id) {
-            return Object.assign({}, field, {
-              index: action.index
-            });
-          }
-          if (action.index === field.index) {
-            return Object.assign({}, field, {
-              index: prevRank
-            });
-          }
-          return field;
-        })
-      });
-    }
-    return Object.assign({}, npc);
-  });
-};
-
-const deleteNpc = (state, action) => {
-  return state.map(npc => {
-    if (npc._id === action.npcId) {
-      return Object.assign({}, npc, {
-        deleted: true
-      });
-    }
-    return npc;
-  });
-};
-
-const toggleVisibleNpc = (state, action) => {
-  return state.map(npc => {
-    if (npc._id === action.npcId) {
-      return Object.assign({}, npc, {
-        visibleToUsers: !npc.visibleToUsers
-      });
-    }
-    return npc;
-  });
-};
-
-const copyNpc = (state, action) => {
-  const data = state.find(npc => npc._id === action.npcId);
-  return [
-    ...state,
-    ...[
-      Object.assign({}, data, {
-        _id: action._id || uuid(),
-        name: `${data.name}_copy`,
-        index: state.length + 1
-      })
-    ]
-  ];
-};
-
-const changeName = (state, action) => {
-  return state.map(npc => {
-    if (npc._id === action.npcId) {
-      return Object.assign({}, npc, {
-        name: action.name
-      });
-    }
-    return npc;
-  });
-};
-
-const updateNpcFieldName = (state, action) => {
-  return state.map(npc => {
-    if (npc._id === action.unitId) {
-      return Object.assign(npc, {
-        fields: npc.fields.map(field => {
-          if (action.fieldId === field._id) {
-            return Object.assign({}, field, {
-              name: action.name
-            });
-          }
-          return field;
-        })
-      });
-    }
-    return Object.assign({}, npc);
-  });
-};
-
-const deleteNpcField = (state, action) => {
-  return state.map(npc => {
-    if (npc._id === action.unitId) {
-      return Object.assign(npc, {
-        fields: npc.fields.filter(field => field._id !== action.fieldId)
-      });
-    }
-    return Object.assign({}, npc);
-  });
-};
-
-const toggleNpcFieldVisible = (state, action) => {
-  return state.map(npc => {
-    if (npc._id === action.unitId) {
-      return Object.assign(npc, {
-        fields: npc.fields.map(field => {
-          if (action.fieldId === field._id) {
-            return Object.assign({}, field, {
-              visibleToUsers: !field.visibleToUsers
-            });
-          }
-          return field;
-        })
-      });
-    }
-    return Object.assign({}, npc);
-  });
-};
+import { addUnit,
+  changeName,
+  copyUnit,
+  toggleVisibleUnit,
+  addUnitField,
+  updateUnitField,
+  deleteUnitField,
+  updateUnitFieldName,
+  toggleUnitFieldVisible,
+  updateUnitFieldRank,
+  deleteUnit } from './helpers/units.js';
 
 const npcs = (state = [], action) => {
   switch (action.type) {
     case "ADD_NPC":
-      return addNpc(state, action);
+      return addUnit(state, action);
     case "CHANGE_NPC_NAME":
       return changeName(state, action);
     case "COPY_NPC":
-      return copyNpc(state, action);
+      return copyUnit(state, action);
     case "DELETE_NPC":
-      return deleteNpc(state, action);
+      return deleteUnit(state, action);
     case "TOGGLE_NPC_VISIBLE_TO_USERS":
-      return toggleVisibleNpc(state, action);
+      return toggleVisibleUnit(state, action);
     case "ADD_FIELD_TO_NPC":
-      return addNpcField(state, action);
+      return addUnitField(state, action);
     case "UPDATE_NPC_FIELD":
-      return updateNpcField(state, action);
+      return updateUnitField(state, action);
     case "DELETE_NPC_FIELD":
-      return deleteNpcField(state, action);
+      return deleteUnitField(state, action);
     case "UPDATE_NPC_FIELD_NAME":
-      return updateNpcFieldName(state, action);
+      return updateUnitFieldName(state, action);
     case "TOGGLE_NPC_FIELD_VISIBLE":
-      return toggleNpcFieldVisible(state, action);
+      return toggleUnitFieldVisible(state, action);
     case "UPDATE_NPC_FIELD_RANK":
-      return updateNpcFieldRank(state, action);
+      return updateUnitFieldRank(state, action);
     default:
       return state;
   }

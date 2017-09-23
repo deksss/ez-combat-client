@@ -1,7 +1,7 @@
 import uuid from '../common/uuid'
 
 const DEFAULT_FIELDS_LIST = []
-export const DEFAULT_FIELD = {name: 'field_name', visibleToUsers: false, value: ''}
+export const DEFAULT_FIELD = {name: 'name', visibleToUsers: false, value: ''}
 
 const fieldTemplates = (state = {list: DEFAULT_FIELDS_LIST}, action) => {
   switch (action.type) {
