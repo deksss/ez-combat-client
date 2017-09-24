@@ -32,12 +32,12 @@ class RollList extends React.Component {
     if (data.type && data.type === "d20") {
       const text = `(${data.name}): \u00A0 roll: \u00A0 ${data.roll}`;
       return (
-        <ListItem primaryText={text} style={{ width: 300 }} key={index} />
+        <ListItem primaryText={text} style={{ width: 280 }} key={index} />
       );
     } else if (data.type && data.type === "custom") {
       const text = `(${data.name}): \u00A0 ${rollToString(data)}`;
       return (
-        <ListItem primaryText={text} style={{ width: 300 }} key={index} />
+        <ListItem primaryText={text} style={{ width: 280 }} key={index} />
       );
     } else {
       return <div>Incorect roll</div>
@@ -49,12 +49,12 @@ class RollList extends React.Component {
     const listReversed = list.slice().reverse();
     if (list.length) {
       return (
-        <Scrollbars style={{ width: 350, height: 150 }}>
+        <Scrollbars style={{ width: 300, height: 120 }}>
           <List>{listReversed.map(this.renderRoll)}</List>
         </Scrollbars>
       );
     } else {
-      return <div style={{ width: 350, height: 150 }} />;
+      return <div style={{ width: 300, height: 120 }} />;
     }
   }
 }

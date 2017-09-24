@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Players from "./Players";
 import Npcs from "./Npcs";
-import TemplatesList from "../components/TemplatesList";
 import { connect } from "react-redux";
 import {
   templatesToggle,
@@ -13,8 +12,6 @@ import {
 import { rollD20, rollCustom } from "../actions/rolls";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import RoomHeader from "../components/RoomHeader";
-import FloatingActionButton from "material-ui/FloatingActionButton";
-import List from "../components/Icons/List";
 import GeneralSettings from "./GeneralSettings";
 import D20 from "../components/dices/D20";
 import RollList from "../components/dices/RollList";
@@ -116,15 +113,7 @@ class RoomAdmin extends Component {
               top: "47px"
             }}
           >
-            <FloatingActionButton
-              backgroundColor="#8BC34A"
-              onClick={this.handleTemplatesToggle}
-              disabled={true}
-            >
-              <List />
-            </FloatingActionButton>
           </div>
-          <TemplatesList showTemplates={showTemplates} />
           <Npcs admin={true} />
           <br />
           <div style={{ display: "flex", minHeight: 180, heigh: "180px", width: "100%" }}>
