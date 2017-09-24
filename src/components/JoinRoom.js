@@ -60,10 +60,12 @@ export default class JoinRoom extends Component {
   render() {
     return (
       <Paper zDepth={1} style={{
-        padding: 20,
+        marginTop:20,
+        padding: 10,
         paddingBottom: 10,
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        minHeight: 250
       }}>
         <TextField
           ref={input => {
@@ -73,7 +75,7 @@ export default class JoinRoom extends Component {
           onChange={this.props.changeUserId}
           id="join-user-name"
           style={{ width: 300 }}
-          floatingLabelText="User ID:"
+          floatingLabelText="Your Name:"
         />
         <br />
         <TextField

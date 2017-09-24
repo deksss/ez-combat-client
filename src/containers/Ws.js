@@ -16,7 +16,7 @@ class Ws extends Component {
   render() {
     const { connected } = this.props;
     return (
-      <div className="container">
+      <div style={{padding:15}}>
         <SocketConnectionLog
           connected={connected}
           />

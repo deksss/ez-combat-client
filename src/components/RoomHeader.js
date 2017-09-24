@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import IconButton from "material-ui/IconButton";
@@ -7,22 +6,9 @@ import Settings from "./Icons/Settings";
 import Home from "./Icons/Home";
 import styles from "../styles/IconStyles";
 import { Link } from "react-router";
-
-const HeaderStyled = styled.div`
-  display: flex;
-  justify-content: space-between;
-  height: 37px;
-  width: 100%;
-  background-color: #8bc34a;
-  color: #ffffff;
-  font-size: 20px;
-  font-family: "Roboto";
-`;
-
-const HeaderStyledBlock = styled.div`
-  display: flex;
-  align-items: center;
-`;
+import Ws from "../containers/Ws";
+import HeaderStyledBlock from "./HeaderStyledBlock";
+import HeaderStyled from "./HeaderStyled";
 
 export default class RoomHeader extends Component {
   static propTypes = {
@@ -47,8 +33,9 @@ export default class RoomHeader extends Component {
               <Home />
             </IconButton>
           </Link>
-        <span>{this.props.userId} in room: </span>
-        <h4>{this.props.roomId}</h4>
+        <span>{this.props.userId} </span>
+        <h4 style={{marginLeft: 20}}>Room: {this.props.roomId}</h4>
+        <Ws />
         </HeaderStyledBlock>
         <HeaderStyledBlock>
           <IconButton onClick={this.handleToggleSettings}

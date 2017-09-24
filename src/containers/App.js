@@ -5,11 +5,11 @@ import { browserHistory } from "react-router";
 import Helmet from "react-helmet";
 import JoinRoom from "../components/JoinRoom";
 import RoomsList from "../components/RoomsList";
-import Ws from "./Ws";
 import { setCurrentRoom, addRoom } from "../actions/rooms";
 import { setUserId } from "../actions/index";
 import { joinRoom } from "../actions/ws";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import MainHeader from "../components/MainHeader"
 
 class App extends Component {
   static propTypes = {
@@ -21,7 +21,7 @@ class App extends Component {
     children: PropTypes.node,
     setRoom: PropTypes.func.isRequired,
     joinRoom: PropTypes.func.isRequired,
-    changeUserId: PropTypes.func.isRequired,
+    changeUserId: PropTypes.func.isRequired
   };
 
   handleJoin = options => {
@@ -61,12 +61,13 @@ class App extends Component {
           style={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "center"
+            alignItems: "center",
+            height:"100vh"
           }}
         >
           <Helmet title="Cmbt trkr" />
 
-          <Ws />
+          <MainHeader />
           <JoinRoom
             value={inputValue}
             onJoin={this.handleJoin}
@@ -77,6 +78,7 @@ class App extends Component {
             changeUserId={this.props.changeUserId}
           />
           <hr />
+          <h3>OR</h3>
           <RoomsList
             items={this.props.rooms}
             join={this.handleJoin}
@@ -85,7 +87,12 @@ class App extends Component {
           />
           {this.renderErrorMessage()}
           {children}
+          <div style={{flex:1, display: 'flex', justifyContent: "flex-end",
+                flexDirection: "column", padding:5}}>
+            <div>deksss - 2017</div>
+          </div>
         </div>
+
       </MuiThemeProvider>
     );
   }

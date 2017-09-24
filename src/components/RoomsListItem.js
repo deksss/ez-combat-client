@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { ListItem } from "material-ui/List";
+import RaisedButton from "material-ui/RaisedButton";
 
 const RoomsListItem = ({ room }) => {
   const { name, _id, owner_code, joinHandler, modJoinHandler } = room;
@@ -16,12 +17,19 @@ const RoomsListItem = ({ room }) => {
 
   return (
     <ListItem style={{display: 'flex'}}>
-      <h4>Name: {name}</h4> join ID: {_id}
-      <div> mod code: {owner_code} </div>
-      <div>
-        {owner_code && <button onClick={handleClick}>Enter</button>}
-      <button onClick={handleClickUser}>Enter as regular user</button>
-      </div>
+      <h4>Room ID: <i>{_id}</i></h4>
+      {owner_code && <RaisedButton
+        style={{ margin: "0.5em" }}
+        onClick={handleClick}
+        label="Enter GM"
+        primary={true}
+      />}
+      <RaisedButton
+        style={{ margin: "0.5em" }}
+        onClick={handleClickUser}
+        label="Enter"
+        primary={false}
+      />
     </ListItem>
   );
 };

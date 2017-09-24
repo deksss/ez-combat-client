@@ -41,6 +41,7 @@ const sendActionToServer = (socket, action, room) => {
 
 export default function createSocketMiddleware() {
   const MIN_DELAY = 1000;
+  const RECONECT_DELAY = 5000;
   let socket = null;
   let prevSendTime = 0;
 
@@ -53,6 +54,9 @@ export default function createSocketMiddleware() {
     console.log("WS is onClose");
     console.log("evt " + evt.data);
     store.dispatch(socketActions.socketsDisconnect());
+
+    setTimeout(() => store.dispatch(socketActions.socketsConnect()),
+     RECONECT_DELAY);
   };
   const onMessage = (ws, store) => evt => {
     if (evt && evt.data === "ping") {

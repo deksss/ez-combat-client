@@ -64,7 +64,6 @@ class RoomsList extends Component {
 
     return (
       <div>
-        <h3>Your rooms:</h3>
         <TextField
           ref={input => {
             this.input = input;
