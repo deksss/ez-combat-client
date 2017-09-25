@@ -1,4 +1,4 @@
-import uuid from "./uuid";
+import uuid from "uuid/v4";
 
 export const savePreset = state => {
   const curRoom = state.rooms.currentId;

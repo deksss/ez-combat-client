@@ -1,4 +1,4 @@
-import uuid from "../common/uuid";
+import uuid from "uuid/v4";
 
 export const TOGGLE_NPC_VISIBLE_TO_USERS = "TOGGLE_NPC_VISIBLE_TO_USERS";
 export const DELETE_NPC = "DELETE_NPC";

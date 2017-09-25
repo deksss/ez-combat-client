@@ -1,4 +1,4 @@
-import uuid from "../../common/uuid";
+import uuid from "uuid/v4";
 import { DEFAULT_FIELD } from "../fieldTemplates";
 
 const DEFAULT_UNIT = {

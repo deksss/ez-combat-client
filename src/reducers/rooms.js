@@ -1,5 +1,5 @@
-import uuid from "../common/uuid";
-import randomDigit from "../common/randomDigit"
+import uuid from "uuid/v4";
+import randomDigit from "../common/randomDigit";
 
 const rooms = (
   state = { list: [], currentId: null, isCurrentRoomMod: false },

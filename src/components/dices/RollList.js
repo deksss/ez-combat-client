@@ -11,13 +11,13 @@ const rollToString = data => {
       total += data.rolls[i];
       if (data.rolls.length > 0) {
         var special = "";
-        if (i) str += (data.rolls[i] >= 0 ? " + " : " - ");
+        if (i) str += data.rolls[i] >= 0 ? " + " : " - ";
         if (data.types[i]) {
           str = str + "(d" + data.types[i] + ")";
-        //  if (data.types[i] === data.rolls[i]) special = "";
-        //  if (data.rolls[i] === 1) special = "";
+          //  if (data.types[i] === data.rolls[i]) special = "";
+          //  if (data.rolls[i] === 1) special = "";
         }
-        str = str  + special  + Math.abs(data.rolls[i]);
+        str = str + special + Math.abs(data.rolls[i]);
       }
     }
     str = str + " = " + total;
@@ -31,16 +31,12 @@ class RollList extends React.Component {
   renderRoll(data, index) {
     if (data.type && data.type === "d20") {
       const text = `(${data.name}): \u00A0 roll: \u00A0 ${data.roll}`;
-      return (
-        <ListItem primaryText={text} style={{ width: 280 }} key={index} />
-      );
+      return <ListItem primaryText={text} style={{ width: 280 }} key={index} />;
     } else if (data.type && data.type === "custom") {
       const text = `(${data.name}): \u00A0 ${rollToString(data)}`;
-      return (
-        <ListItem primaryText={text} style={{ width: 280 }} key={index} />
-      );
+      return <ListItem primaryText={text} style={{ width: 280 }} key={index} />;
     } else {
-      return <div>Incorect roll</div>
+      return <div>Incorect roll</div>;
     }
   }
 

@@ -1,17 +1,20 @@
-import uuid from '../common/uuid'
+import uuid from "uuid/v4";
 
-const DEFAULT_UNIT_LIST = []
-const DEFAULT_UNIT = {name: 'tmp_unit'}
+const DEFAULT_UNIT_LIST = [];
+const DEFAULT_UNIT = { name: "tmp_unit" };
 
-const unitTemplates = (state = {list: DEFAULT_UNIT_LIST}, action) => {
+const unitTemplates = (state = { list: DEFAULT_UNIT_LIST }, action) => {
   switch (action.type) {
-    case 'ADD_NEW_UNIT':
-      return {list: [...state.list,
-              ...[Object.assign({}, DEFAULT_UNIT, {_id: uuid()}, action.data)]
-            ]}
+    case "ADD_NEW_UNIT":
+      return {
+        list: [
+          ...state.list,
+          ...[Object.assign({}, DEFAULT_UNIT, { _id: uuid() }, action.data)]
+        ]
+      };
     default:
-      return state
+      return state;
   }
-}
+};
 
-export default unitTemplates
+export default unitTemplates;
