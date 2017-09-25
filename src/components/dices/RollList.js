@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { List, ListItem } from "material-ui/List";
-import { Scrollbars } from "react-custom-scrollbars";
 
 const rollToString = data => {
   if (data) {
@@ -45,9 +44,9 @@ class RollList extends React.Component {
     const listReversed = list.slice().reverse();
     if (list.length) {
       return (
-        <Scrollbars style={{ width: 300, height: 120 }}>
-          <List>{listReversed.map(this.renderRoll)}</List>
-        </Scrollbars>
+        <List style={{ width: 300, height: 120, overflow: "auto" }}>
+          {listReversed.map(this.renderRoll)}
+        </List>
       );
     } else {
       return <div style={{ width: 300, height: 120 }} />;

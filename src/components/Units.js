@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Scrollbars } from "react-custom-scrollbars";
 
 const style = {
-  //minWidth: '300px',
-  height: "calc(50vh - 155px)",
   minHeight: 200,
   margin: "5px",
   padding: "5px",
-  width: "100vw"
+  minWidth: 350,
+  maxWidth: "100vw",
+  overflow: "auto",
+  display: "flex"
 };
 
 export default class Units extends Component {
@@ -21,7 +21,7 @@ export default class Units extends Component {
     const { items, renderItem, emptyMsg } = this.props;
     const itemsSorted = items.slice().sort((a, b) => b.index < a.index);
     const isEmpty = itemsSorted.length === 0;
-    style.height  = this.props.height || style.height
+    style.height = this.props.height || style.height;
 
     if (isEmpty) {
       return (
@@ -30,10 +30,6 @@ export default class Units extends Component {
         </div>
       );
     }
-    return (
-      <Scrollbars style={style} autoHide>
-        <div style={{ display: "flex" }}>{itemsSorted.map(renderItem)}</div>
-      </Scrollbars>
-    );
+    return <div style={style}>{itemsSorted.map(renderItem)}</div>;
   }
 }

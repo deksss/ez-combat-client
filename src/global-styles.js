@@ -57,7 +57,20 @@ injectGlobal`
 
 
 
+  div::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+  }
 
+  div::-webkit-scrollbar-track {
+      border-radius: 10px;
+      background: #eee;
+  }
+
+  div::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background: #888;
+  }
 
 
 `;

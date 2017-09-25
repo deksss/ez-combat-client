@@ -45,10 +45,14 @@ export default function createSocketMiddleware() {
   let socket = null;
   let prevSendTime = 0;
 
-  const onOpen = token => evt => {
+  const onOpen = (token, store) => evt => {
     console.log("WS is onOpen");
     console.log("token " + token);
     console.log("evt " + evt.data);
+    const data = store.getState();
+    if (data.rooms.currentId) {
+      //todo: add logic for rejoin to room
+    }
   };
   const onClose = store => evt => {
     console.log("WS is onClose");
