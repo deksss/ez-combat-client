@@ -115,8 +115,7 @@ class RoomAdmin extends Component {
           >
           </div>
           <Npcs admin={true} />
-          <br />
-          <div style={{ display: "flex", minHeight: 180, heigh: "180px", width: "100%" }}>
+          <div style={{ display: "flex", minHeight: 150, heigh: "150px", width: "100%" }}>
             <div style={{ display: "flex", flexDirection: "column" }}>
               <CustomRoller rollHandle={customRoll} />
               <RollList list={rollsLog || []} />
@@ -128,7 +127,6 @@ class RoomAdmin extends Component {
               date={d20.date}
             />
           </div>
-          <br />
           <Players admin={true} />
           <GeneralSettings
             showGeneralSettings={showGeneralSettings}

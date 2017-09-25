@@ -31,7 +31,7 @@ export default class Units extends Component {
       );
     }
     return (
-      <Scrollbars style={style}>
+      <Scrollbars style={style} autoHide>
         <div style={{ display: "flex" }}>{itemsSorted.map(renderItem)}</div>
       </Scrollbars>
     );
