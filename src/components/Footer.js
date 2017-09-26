@@ -9,9 +9,9 @@ const style = {
 };
 
 const Footer = props => (
-    <div style={style}>
-      <div>deksss - 2017</div>
-    </div>
+  <div style={style}>
+    <div>Markovets-Sobolevskiy - 2017</div>
+  </div>
 );
 
 
