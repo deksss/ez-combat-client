@@ -24,14 +24,14 @@ class Join extends Component {
 
   handleJoin = options => {
     const id = options._id || '';
-    browserHistory.push(`/room/${id}`);
+    browserHistory.push(`/${id}`);
     this.props.setRoom(options);
     this.props.joinRoom(options);
   };
 
   handleJoinMod = options => {
     const id = options._id || '';
-    browserHistory.push(`/room/admin/${id}`);
+    browserHistory.push(`/admin/${id}`);
     this.props.setRoom(options);
     this.props.joinRoom(options);
   };
