@@ -10,14 +10,11 @@ import { setUserId } from "../actions/index";
 import { joinRoom } from "../actions/ws";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import MainHeader from "../components/MainHeader"
+import Footer from "../components/Footer"
 
 class App extends Component {
   static propTypes = {
-    // Injected by React Redux
-    errorMessage: PropTypes.string,
-    inputValue: PropTypes.string.isRequired,
     rooms: PropTypes.array.isRequired,
-    // Injected by React Router
     children: PropTypes.node,
     setRoom: PropTypes.func.isRequired,
     joinRoom: PropTypes.func.isRequired,
@@ -40,21 +37,9 @@ class App extends Component {
     this.props.addRoom(name);
   };
 
-  renderErrorMessage() {
-    const { errorMessage } = this.props;
-    if (!errorMessage) {
-      return null;
-    }
-
-    return (
-      <p style={{ backgroundColor: "#e99", padding: 10 }}>
-        <b>{errorMessage}</b> (<a href="#">Dismiss</a>)
-      </p>
-    );
-  }
 
   render() {
-    const { children, inputValue } = this.props;
+    const { children } = this.props;
     return (
       <MuiThemeProvider>
         <div
@@ -65,11 +50,12 @@ class App extends Component {
             height:"100vh"
           }}
         >
-          <Helmet title="Cmbt trkr" />
+          <Helmet title="EZCombat - RPG BOARD GAME SANDBOX TOOLS" />
 
           <MainHeader />
+          <h3 style={{marginTop: 20}}>Join the game room</h3>
           <JoinRoom
-            value={inputValue}
+            value={''}
             onJoin={this.handleJoin}
             addRoom={this.addRoom}
             onJoinMod={this.handleJoinMod}
@@ -78,19 +64,15 @@ class App extends Component {
             changeUserId={this.props.changeUserId}
           />
           <hr />
-          <h3>OR</h3>
+          <h3 style={{marginTop: 10}}>Or go to an existing one</h3>
           <RoomsList
             items={this.props.rooms}
             join={this.handleJoin}
             joinAsMod={this.handleJoinMod}
             addRoom={this.handleAddRoom}
           />
-          {this.renderErrorMessage()}
           {children}
-          <div style={{flex:1, display: 'flex', justifyContent: "flex-end",
-                flexDirection: "column", padding:5}}>
-            <div>deksss - 2017</div>
-          </div>
+          <Footer />
         </div>
 
       </MuiThemeProvider>
@@ -113,9 +95,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = (state, ownProps) => ({
-  errorMessage: state.errorMessage,
   rooms: state.rooms.list,
-  inputValue: ownProps.location.pathname.substring(1),
   userId: state.user.userId,
 });
 
