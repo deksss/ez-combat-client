@@ -12,7 +12,9 @@ export default class FieldName extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
-    _id: PropTypes.string.isRequired
+    _id: PropTypes.string.isRequired,
+    dragOn: PropTypes.func.isRequired,
+    dragOff: PropTypes.func.isRequired,
   };
 
   componentWillReceiveProps(nextProps) {
@@ -44,6 +46,7 @@ save = () => {
       msgOpen: false
     });
     this.props.onChange(value);
+    this.props.dragOn();
   }
 };
 
@@ -57,6 +60,7 @@ save = () => {
     this.setState({
       edit: true
     });
+    this.props.dragOff();
   };
 
   handleRequestClose = () => {

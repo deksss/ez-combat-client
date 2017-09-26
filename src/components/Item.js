@@ -6,8 +6,8 @@ const Item = styled.div`
   height: 100%;
   align-items: center;
   animation: shown 1s;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
 
   @keyframes shown {
     0% {

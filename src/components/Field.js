@@ -52,7 +52,6 @@ const fieldTarget = {
   }
 };
 
-
 export default DropTarget(ItemTypes.FIELD, fieldTarget, connect => ({
   connectDropTarget: connect.dropTarget()
 }))(
@@ -80,7 +79,8 @@ export default DropTarget(ItemTypes.FIELD, fieldTarget, connect => ({
       constructor(props) {
         super(props);
         this.state = {
-          value: props.field.value
+          value: props.field.value,
+          isDragable: true
         };
       }
 
@@ -112,7 +112,6 @@ export default DropTarget(ItemTypes.FIELD, fieldTarget, connect => ({
         this.props.onChangeField(this.getInputValue());
       };
 
-
       render() {
         const placeholder = "enter value";
         const { _id, name, visibleToUsers, value, canEdit } = this.props.field;
@@ -126,38 +125,49 @@ export default DropTarget(ItemTypes.FIELD, fieldTarget, connect => ({
         };
 
         if (canEdit) {
-          return connectDragSource(
-            connectDropTarget(
-              <div>
-                <Item style={itemStyle}>
-                  <FieldName name={name} onChange={changeName} _id={_id} />
-                  <TextField
-                    placeholder={placeholder}
-                    onChange={this.handleChange}
-                    onKeyUp={this.handleKeyUp}
-                    onBlur={this.handleBlur}
-                    multiLine={true}
-                    rows={1}
-                    value={this.state.value}
-                    textareaStyle={{ color: MAIN_COLOR }}
-                    id={`input_${_id}`}
-                  />
+          const FieldEditable = (
+            <Item style={itemStyle}>
+              <FieldName
+                name={name}
+                onChange={changeName}
+                _id={_id}
+                dragOff={() => this.setState({ isDragable: false })}
+                dragOn={() => this.setState({ isDragable: true })}
+              />
+              <TextField
+                placeholder={placeholder}
+                onChange={this.handleChange}
+                onKeyUp={this.handleKeyUp}
+                onBlur={this.handleBlur}
+                multiLine={true}
+                rows={1}
+                value={this.state.value}
+                textareaStyle={{ color: MAIN_COLOR }}
+                id={`input_${_id}`}
+                onMouseEnter={() => this.setState({ isDragable: false })}
+                onMouseLeave={() => this.setState({ isDragable: true })}
+              />
 
-                  <ButtonVisible
-                    _id={_id}
-                    runAction={setVisibility}
-                    visibleToUsers={visibleToUsers}
-                    color={MAIN_COLOR}
-                  />
-                  <ButtonDelete
-                    _id={_id}
-                    runAction={deleteField}
-                    color={MAIN_COLOR}
-                  />
-                </Item>
-              </div>
-            )
+              <ButtonVisible
+                _id={_id}
+                runAction={setVisibility}
+                visibleToUsers={visibleToUsers}
+                color={MAIN_COLOR}
+              />
+              <ButtonDelete
+                _id={_id}
+                runAction={deleteField}
+                color={MAIN_COLOR}
+              />
+            </Item>
           );
+
+          if (this.state.isDragable) {
+            return connectDragSource(
+              connectDropTarget(<div> {FieldEditable} </div>)
+            );
+          }
+          return <div> {FieldEditable} </div>;
         } else {
           return (
             <Item style={{ color: MAIN_COLOR, marginTop: "10px" }}>
