@@ -20,7 +20,6 @@ export default class App extends Component {
           <Helmet title="EZCombat - RPG BOARD GAME SANDBOX TOOLS" />
           <MainHeader />
           <Join />
-
           <Footer />
         </div>
       </MuiThemeProvider>
