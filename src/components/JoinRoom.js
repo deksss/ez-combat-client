@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
 import Paper from "material-ui/Paper";
+import { MAIN_BG_COLOR, MAIN_COLOR } from "../styles/constants";
 
 export default class JoinRoom extends Component {
   static propTypes = {
@@ -35,10 +36,6 @@ export default class JoinRoom extends Component {
     this.setInputValue(event.target.value);
   };
 
-  //  handleChangeUnit = event => {
-  //    console.log()
-  //    this.setInputValue(event.target.value)
-  //  };
 
   handleKeyUp = e => {
     if (e.keyCode === 13) {
@@ -58,6 +55,7 @@ export default class JoinRoom extends Component {
   };
 
   render() {
+    console.log(MAIN_BG_COLOR)
     return (
       <Paper zDepth={1} style={{
         marginTop:20,
@@ -90,10 +88,11 @@ export default class JoinRoom extends Component {
         />
         <br />
         <RaisedButton
-          style={{ margin: "0.5em" }}
+          style={{ margin: "0.5pem" }}
+          labelColor={MAIN_COLOR}
+          backgroundColor={MAIN_BG_COLOR}
           onClick={this.handleJoinClick}
           label="Join Room"
-          primary={true}
         />
       </Paper>
     );

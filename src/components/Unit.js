@@ -5,7 +5,6 @@ import ButtonVisible from "./ButtonVisible";
 import ButtonDelete from "./ButtonDelete";
 import ButtonCopy from "./ButtonCopy";
 import UnitName from "./UnitName";
-import UnitCard from "./UnitCard";
 import Paper from "material-ui/Paper";
 import FloatingActionButton from "material-ui/FloatingActionButton";
 import ContentAdd from "material-ui/svg-icons/content/add";
@@ -82,19 +81,14 @@ const Unit = ({ unit }) => {
   };
 
   const unitHeaderStyleShowed = Object.assign({}, unitHeaderStyle, {
-    //backgroundColor: '#7B5F47',
-    //color: '#FFFFFF',
     color: style.color,
     backgroundColor: style.backgroundColor
   });
   const unitHeaderStyleHiden = Object.assign({}, unitHeaderStyle, {
-    //backgroundColor: '#A4A4A4',
-    //color: '#FFFFFF',
     color: styleHidden.color,
     backgroundColor: styleHidden.backgroundColor
   });
 
-  //const buttonColor = visibleToUsers ? '#FFFFFF' : '#FFFFFF';
   const buttonColor = visibleToUsers ? style.color : styleHidden.color;
   const itemsSorted = fields.slice().sort((a, b) => b.index < a.index);
 
@@ -104,10 +98,14 @@ const Unit = ({ unit }) => {
         zDepth={1}
         style={{
           marginRight: "20px",
-          backgroundColor: visibleToUsers ? "#FFFFFF" : "#E0E0E0"
+          backgroundColor: visibleToUsers ? "#FFFFFF" : "#E0E0E0",
+          width: 340,
+          minHeight: 200,
+          alignItems: 'center',
+          overflowY: 'auto',
+          flex: '1 0 auto'
         }}
       >
-        <UnitCard>
           <div
             style={
               visibleToUsers ? unitHeaderStyleShowed : unitHeaderStyleHiden
@@ -157,7 +155,6 @@ const Unit = ({ unit }) => {
           >
             <ContentAdd />
           </FloatingActionButton>
-        </UnitCard>
       </Paper>
     );
   } else {
@@ -166,10 +163,12 @@ const Unit = ({ unit }) => {
         zDepth={1}
         style={{
           marginRight: "20px",
-          backgroundColor: "#FFFFFF"
+          backgroundColor: "#FFFFFF",
+          width: 340,
+          minHeight: 200,
+          alignItems: 'center'
         }}
       >
-        <UnitCard>
           <div style={unitHeaderStyleShowed}>
             <UnitName
               name={name}
@@ -179,7 +178,6 @@ const Unit = ({ unit }) => {
             />
           </div>
           <ul>{itemsSorted.map(renderField)}</ul>
-        </UnitCard>
       </Paper>
     );
   }
