@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "react-router";
+import { Route } from 'react-router-dom';
 import App from "./containers/App";
 import Room from "./containers/Room";
 import RoomAdmin from "./containers/RoomAdmin";

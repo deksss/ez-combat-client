@@ -1,4 +1,3 @@
-import { routerReducer as routing } from "react-router-redux";
 import { combineReducers } from "redux";
 import templates from "./templates";
 import players from "./players";
@@ -66,7 +65,6 @@ function dumbUpdate(state, action) {
 
 const rootReducer = reduceReducers(
   combineReducers({
-    routing,
     rooms,
     templates,
     players,

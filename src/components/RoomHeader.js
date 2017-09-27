@@ -5,7 +5,7 @@ import Help from "./Icons/Help";
 import Settings from "./Icons/Settings";
 import Home from "./Icons/Home";
 import styles from "../styles/IconStyles";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import Ws from "../containers/Ws";
 import HeaderStyledBlock from "./HeaderStyledBlock";
 import HeaderStyled from "./HeaderStyled";

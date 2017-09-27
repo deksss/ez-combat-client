@@ -45,10 +45,9 @@ export default function createSocketMiddleware() {
   let socket = null;
   let prevSendTime = 0;
 
-  const onOpen = (token, store) => evt => {
+  const onOpen = (store) => evt => {
     console.log("WS is onOpen");
-    console.log("token " + token);
-    console.log("evt " + evt.data);
+    console.log("evt " + evt);
     const data = store.getState();
     if (data.rooms.currentId) {
       //todo: add logic for rejoin to room
@@ -107,12 +106,12 @@ export default function createSocketMiddleware() {
           socket.close();
         }
         console.log("SOCKETS_CONNECTING");
-        const HOST = location.origin.replace(/^http/, "ws");
+        const HOST = window.location.origin.replace(/^http/, "ws");
         socket = new WebSocket(HOST);
         store.dispatch(socketActions.socketsConnecting());
         socket.onmessage = onMessage(socket, store);
         socket.onclose = onClose(store);
-        socket.onopen = onOpen();
+        socket.onopen = onOpen(store);
         break;
       case "SOCKETS_DISCONNECT":
         if (socket !== null) {

@@ -6,12 +6,13 @@ import RoomsList from "../components/RoomsList";
 import { setCurrentRoom, addRoom } from "../actions/rooms";
 import { setUserId } from "../actions/index";
 import { joinRoom } from "../actions/ws";
-import { browserHistory } from "react-router";
+//import { browserHistory } from "react-router";
+import { withRouter } from "react-router-dom";
 
 const style = {
   display: "flex",
   flexDirection: "column",
-  alignItems: "center",
+  alignItems: "center"
 };
 
 class Join extends Component {
@@ -23,15 +24,16 @@ class Join extends Component {
   };
 
   handleJoin = options => {
-    const id = options._id || '';
-    browserHistory.push(`/${id}`);
+    const id = options._id || "";
+    this.props.history.push(`/${id}`);
     this.props.setRoom(options);
     this.props.joinRoom(options);
   };
 
   handleJoinMod = options => {
-    const id = options._id || '';
-    browserHistory.push(`/admin/${id}`);
+    const id = options._id || "";
+
+    this.props.history.push(`/admin/${id}`);
     this.props.setRoom(options);
     this.props.joinRoom(options);
   };
@@ -40,13 +42,12 @@ class Join extends Component {
     this.props.addRoom(name);
   };
 
-
   render() {
     return (
       <div style={style}>
-        <h3 style={{marginTop: 20}}>Join the game room</h3>
+        <h3 style={{ marginTop: 20 }}>Join the game room</h3>
         <JoinRoom
-          value={''}
+          value={""}
           onJoin={this.handleJoin}
           addRoom={this.addRoom}
           onJoinMod={this.handleJoinMod}
@@ -54,7 +55,7 @@ class Join extends Component {
           userId={this.props.userId}
           changeUserId={this.props.changeUserId}
         />
-        <h3 style={{marginTop: 10}}>Or go to an existing one</h3>
+        <h3 style={{ marginTop: 10 }}>Or go to an existing one</h3>
         <RoomsList
           items={this.props.rooms}
           join={this.handleJoin}
@@ -76,13 +77,13 @@ const mapDispatchToProps = dispatch => ({
     dispatch(addRoom(options));
   },
   changeUserId: userId => {
-    dispatch(setUserId(userId.target.value))
+    dispatch(setUserId(userId.target.value));
   }
 });
 
 const mapStateToProps = (state, ownProps) => ({
   rooms: state.rooms.list,
-  userId: state.user.userId,
+  userId: state.user.userId
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Join);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Join));

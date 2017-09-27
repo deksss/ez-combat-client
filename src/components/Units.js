@@ -21,15 +21,17 @@ export default class Units extends Component {
     const { items, renderItem, emptyMsg } = this.props;
     const itemsSorted = items.slice().sort((a, b) => b.index < a.index);
     const isEmpty = itemsSorted.length === 0;
-    style.maxHeight = this.props.height || style.height;
+    const calculatedStyle = Object.assign({}, style, {
+      height: this.props.height || style.height
+    });
 
     if (isEmpty) {
       return (
-        <div style={style}>
+        <div style={calculatedStyle}>
           <h4>{emptyMsg}</h4>
         </div>
       );
     }
-    return <div style={style}>{itemsSorted.map(renderItem)}</div>;
+    return <div style={calculatedStyle}>{itemsSorted.map(renderItem)}</div>;
   }
 }
