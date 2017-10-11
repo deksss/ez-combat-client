@@ -7,7 +7,7 @@ import Home from "./Icons/Home";
 import styles from "../styles/IconStyles";
 import { Link } from "react-router-dom";
 import Ws from "../containers/Ws";
-import HeaderStyledBlock from "./HeaderStyledBlock";
+import HeaderBlockStyled from "./HeaderBlockStyled";
 import HeaderStyled from "./HeaderStyled";
 
 export default class RoomHeader extends Component {
@@ -25,7 +25,7 @@ export default class RoomHeader extends Component {
   render() {
     return (
       <HeaderStyled>
-        <HeaderStyledBlock>
+        <HeaderBlockStyled>
           <Link to={`/`}>
             <IconButton onClick={() => console.log(this)}
                         iconStyle={styles.mediumIcon}
@@ -36,8 +36,8 @@ export default class RoomHeader extends Component {
         <span>{this.props.userId} </span>
         <h4 style={{marginLeft: 20}}>Room: {this.props.roomId}</h4>
         <Ws />
-        </HeaderStyledBlock>
-        <HeaderStyledBlock>
+        </HeaderBlockStyled>
+        <HeaderBlockStyled>
           <IconButton onClick={this.handleToggleSettings}
                       iconStyle={styles.mediumIcon}
                       style={styles.medium}>
@@ -49,7 +49,7 @@ export default class RoomHeader extends Component {
                       style={styles.medium}>
             <Help />
           </IconButton>
-        </HeaderStyledBlock>
+        </HeaderBlockStyled>
       </HeaderStyled>
     );
   }

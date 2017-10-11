@@ -6,7 +6,6 @@ import RoomsList from "../components/RoomsList";
 import { setCurrentRoom, addRoom } from "../actions/rooms";
 import { setUserId } from "../actions/index";
 import { joinRoom } from "../actions/ws";
-//import { browserHistory } from "react-router";
 import { withRouter } from "react-router-dom";
 
 const style = {
@@ -14,6 +13,26 @@ const style = {
   flexDirection: "column",
   alignItems: "center"
 };
+
+const mapDispatchToProps = dispatch => ({
+  setRoom: options => {
+    dispatch(setCurrentRoom(options));
+  },
+  joinRoom: options => {
+    dispatch(joinRoom(options));
+  },
+  addRoom: options => {
+    dispatch(addRoom(options));
+  },
+  changeUserId: userId => {
+    dispatch(setUserId(userId.target.value));
+  }
+});
+
+const mapStateToProps = (state, ownProps) => ({
+  rooms: state.rooms.list,
+  userId: state.user.userId
+});
 
 class Join extends Component {
   static propTypes = {
@@ -66,24 +85,5 @@ class Join extends Component {
     );
   }
 }
-const mapDispatchToProps = dispatch => ({
-  setRoom: options => {
-    dispatch(setCurrentRoom(options));
-  },
-  joinRoom: options => {
-    dispatch(joinRoom(options));
-  },
-  addRoom: options => {
-    dispatch(addRoom(options));
-  },
-  changeUserId: userId => {
-    dispatch(setUserId(userId.target.value));
-  }
-});
-
-const mapStateToProps = (state, ownProps) => ({
-  rooms: state.rooms.list,
-  userId: state.user.userId
-});
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Join));
