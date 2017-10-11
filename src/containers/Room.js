@@ -5,11 +5,9 @@ import Npcs from "./Npcs";
 import { connect } from "react-redux";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import RoomHeader from "../components/RoomHeader";
-import D20 from "../components/dices/D20";
+import DiceMain from "../components/dices/DiceMain";
 import { randomFace, roll } from "../common/roller";
 import { rollD20, rollCustom } from "../actions/rolls";
-import RollList from "../components/dices/RollList";
-import CustomRoller from "../components/dices/CustomRoller";
 
 const mapStateToProps = state => {
   return {
@@ -29,12 +27,12 @@ const mapDispatchToProps = dispatch => ({
     const result = roll(rawString);
     if (result.res && result.type) {
       dispatch(
-          rollCustom({
-            name: userId,
-            rolls: result.res,
-            types: result.type,
-            rawString: rawString
-          })
+        rollCustom({
+          name: userId,
+          rolls: result.res,
+          types: result.type,
+          rawString: rawString
+        })
       );
     }
   }
@@ -47,9 +45,6 @@ class Room extends Component {
     rollsLog: PropTypes.array.isRequired
   };
 
-  componentWillMount() {}
-
-  componentWillReceiveProps(nextProps) {}
   rollD20 = () => this.props.rollD20(this.props.userId);
   rollCustom = rawString => this.props.customRoll(rawString, this.props.userId);
 
@@ -63,20 +58,15 @@ class Room extends Component {
             userId={this.props.userId}
             toggleSettings={() => {}}
           />
+
           <Npcs admin={false} />
 
-          <div style={{ display: "flex", heigh: "180px", width: "100%" }}>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <CustomRoller rollHandle={this.rollCustom} />
-              <RollList list={rollsLog || []} />
-            </div>
-            <D20
-              value={d20.roll}
-              name={d20.name}
-              rollHandle={this.rollD20}
-              date={d20.date}
-            />
-          </div>
+          <DiceMain
+            customRoll={this.rollCustom}
+            d20={d20}
+            rollD20={this.rollD20}
+            rollsLog={rollsLog || []}
+          />
 
           <Players admin={false} />
         </div>

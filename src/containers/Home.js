@@ -12,7 +12,7 @@ const style = {
   minHeight: "100vh"
 };
 
-export default class App extends Component {
+export default class Home extends Component {
   render() {
     return (
       <MuiThemeProvider>
