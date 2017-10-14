@@ -1,10 +1,9 @@
 import uuid from "uuid/v4";
 import randomDigit from "../common/randomDigit";
 
-const rooms = (
-  state = { list: [], currentId: null, isCurrentRoomMod: false },
-  action
-) => {
+const initialState = { list: [], currentId: null, isCurrentRoomMod: false };
+
+const rooms = (state = initialState, action) => {
   switch (action.type) {
     case "SET_CURRENT_ROOM":
       const newCurrent = action._id;

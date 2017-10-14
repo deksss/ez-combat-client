@@ -1,6 +1,7 @@
 import uuid from "uuid/v4";
+const initialState = { userId: `username#${uuid().slice(0, 4)}` };
 
-const user = (state = { userId: `user#${uuid().slice(0, 4)}` }, action) => {
+const user = (state = initialState, action) => {
   switch (action.type) {
     case "SET_USER_ID":
       return Object.assign({}, state, {
