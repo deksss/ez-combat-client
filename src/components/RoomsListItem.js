@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { ListItem } from "material-ui/List";
 import RaisedButton from "material-ui/RaisedButton";
+import { MAIN_BG_COLOR } from "../styles/constants";
 
 const RoomsListItem = ({ room }) => {
   const { name, _id, owner_code, joinHandler, modJoinHandler } = room;
@@ -16,20 +17,38 @@ const RoomsListItem = ({ room }) => {
   };
 
   return (
-    <ListItem style={{display: 'flex'}}>
-      <h4>Room ID: <i>{_id}</i></h4>
-      {owner_code && <RaisedButton
-        style={{ margin: "0.5em" }}
-        onClick={handleClick}
-        label="Enter GM"
-        primary={true}
-      />}
-      <RaisedButton
-        style={{ margin: "0.5em" }}
-        onClick={handleClickUser}
-        label="Enter"
-        primary={false}
-      />
+    <ListItem>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          flexDirection: "row",
+          justifyContent: "space-between"
+        }}
+      >
+        <div>
+          Room ID: <i>{_id}</i>
+        </div>
+        <div>
+          {(owner_code && (
+            <RaisedButton
+              style={{ margin: "0.5em" }}
+              onClick={handleClick}
+              label="Enter"
+              labelColor={"white"}
+              backgroundColor={MAIN_BG_COLOR}
+            />
+          )) || (
+            <RaisedButton
+              style={{ margin: "0.5em" }}
+              onClick={handleClickUser}
+              label="Enter"
+              labelColor={"white"}
+              backgroundColor={MAIN_BG_COLOR}
+            />
+          )}
+        </div>
+      </div>
     </ListItem>
   );
 };

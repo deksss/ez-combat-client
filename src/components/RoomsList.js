@@ -7,6 +7,7 @@ import ContentAdd from "material-ui/svg-icons/content/add";
 import TextField from "material-ui/TextField";
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import { MAIN_BG_COLOR } from "../styles/constants";
 
 class RoomsList extends Component {
   static propTypes = {
@@ -78,6 +79,8 @@ class RoomsList extends Component {
           mini={true}
           style={{ margin: "5px" }}
           onClick={this.handleAddRoom}
+          labelColor={"white"}
+          backgroundColor={MAIN_BG_COLOR}
         >
           <ContentAdd />
         </FloatingActionButton>
