@@ -1,65 +1,100 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { ListItem } from "material-ui/List";
-import RaisedButton from "material-ui/RaisedButton";
-import { MAIN_BG_COLOR } from "../styles/constants";
+import { MAIN_BG_COLOR, MAIN_COLOR } from "../styles/constants";
+import ExitToApp from "material-ui/svg-icons/action/exit-to-app";
+import Delete from "material-ui/svg-icons/action/delete";
+import IconButton from "material-ui/IconButton";
+import Dialog from "material-ui/Dialog";
+import FlatButton from "material-ui/FlatButton";
 
-const RoomsListItem = ({ room }) => {
-  const { name, _id, owner_code, joinHandler, modJoinHandler } = room;
+class RoomsListItem extends Component {
+  static propTypes = {
+    room: PropTypes.shape({
+      name: PropTypes.string,
+      _id: PropTypes.string.isRequired,
+      joinHandler: PropTypes.func.isRequired,
+      modJoinHandler: PropTypes.func.isRequired,
+      deleteHandler: PropTypes.func.isRequired,
+    }).isRequired
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false
+    };
+  }
 
   //need move to top level component
-  const handleClick = () => {
+  handleClick = () => {
+    const { _id, owner_code, name, modJoinHandler } = this.props.room;
     modJoinHandler({ _id, owner_code, name });
   };
 
-  const handleClickUser = () => {
+  handleClickUser = () => {
+    const { _id, joinHandler } = this.props.room;
     joinHandler({ _id });
   };
 
-  return (
-    <ListItem>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          flexDirection: "row",
-          justifyContent: "space-between"
-        }}
-      >
-        <div>
-          Room ID: <i>{_id}</i>
-        </div>
-        <div>
-          {(owner_code && (
-            <RaisedButton
-              style={{ margin: "0.5em" }}
-              onClick={handleClick}
-              label="Enter"
-              labelColor={"white"}
-              backgroundColor={MAIN_BG_COLOR}
-            />
-          )) || (
-            <RaisedButton
-              style={{ margin: "0.5em" }}
-              onClick={handleClickUser}
-              label="Enter"
-              labelColor={"white"}
-              backgroundColor={MAIN_BG_COLOR}
-            />
-          )}
-        </div>
-      </div>
-    </ListItem>
-  );
-};
+  handleOpen = () => {
+    this.setState({ open: true });
+  };
 
-RoomsListItem.propTypes = {
-  room: PropTypes.shape({
-    name: PropTypes.string,
-    _id: PropTypes.string.isRequired,
-    joinHandler: PropTypes.func.isRequired,
-    modJoinHandler: PropTypes.func.isRequired
-  }).isRequired
-};
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  handleDelete = () => {
+    const { _id, deleteHandler } = this.props.room;
+    this.setState({ open: false });
+    deleteHandler({ _id });
+  };
+
+  render() {
+    const { _id, owner_code } = this.props.room;
+    const modalActions = [
+      <FlatButton label="Cancel" primary={true} onClick={this.handleClose} />,
+      <FlatButton label="Delete" primary={true} onClick={this.handleDelete} />
+    ];
+
+    return (
+      <ListItem>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            color: MAIN_COLOR
+          }}
+        >
+          <h3>{_id}</h3>
+          <div>
+            <IconButton
+              tooltip="Enter to room"
+              onClick={(owner_code && this.handleClick) || this.handleClickUser}
+            >
+              <ExitToApp color={MAIN_COLOR} backgroundColor={MAIN_BG_COLOR} />
+            </IconButton>
+            {owner_code && (
+              <IconButton tooltip="Delete Room" onClick={this.handleOpen}>
+                <Delete color={MAIN_COLOR} backgroundColor={MAIN_BG_COLOR} />
+              </IconButton>
+            )}
+          </div>
+          <Dialog
+            actions={modalActions}
+            modal={false}
+            open={this.state.open}
+            onRequestClose={this.handleClose}
+          >
+            Delete room?
+          </Dialog>
+        </div>
+      </ListItem>
+    );
+  }
+}
 
 export default RoomsListItem;

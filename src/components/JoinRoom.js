@@ -55,12 +55,10 @@ export default class JoinRoom extends Component {
   };
 
   render() {
-    console.log(MAIN_BG_COLOR)
     return (
       <Paper zDepth={1} style={{
         marginTop:20,
         padding: 10,
-        paddingBottom: 10,
         display: 'flex',
         flexDirection: 'column',
         minHeight: 250
@@ -88,8 +86,8 @@ export default class JoinRoom extends Component {
         />
         <br />
         <RaisedButton
-          style={{ margin: "0.5pem" }}
-          labelColor={'white'}
+          style={{ margin: "1px" }}
+          labelColor={'#ffffff'}
           backgroundColor={MAIN_BG_COLOR}
           onClick={this.handleJoinClick}
           label="Join Room"

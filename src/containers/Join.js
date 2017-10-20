@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import JoinRoom from "../components/JoinRoom";
 import RoomsList from "../components/RoomsList";
-import { setCurrentRoom, addRoom } from "../actions/rooms";
+import { setCurrentRoom, addRoom, deleteRoom } from "../actions/rooms";
 import { setUserId } from "../actions/index";
 import { joinRoom } from "../actions/ws";
 import { withRouter } from "react-router-dom";
@@ -26,6 +26,9 @@ const mapDispatchToProps = dispatch => ({
   },
   changeUserId: userId => {
     dispatch(setUserId(userId.target.value));
+  },
+  deleteRoom: options => {
+    dispatch(deleteRoom(options))
   }
 });
 
@@ -39,7 +42,8 @@ class Join extends Component {
     rooms: PropTypes.array.isRequired,
     setRoom: PropTypes.func.isRequired,
     joinRoom: PropTypes.func.isRequired,
-    changeUserId: PropTypes.func.isRequired
+    changeUserId: PropTypes.func.isRequired,
+    deleteRoom: PropTypes.func.isRequired,
   };
 
   handleJoin = options => {
@@ -61,10 +65,13 @@ class Join extends Component {
     this.props.addRoom(name);
   };
 
+  handleDeleteRoom = options => {
+    this.props.deleteRoom(options);
+  };
+
   render() {
     return (
       <div style={style}>
-        <h3 style={{ marginTop: 20 }}>Join the game room</h3>
         <JoinRoom
           value={""}
           onJoin={this.handleJoin}
@@ -74,12 +81,12 @@ class Join extends Component {
           userId={this.props.userId}
           changeUserId={this.props.changeUserId}
         />
-        <h3 style={{ marginTop: 10 }}>Or go to an existing one</h3>
         <RoomsList
           items={this.props.rooms}
           join={this.handleJoin}
           joinAsMod={this.handleJoinMod}
           addRoom={this.handleAddRoom}
+          deleteRoom={this.handleDeleteRoom}
         />
       </div>
     );
