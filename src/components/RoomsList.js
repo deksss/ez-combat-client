@@ -51,7 +51,6 @@ class RoomsList extends Component {
   };
 
   renderItem = roomItem => {
-    console.log(this);
     const room = Object.assign({}, roomItem, {
       joinHandler: this.props.join,
       modJoinHandler: this.props.joinAsMod,

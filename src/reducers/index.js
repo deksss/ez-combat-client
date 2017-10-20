@@ -11,7 +11,7 @@ import sidebar from "./sidebar";
 import FileSaver from "file-saver";
 import rolls from "./rolls";
 import {savePreset, loadPreset} from '../common/preset'
-
+import mainTabs from "./mainTabs";
 function reduceReducers(...reducers) {
   return (previous, current) =>
     reducers.reduce((p, r) => r(p, current), previous);
@@ -74,7 +74,8 @@ const rootReducer = reduceReducers(
     ws,
     user,
     sidebar,
-    rolls
+    rolls,
+    mainTabs
   }),
   (state, action) => {
     switch (action.type) {
