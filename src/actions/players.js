@@ -12,6 +12,8 @@ export const UPDATE_PLAYER_FIELD_NAME = "UPDATE_PLAYER_FIELD_NAME";
 export const DELETE_PLAYER_FIELD = "DELETE_PLAYER_FIELD";
 export const CHANGE_PLAYER_PERMISSION = "CHANGE_PLAYER_PERMISSION";
 export const UPDATE_PLAYER_FIELD_RANK = "UPDATE_PLAYER_FIELD_RANK";
+export const DELETE_PLAYERS_BY_ROOM_ID = "DELETE_PLAYERS_BY_ROOM_ID";
+
 
 export const addPlayerField = unitId => ({
   type: ADD_FIELD_TO_PLAYER,
@@ -96,5 +98,11 @@ export const updatePlayerFieldRank = (unitId, fieldId, value) => ({
   unitId: unitId,
   fieldId: fieldId,
   index: value,
+  toServer: true
+});
+
+export const deletePlayersByRoomId = options => ({
+  type: DELETE_PLAYERS_BY_ROOM_ID,
+  parentId: options._id,
   toServer: true
 });

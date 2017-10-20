@@ -11,6 +11,7 @@ export const TOGGLE_FIELD_VISIBLE = "TOGGLE_NPC_FIELD_VISIBLE";
 export const UPDATE_NPC_FIELD_NAME = "UPDATE_NPC_FIELD_NAME";
 export const DELETE_NPC_FIELD = "DELETE_NPC_FIELD";
 export const UPDATE_NPC_FIELD_RANK = "UPDATE_NPC_FIELD_RANK";
+export const DELETE_NPCS_BY_ROOM_ID = "DELETE_NPCS_BY_ROOM_ID";
 
 export const addNpcField = unitId => ({
   type: ADD_FIELD_TO_NPC,
@@ -89,4 +90,10 @@ export const updateNpcFieldRank = (unitId, fieldId, value) => ({
   fieldId: fieldId,
   index: value,
   toServer: true,
+});
+
+export const deleteNpcsByRoomId = options => ({
+  type: DELETE_NPCS_BY_ROOM_ID,
+  parentId: options._id,
+  toServer: true
 });

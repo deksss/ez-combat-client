@@ -7,6 +7,8 @@ import { setCurrentRoom, addRoom, deleteRoom } from "../actions/rooms";
 import { setUserId } from "../actions/index";
 import { joinRoom } from "../actions/ws";
 import { withRouter } from "react-router-dom";
+import { deleteNpcsByRoomId } from "../actions/npcs";
+import { deletePlayersByRoomId } from "../actions/players";
 
 const style = {
   display: "flex",
@@ -28,7 +30,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setUserId(userId.target.value));
   },
   deleteRoom: options => {
-    dispatch(deleteRoom(options))
+    dispatch(deleteRoom(options));
+    dispatch(deleteNpcsByRoomId(options));
+    dispatch(deletePlayersByRoomId(options));
   }
 });
 
@@ -43,7 +47,7 @@ class Join extends Component {
     setRoom: PropTypes.func.isRequired,
     joinRoom: PropTypes.func.isRequired,
     changeUserId: PropTypes.func.isRequired,
-    deleteRoom: PropTypes.func.isRequired,
+    deleteRoom: PropTypes.func.isRequired
   };
 
   handleJoin = options => {
