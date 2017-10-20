@@ -5,15 +5,17 @@ import { List } from "material-ui/List";
 import FloatingActionButton from "material-ui/FloatingActionButton";
 import ContentAdd from "material-ui/svg-icons/content/add";
 import TextField from "material-ui/TextField";
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
+import { DragDropContext } from "react-dnd";
+import HTML5Backend from "react-dnd-html5-backend";
+import { MAIN_BG_COLOR, MAIN_COLOR } from "../styles/constants";
 
 class RoomsList extends Component {
   static propTypes = {
     items: PropTypes.array.isRequired,
     join: PropTypes.func.isRequired,
     joinAsMod: PropTypes.func.isRequired,
-    addRoom: PropTypes.func.isRequired
+    addRoom: PropTypes.func.isRequired,
+    deleteRoom: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -49,10 +51,10 @@ class RoomsList extends Component {
   };
 
   renderItem = roomItem => {
-    console.log(this);
     const room = Object.assign({}, roomItem, {
       joinHandler: this.props.join,
-      modJoinHandler: this.props.joinAsMod
+      modJoinHandler: this.props.joinAsMod,
+      deleteHandler: this.props.deleteRoom,
     });
 
     return <RoomsListItem room={room} key={room._id} />;
@@ -60,10 +62,15 @@ class RoomsList extends Component {
 
   render() {
     const { items } = this.props;
-    const placeholder = "Enter new room name";
+    const placeholder = "For add new room enter name here";
 
     return (
       <div>
+        <h4
+          style={{ paddingTop: "20px", textAlign: "center", color: MAIN_COLOR }}
+        >
+          Rooms:
+        </h4>
         <TextField
           ref={input => {
             this.input = input;
@@ -78,6 +85,8 @@ class RoomsList extends Component {
           mini={true}
           style={{ margin: "5px" }}
           onClick={this.handleAddRoom}
+          labelColor={"#ffffff"}
+          backgroundColor={MAIN_BG_COLOR}
         >
           <ContentAdd />
         </FloatingActionButton>

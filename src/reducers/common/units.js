@@ -186,3 +186,8 @@ export const toggleUnitFieldVisible = (state, action) => {
     return Object.assign({}, unit);
   });
 };
+
+export const deleteUnitsByParrentId = (state, action) => {
+  console.log(action);
+  return state.filter(unit => unit.parentId !== action.parentId);
+};

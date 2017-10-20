@@ -28,6 +28,14 @@ const rooms = (state = initialState, action) => {
           currentId: addedCurrent
         }
       );
+    case "DELETE_ROOM":
+      const _id = action._id;
+      return Object.assign(
+        {},
+        {
+          list: state.list.filter(room => room._id !== _id)
+        }
+      );
     default:
       return state;
   }

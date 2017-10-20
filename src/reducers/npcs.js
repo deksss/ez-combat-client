@@ -1,4 +1,5 @@
-import { addUnit,
+import {
+  addUnit,
   changeName,
   copyUnit,
   toggleVisibleUnit,
@@ -8,7 +9,9 @@ import { addUnit,
   updateUnitFieldName,
   toggleUnitFieldVisible,
   updateUnitFieldRank,
-  deleteUnit } from './helpers/units.js';
+  deleteUnit,
+  deleteUnitsByParrentId
+} from "./common/units.js";
 
 const npcs = (state = [], action) => {
   switch (action.type) {
@@ -34,6 +37,8 @@ const npcs = (state = [], action) => {
       return toggleUnitFieldVisible(state, action);
     case "UPDATE_NPC_FIELD_RANK":
       return updateUnitFieldRank(state, action);
+    case "DELETE_NPCS_BY_ROOM_ID":
+      return deleteUnitsByParrentId(state, action);
     default:
       return state;
   }

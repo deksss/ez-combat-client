@@ -1,4 +1,5 @@
-import { addUnit,
+import {
+  addUnit,
   changeName,
   copyUnit,
   toggleVisibleUnit,
@@ -8,8 +9,9 @@ import { addUnit,
   updateUnitFieldName,
   toggleUnitFieldVisible,
   updateUnitFieldRank,
-  deleteUnit } from './helpers/units.js';
-
+  deleteUnit,
+  deleteUnitsByParrentId
+} from "./common/units.js";
 
 const changeWhoCanEdit = (state, action) => {
   return state.map(player => {
@@ -48,6 +50,8 @@ const players = (state = [], action) => {
       return changeWhoCanEdit(state, action);
     case "UPDATE_PLAYER_FIELD_RANK":
       return updateUnitFieldRank(state, action);
+    case "DELETE_PLAYERS_BY_ROOM_ID":
+      return deleteUnitsByParrentId(state, action);
     default:
       return state;
   }

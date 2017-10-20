@@ -25,7 +25,7 @@ const Unit = ({ unit }) => {
     canEdit,
     style,
     styleHidden,
-    canCRUD,
+    canCRUD
   } = unit;
 
   const createHandleChangeField = fieldId => {
@@ -101,60 +101,66 @@ const Unit = ({ unit }) => {
           backgroundColor: visibleToUsers ? "#FFFFFF" : "#E0E0E0",
           width: 340,
           minHeight: 200,
-          alignItems: 'center',
-          overflowY: 'auto',
-          flex: '1 0 auto'
+          alignItems: "center",
+          overflowY: "auto",
+          flex: "1 0 auto",
+          position: 'relative'
         }}
       >
-          <div
-            style={
-              visibleToUsers ? unitHeaderStyleShowed : unitHeaderStyleHiden
-            }
-          >
-            <UnitName
-              name={name}
-              onChange={unitActions.changeName}
-              _id={_id}
-              readOnly={!canCRUD}
-            />
-            {canCRUD && (
-              <div>
-                <ButtonCopy
+        <div
+          style={visibleToUsers ? unitHeaderStyleShowed : unitHeaderStyleHiden}
+        >
+          <UnitName
+            name={name}
+            onChange={unitActions.changeName}
+            _id={_id}
+            readOnly={!canCRUD}
+          />
+          {canCRUD && (
+            <div>
+              <ButtonCopy
+                _id={_id}
+                runAction={unitActions.copy}
+                color={buttonColor}
+              />
+              <ButtonVisible
+                _id={_id}
+                runAction={unitActions.toggleVisibility}
+                visibleToUsers={visibleToUsers}
+                color={buttonColor}
+              />
+              {unitActions.changePermission && (
+                <UnitPermission
+                  permission={permission}
+                  onChange={unitActions.changePermission}
                   _id={_id}
-                  runAction={unitActions.copy}
-                  color={buttonColor}
                 />
-                <ButtonVisible
-                  _id={_id}
-                  runAction={unitActions.toggleVisibility}
-                  visibleToUsers={visibleToUsers}
-                  color={buttonColor}
-                />
-                {unitActions.changePermission && (
-                  <UnitPermission
-                    permission={permission}
-                    onChange={unitActions.changePermission}
-                    _id={_id}
-                  />
-                )}
-                <ButtonDelete
-                  _id={_id}
-                  runAction={unitActions.delete}
-                  color={buttonColor}
-                />
-              </div>
-            )}
-          </div>
-          <ul>{itemsSorted.map(renderField)}</ul>
+              )}
+              <ButtonDelete
+                _id={_id}
+                runAction={unitActions.delete}
+                color={buttonColor}
+              />
+            </div>
+          )}
+        </div>
+        <ul>{itemsSorted.map(renderField)}</ul>
+        <div style={{ position: "sticky", bottom: 5, left: 0 }}>
           <FloatingActionButton
             mini={true}
-            style={{ width: 30, height: 30, marginLeft: 20, marginTop: 10 }}
+            style={{
+              width: 30,
+              height: 30,
+              marginLeft: 20,
+              marginTop: 10
+            }}
             iconStyle={{ width: 30, height: 30 }}
             backgroundColor={MAIN_BG_COLOR}
             onClick={handleAddField}
           >
             <ContentAdd />
           </FloatingActionButton>
+        </div>
       </Paper>
     );
   } else {
@@ -166,18 +172,13 @@ const Unit = ({ unit }) => {
           backgroundColor: "#FFFFFF",
           width: 340,
           minHeight: 200,
-          alignItems: 'center'
+          alignItems: "center"
         }}
       >
-          <div style={unitHeaderStyleShowed}>
-            <UnitName
-              name={name}
-              readOnly={true}
-              onChange={() => {}}
-              _id={_id}
-            />
-          </div>
-          <ul>{itemsSorted.map(renderField)}</ul>
+        <div style={unitHeaderStyleShowed}>
+          <UnitName name={name} readOnly={true} onChange={() => {}} _id={_id} />
+        </div>
+        <ul>{itemsSorted.map(renderField)}</ul>
       </Paper>
     );
   }
