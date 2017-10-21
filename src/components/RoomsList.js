@@ -71,6 +71,7 @@ class RoomsList extends Component {
         >
           Rooms:
         </h4>
+        <div style={{display: 'flex', justifyContent: "center"}}>
         <TextField
           ref={input => {
             this.input = input;
@@ -90,6 +91,7 @@ class RoomsList extends Component {
         >
           <ContentAdd />
         </FloatingActionButton>
+        </div>
         <List>{items.map(this.renderItem)}</List>
       </div>
     );

@@ -7,6 +7,7 @@ import Delete from "material-ui/svg-icons/action/delete";
 import IconButton from "material-ui/IconButton";
 import Dialog from "material-ui/Dialog";
 import FlatButton from "material-ui/FlatButton";
+import SaveButton from "material-ui/svg-icons/content/save";
 
 class RoomsListItem extends Component {
   static propTypes = {
@@ -76,6 +77,9 @@ class RoomsListItem extends Component {
               onClick={(owner_code && this.handleClick) || this.handleClickUser}
             >
               <ExitToApp color={MAIN_COLOR} backgroundColor={MAIN_BG_COLOR} />
+            </IconButton>
+            <IconButton tooltip="Save Room" onClick={this.handleOpen}>
+              <SaveButton color={MAIN_COLOR} backgroundColor={MAIN_BG_COLOR} />
             </IconButton>
             {owner_code && (
               <IconButton tooltip="Delete Room" onClick={this.handleOpen}>
