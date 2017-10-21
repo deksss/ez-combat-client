@@ -17,3 +17,8 @@ export const deleteRoom = (options = {}) => ({
   type: DELETE_ROOM,
   _id: options._id,
 });
+
+export const saveRoom = (options = {}) => ({
+  type: DELETE_ROOM,
+  _id: options._id,
+});

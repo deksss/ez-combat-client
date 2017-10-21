@@ -39,8 +39,9 @@ const rootReducer = reduceReducers(
         return dumbUpdate(state, action);
       case "SAVE_STORE_TO_FILE":
         //todo: move logic to saga
-        const filename = `ez-combat-preset-${state.rooms.currentId}`;
-        const dataForSave = savePreset(state);
+        const roomId = action.roomId || state.rooms.currentId
+        const filename = `ez-combat-preset-${roomId}`;
+        const dataForSave = savePreset(state, roomId);
         const blob = new Blob([JSON.stringify(dataForSave)], {
           type: "application/json"
         });

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import JoinRoom from "../components/JoinRoom";
 import RoomsList from "../components/RoomsList";
 import { setCurrentRoom, addRoom, deleteRoom } from "../actions/rooms";
-import { setUserId, mainTabSet} from "../actions/index";
+import { setUserId, mainTabSet, saveStoreToFile} from "../actions/index";
 import { joinRoom } from "../actions/ws";
 import { withRouter } from "react-router-dom";
 import { deleteNpcsByRoomId } from "../actions/npcs";
@@ -39,6 +39,9 @@ const mapDispatchToProps = dispatch => ({
   },
   mainTabSet: slideIndex => {
     dispatch(mainTabSet(slideIndex));
+  },
+  saveRoom: options => {
+    dispatch(saveStoreToFile(options));
   }
 });
 
@@ -86,6 +89,13 @@ class Join extends Component {
     this.props.deleteRoom(options);
   };
 
+  handleSave= options => {
+    this.props.saveRoom(options);
+  };
+
+
+  handleDeleteSave
+
   render() {
     return (
       <div style={{ width: "100%" }}>
@@ -108,6 +118,7 @@ class Join extends Component {
               joinAsMod={this.handleJoinMod}
               addRoom={this.handleAddRoom}
               deleteRoom={this.handleDeleteRoom}
+              saveRoom={this.handleSave}
             />
           </div>
 

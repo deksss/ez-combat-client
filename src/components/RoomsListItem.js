@@ -17,6 +17,7 @@ class RoomsListItem extends Component {
       joinHandler: PropTypes.func.isRequired,
       modJoinHandler: PropTypes.func.isRequired,
       deleteHandler: PropTypes.func.isRequired,
+      saveHandler: PropTypes.func.isRequired
     }).isRequired
   };
 
@@ -52,8 +53,13 @@ class RoomsListItem extends Component {
     deleteHandler({ _id });
   };
 
+  handleSave = () => {
+    const { _id, saveHandler } = this.props.room;
+    saveHandler({ roomId: _id });
+  };
+
   render() {
-    const { _id, owner_code } = this.props.room;
+    const { _id, owner_code, saveHandler } = this.props.room;
     const modalActions = [
       <FlatButton label="Cancel" primary={true} onClick={this.handleClose} />,
       <FlatButton label="Delete" primary={true} onClick={this.handleDelete} />
@@ -78,7 +84,7 @@ class RoomsListItem extends Component {
             >
               <ExitToApp color={MAIN_COLOR} backgroundColor={MAIN_BG_COLOR} />
             </IconButton>
-            <IconButton tooltip="Save Room" onClick={this.handleOpen}>
+            <IconButton tooltip="Save Room" onClick={this.handleSave}>
               <SaveButton color={MAIN_COLOR} backgroundColor={MAIN_BG_COLOR} />
             </IconButton>
             {owner_code && (

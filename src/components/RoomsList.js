@@ -16,6 +16,7 @@ class RoomsList extends Component {
     joinAsMod: PropTypes.func.isRequired,
     addRoom: PropTypes.func.isRequired,
     deleteRoom: PropTypes.func.isRequired,
+    saveRoom: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -55,6 +56,7 @@ class RoomsList extends Component {
       joinHandler: this.props.join,
       modJoinHandler: this.props.joinAsMod,
       deleteHandler: this.props.deleteRoom,
+      saveHandler: this.props.saveRoom,
     });
 
     return <RoomsListItem room={room} key={room._id} />;

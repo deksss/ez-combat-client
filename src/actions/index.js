@@ -24,8 +24,9 @@ export const settingsToggle = () => ({
   type: SETTINGS_TOGGLE
 });
 
-export const saveStoreToFile = () => ({
-  type: SAVE_STORE_TO_FILE
+export const saveStoreToFile = (options) => ({
+  type: SAVE_STORE_TO_FILE,
+  roomId: options.roomId
 });
 
 export const loadStoreFromJson = data => ({
