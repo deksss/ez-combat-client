@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import { persistStore } from "redux-persist";
-import Root from "./containers/Root";
+import Root from "./components/Root";
 import configureStore from "./store/configureStore";
 import { socketsConnect } from "./actions/ws";
 import "./global-styles";
