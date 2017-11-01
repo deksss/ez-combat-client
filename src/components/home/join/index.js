@@ -11,7 +11,7 @@ import { joinRoom } from "../../../actions/ws";
 import { deleteNpcsByRoomId } from "../../../actions/npcs";
 import { deletePlayersByRoomId } from "../../../actions/players";
 import { setCurrentRoom, addRoom, deleteRoom } from "../../../actions/rooms";
-import { setUserId, mainTabSet, saveStoreToFile} from "../../../actions/index";
+import { setUserId, mainTabSet, saveStoreToFile } from "../../../actions/index";
 const style = {
   display: "flex",
   flexDirection: "column",
@@ -58,11 +58,11 @@ class Join extends Component {
     changeUserId: PropTypes.func.isRequired,
     deleteRoom: PropTypes.func.isRequired,
     mainTabSet: PropTypes.func.isRequired,
-    slideIndex: PropTypes.number.isRequired,
+    slideIndex: PropTypes.number.isRequired
   };
 
   handleChageTab = value => {
-    this.props.mainTabSet(value)
+    this.props.mainTabSet(value);
   };
 
   handleJoin = options => {
@@ -88,12 +88,9 @@ class Join extends Component {
     this.props.deleteRoom(options);
   };
 
-  handleSave= options => {
+  handleSave = options => {
     this.props.saveRoom(options);
   };
-
-
-  handleDeleteSave
 
   render() {
     return (
@@ -101,7 +98,10 @@ class Join extends Component {
         <Tabs
           onChange={this.handleChageTab}
           value={this.props.slideIndex}
-          tabItemContainerStyle={{ color: "#fff", backgroundColor: MAIN_BG_COLOR }}
+          tabItemContainerStyle={{
+            color: "#fff",
+            backgroundColor: MAIN_BG_COLOR
+          }}
         >
           <Tab label="Rooms list" value={0} />
           <Tab label="Join" value={1} />
