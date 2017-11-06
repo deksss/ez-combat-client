@@ -27,3 +27,17 @@ test("get random ditit length 2 string", () => {
   expect(result).toBeLessThanOrEqual(99);
   expect(result).toBeGreaterThanOrEqual(11);
 });
+
+test("get random ditit length 5", () => {
+  const result = randomDigit(5);
+  expect(result.toString().length).toBe(5);
+  expect(result).toBeLessThanOrEqual(99999);
+  expect(result).toBeGreaterThanOrEqual(10000);
+});
+
+test("get random digit, no params", () => {
+  const result = randomDigit();
+  expect(result.toString().length).toBe(1);
+  expect(result).toBeLessThanOrEqual(99);
+  expect(result).toBeGreaterThanOrEqual(0);
+});
